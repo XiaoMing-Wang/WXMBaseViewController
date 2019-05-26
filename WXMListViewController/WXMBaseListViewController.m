@@ -28,7 +28,7 @@
         if (code == WXMRequestTypeSuccess) [self.mainTableView reloadData];
         [self wxm_endRefreshControl];
         [self wxm_setDefaultInterface:code];
-        NSLog(@"%@",self.networkViewModel.dataSource);
+        NSLog(@"%@",self.currentDataSoure);
     }];
 }
 
@@ -59,10 +59,8 @@
     [self.mainTableView.mj_footer endRefreshing];
     
     dispatch_queue_t queue = dispatch_get_main_queue();
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1f * NSEC_PER_SEC)),queue, ^{
-        self.mainTableView.mj_footer.hidden = (self.networkViewModel.dataSource.count == 0);
-    });
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.5f * NSEC_PER_SEC)), queue, ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25f * NSEC_PER_SEC)),queue, ^{
+        self.mainTableView.mj_footer.hidden = (self.currentDataSoure.count == 0);
         self.mainTableView.scrollEnabled = YES;
     });
 }
@@ -78,8 +76,8 @@
     /** 全屏 */
     if (self.errorType == WXMErrorType_full) {
         WXMErrorStatusType types = WXMErrorStatusTypeNormal;
-        if (self.networkViewModel.dataSource.count == 0) types = WXMErrorStatusTypeNorecord;
-        if (self.networkViewModel.dataSource.count == 0 && type != WXMRequestTypeSuccess){
+        if (self.currentDataSoure.count == 0) types = WXMErrorStatusTypeNorecord;
+        if (self.currentDataSoure.count == 0 && type != WXMRequestTypeSuccess){
             types = WXMErrorStatusTypeRequestFail;
         }
         [self.mainTableView showErrorStatusViewWithType:types];
@@ -88,8 +86,8 @@
     
     /** 半屏 */
     if (self.errorType == WXMErrorType_foot) {
-        if (self.networkViewModel.dataSource.count > 0) self.mainTableView.tableFooterView = [UIView new];
-        if (self.networkViewModel.dataSource.count == 0) {
+        if (self.currentDataSoure.count > 0) self.mainTableView.tableFooterView = [UIView new];
+        if (self.currentDataSoure.count == 0) {
             WXMErrorStatusType types = WXMErrorStatusTypeNorecord;
             if (type != WXMRequestTypeSuccess) types = WXMErrorStatusTypeRequestFail;
             [self.wxm_footView showErrorStatusViewWithType:types];
@@ -184,5 +182,8 @@
 - (__kindof WXMBaseNetworkViewModel *)networkViewModel {
     if (!_networkViewModel) _networkViewModel = [WXMBaseNetworkViewModel wxm_networkWithViewController:self];
     return _networkViewModel;
+}
+- (NSMutableArray *)currentDataSoure {
+    return self.networkViewModel.dataSource;
 }
 @end

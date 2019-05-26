@@ -32,9 +32,13 @@ typedef NS_ENUM(NSUInteger, WXMErrorType) {
 
 /** 切换成分组模式 */
 - (UITableView *)mainTableViewGrouped;
+
+/** 刷新 */
 - (void)wxm_pullRefreshHeaderControl;
 - (void)wxm_pullRefreshFootControl;
 - (void)wxm_endRefreshControl;
+
+/** rac */
 - (void)wxm_initializeRacRequest;
 - (void)wxm_setDefaultInterface:(WXMRequestType)type;
 - (NSArray *)wxm_networkWithDataSourceCache;
