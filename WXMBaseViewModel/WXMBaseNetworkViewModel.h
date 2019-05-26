@@ -34,6 +34,7 @@ typedef NS_ENUM(NSUInteger, WXMRefreshType) {
 @end
 
 @interface WXMBaseNetworkViewModel : NSObject
+
 @property(nonatomic, assign) NSInteger lastPage;
 @property(nonatomic, assign) NSInteger currentPage;
 

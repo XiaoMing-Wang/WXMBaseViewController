@@ -15,11 +15,10 @@
 @end
 
 @implementation WXMBaseListViewController
-@synthesize mainTableView = _mainTableView ;
+@synthesize mainTableView = _mainTableView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.errorType = WXMErrorType_foot;
 }
 
 /** 网络请求 */
