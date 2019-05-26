@@ -8,9 +8,9 @@
 
 #import "WXMBaseTabBarViewController.h"
 
-@interface WXMBaseTabBarViewController ()<UITabBarControllerDelegate>
-@property (nonatomic, strong) NSDate *lastDate;
-@property (nonatomic, assign) NSInteger currentIndex;
+@interface WXMBaseTabBarViewController () <UITabBarControllerDelegate>
+@property(nonatomic, strong) NSDate *lastDate;
+@property(nonatomic, assign) NSInteger currentIndex;
 @end
 
 @implementation WXMBaseTabBarViewController
@@ -32,7 +32,7 @@
     [self.tabBar setShadowImage:[UIImage imageNamed:@""]];
     [self.tabBar setBackgroundImage:[UIImage new]];
     
-    [self.array enumerateObjectsUsingBlock:^(NSDictionary *_Nonnull dic, NSUInteger idx, BOOL *_Nonnull stop) {
+    [self.array enumerateObjectsUsingBlock:^(NSDictionary *dic, NSUInteger idx, BOOL *stop) {
 //        [self addChildViewController:dic[@"viewController"]
 //                                 nav:dic[@"navigationController"]
 //                               title:dic[@"title"]
@@ -43,20 +43,20 @@
     }];
 }
 - (NSArray *)array {
-    return @[@{@"viewController" : @"NewHomeViewController",
-               @"navigationController" : @"CMPNavigationController",
+    return @[@{@"viewController" : @"WXMBaseViewController",
+               @"navigationController" : @"WXMBaseNavigationController",
                @"title" : @"首页",
                @"icon" : @"ic_home",
                @"seicon" : @"ic_home_s"},
              
-             @{@"viewController" : @"ShopMallViewController",
-               @"navigationController" : @"CMPNavigationController",
+             @{@"viewController" : @"WXMBaseViewController",
+               @"navigationController" : @"WXMBaseNavigationController",
                @"title" : @"商城",
                @"icon" : @"ic_mall",
                @"seicon" : @"ic_mall_s"},
              
-             @{ @"viewController" : @"MyInfoViewController",
-                @"navigationController" : @"CMPNavigationController",
+             @{ @"viewController" : @"WXMBaseViewController",
+                @"navigationController" : @"WXMBaseNavigationController",
                 @"title" : @"我的",
                 @"icon" : @"ic_my",
                 @"seicon" : @"ic_my_s"}
@@ -71,7 +71,7 @@
         (date.timeIntervalSince1970 - _lastDate.timeIntervalSince1970 < 0.4)) {
         UINavigationController * navigationController = tabBarController.selectedViewController;
         NSString *classString = NSStringFromClass(navigationController.visibleViewController.class);
-        [[NSNotificationCenter defaultCenter] postNotificationName:TabBarDoubleClick object:classString];
+        [[NSNotificationCenter defaultCenter] postNotificationName:WXMTabBarDouble object:classString];
     }
     if (tabBarController.selectedIndex == _currentIndex) _lastDate = date;
     _currentIndex = tabBarController.selectedIndex;

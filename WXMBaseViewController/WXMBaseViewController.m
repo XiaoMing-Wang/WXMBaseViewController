@@ -9,13 +9,16 @@
 #import "WXMBaseViewController.h"
 
 @interface WXMBaseViewController ()
-@property (readwrite, nonatomic) UIStatusBarStyle lastStatusBarStyle;
+@property(readwrite, nonatomic) UIStatusBarStyle lastStatusBarStyle;
 @end
 
 @implementation WXMBaseViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self wxm_setupSameInterface];
+    [self wxm_setupCustomInterface];
     self.navigationController.navigationBar.translucent = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
     if (@available(iOS 11.0, *)) {
@@ -23,8 +26,8 @@
     }
 }
 /**子类重写 */
-- (void)setupCustom {}
-- (void)setupSameUI {
+- (void)wxm_setupCustomInterface {}
+- (void)wxm_setupSameInterface {
     self.view.backgroundColor = [UIColor whiteColor];
     if (self.navigationController.viewControllers.firstObject &&
         [self.navigationController.viewControllers.firstObject isKindOfClass:self.class] &&
@@ -40,9 +43,11 @@
 - (UIStatusBarStyle)statusBarStyle {
     return UIStatusBarStyleDefault;
 }
+
 - (BOOL)interactivePop {
     return YES;
 }
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.lastStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
@@ -68,7 +73,46 @@
         self.loaded = YES;
     });
 }
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+/** dataSource */
+- (NSMutableArray *)dataSource {
+    if (!_dataSource) _dataSource = @[].mutableCopy;
+    return _dataSource;
+}
+
+/** TableView */
+- (UITableView *)mainTableView {
+    if (!_mainTableView) {
+        CGRect rect = CGRectMake(0, WXMBase_BarHeight, WXMBase_Width, WXMBase_Height - WXMBase_BarHeight);
+        _mainTableView = [[UITableView alloc] initWithFrame:rect];
+        _mainTableView.rowHeight = 49;
+        _mainTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        _mainTableView.tableFooterView = [UIView new];
+        _mainTableView.showsVerticalScrollIndicator = NO;
+        _mainTableView.separatorColor = [UIColor redColor];
+        _mainTableView.backgroundColor = [UIColor whiteColor];
+        _mainTableView.delegate = self;
+        _mainTableView.dataSource = self;
+    }
+    return _mainTableView;
+}
+
+/** ScrollView */
+- (UIScrollView *)mainScrollView {
+    if (!_mainScrollView) {
+        CGRect rect = CGRectMake(0, WXMBase_BarHeight, WXMBase_Width, WXMBase_Height - WXMBase_BarHeight);
+        _mainScrollView = [[UIScrollView alloc] initWithFrame:rect];
+        _mainScrollView.alwaysBounceVertical = YES;
+        _mainScrollView.alwaysBounceHorizontal = NO;
+        _mainScrollView.showsVerticalScrollIndicator = NO;
+        _mainScrollView.showsHorizontalScrollIndicator = NO;
+        _mainScrollView.delegate = self;
+    }
+    return _mainScrollView;
+}
+
 @end
