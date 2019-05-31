@@ -19,13 +19,13 @@ typedef NS_ENUM(NSUInteger, WXMExistCacheType) {
 typedef NS_ENUM(NSUInteger, WXMRequestType) {
     WXMRequestTypeSuccess = 0, /** 状态码0 */
     WXMRequestTypeErrorCode,   /** 请求成功但是状态码不为0 */
-    WXMRequestTypeFail = 2,    /** 请求异常 */
+    WXMRequestTypeFail,        /** 请求异常 */
 };
 
 typedef NS_ENUM(NSUInteger, WXMRefreshType) {
-    WXMRefreshFreedom = 0,
-    WXMRefreshHeaderControl,
-    WXMRefreshFootControl,
+    WXMRefreshFreedom = 0,   /** 自由状态 */
+    WXMRefreshHeaderControl, /** 头部 */
+    WXMRefreshFootControl,   /** 尾部 */
 };
 
 @protocol WXMNetworkViewModelProtocol <NSObject>
@@ -41,7 +41,7 @@ typedef NS_ENUM(NSUInteger, WXMRefreshType) {
 /** 是否存在缓存 */
 @property(nonatomic, assign) WXMExistCacheType existCache;
 
-/** 上下拉状态 */
+/** 刷新状态 */
 @property(nonatomic, assign) WXMRefreshType refreshType;
 
 /** 请求状态 */
@@ -59,7 +59,7 @@ typedef NS_ENUM(NSUInteger, WXMRefreshType) {
 /** 获取缓存 */
 - (WXMExistCacheType)wxm_subclassCacheType;
 - (RACSignal *)wxm_requestDataSourceRACSignal;
-+ (instancetype)wxm_networkWithViewController:(UIViewController *)viewController;
++ (instancetype)wxm_networkWithViewController:(UIViewController *)controller;
 @end
 NS_ASSUME_NONNULL_END
 

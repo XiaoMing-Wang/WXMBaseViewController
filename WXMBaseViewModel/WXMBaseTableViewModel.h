@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, weak, readonly) UIViewController <WXMTableViewModelProtocol>*viewController;
 
 + (instancetype)wxm_tableVieWithViewController:(UIViewController *)viewController;
+- (void)wxm_setTableView:(UITableView *)tableView cellClass:(__nullable Class)cellClass;
 - (void)wxm_setTableView:(UITableView *)tableView
               dataSource:(__kindof NSArray *)dataSource
                cellClass:(__nullable Class)cellClass;

@@ -16,14 +16,18 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
-+ (instancetype)wxm_tableVieWithViewController:(UIViewController <WXMTableViewModelProtocol>*)viewController {
++ (instancetype)wxm_tableVieWithViewController:(UIViewController<WXMTableViewModelProtocol>*)viewController {
     WXMBaseTableViewModel *tableViewModel = [self new];
     tableViewModel.viewController = viewController;
     return tableViewModel;
 }
 
+- (void)wxm_setTableView:(UITableView *)tableView cellClass:(__nullable Class)cellClass {
+    [self wxm_setTableView:tableView dataSource:@[].mutableCopy cellClass:cellClass];
+}
+
 - (void)wxm_setTableView:(UITableView *)tableView
-              dataSource:(__kindof NSArray *)dataSource
+              dataSource:(__kindof NSArray * )dataSource
                cellClass:(__nullable Class)cellClass {
    
     self.ident = (self.viewController) ? NSStringFromClass(self.viewController.class) : @"cell";
@@ -31,7 +35,7 @@
     self.tableView = tableView;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    [self.tableView registerClass:cellClass forCellReuseIdentifier:@"cell"];
+    [self.tableView registerClass:cellClass forCellReuseIdentifier:self.ident];
 }
 
 

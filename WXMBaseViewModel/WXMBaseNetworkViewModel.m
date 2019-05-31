@@ -12,8 +12,8 @@
 @end
 @implementation WXMBaseNetworkViewModel
 
-+ (instancetype)wxm_networkWithViewController:(UIViewController<WXMNetworkViewModelProtocol>*)viewController {
-    WXMBaseNetworkViewModel *networkViewModel = [[self alloc] initWithController:viewController];
++ (instancetype)wxm_networkWithViewController:(UIViewController<WXMNetworkViewModelProtocol>*)controller {
+    WXMBaseNetworkViewModel *networkViewModel = [[self alloc] initWithController:controller];
     return networkViewModel;
 }
 - (instancetype)initWithController:(UIViewController<WXMNetworkViewModelProtocol>*)viewController {
