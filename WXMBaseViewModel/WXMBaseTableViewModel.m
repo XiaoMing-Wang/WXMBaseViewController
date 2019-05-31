@@ -9,6 +9,7 @@
 #import "WXMBaseTableViewModel.h"
 @interface WXMBaseTableViewModel ()
 @property (nonatomic, copy) NSString *ident;
+@property(nonatomic, strong, readwrite) NSMutableArray *dataSource;
 @property(nonatomic, weak, readwrite) UITableView *tableView;
 @property(nonatomic, weak, readwrite) UIViewController <WXMTableViewModelProtocol>*viewController;
 @end
@@ -16,9 +17,9 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
-+ (instancetype)wxm_tableVieWithViewController:(UIViewController<WXMTableViewModelProtocol>*)viewController {
++ (instancetype)wxm_tableVieWithViewController:(UIViewController<WXMTableViewModelProtocol>*)controller {
     WXMBaseTableViewModel *tableViewModel = [self new];
-    tableViewModel.viewController = viewController;
+    tableViewModel.viewController = controller;
     return tableViewModel;
 }
 

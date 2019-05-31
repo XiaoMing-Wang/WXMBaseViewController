@@ -22,6 +22,7 @@
     self.loading = loading;
     [self.loading startAnimating];
 }
+
 #pragma mark 在这里设置子控件的位置和尺寸
 - (void)placeSubviews {
     [super placeSubviews];

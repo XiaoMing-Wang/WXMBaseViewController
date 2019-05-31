@@ -11,8 +11,12 @@
 #define WXMBase_BarHeight ((WXMBase_Iphonex) ? 88.0f : 64.0f)
 #import <UIKit/UIKit.h>
 #import "WXMBaseTableViewModel.h"
+#import "WXMBaseErrorViewProtocol.h"
+#import "WXMBaseMBprogressProtocol.h"
 
-@interface WXMBaseViewController : UIViewController <UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,WXMTableViewModelProtocol>
+@interface WXMBaseViewController : UIViewController
+<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,WXMTableViewModelProtocol,
+WXMBaseErrorViewProtocol,WXMBaseMBprogressProtocol>
 
 @property(nonatomic, strong) NSMutableArray *dataSource;
 @property(nonatomic, strong) UITableView *mainTableView;

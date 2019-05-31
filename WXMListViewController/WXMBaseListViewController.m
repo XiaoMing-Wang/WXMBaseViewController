@@ -25,10 +25,11 @@
 - (void)wxm_initializeRacRequest {
     [self.networkViewModel.requestCommand.executionSignals.switchToLatest subscribeNext:^(id x) {
         NSInteger code = [x integerValue];
-        if (code == WXMRequestTypeSuccess) [self.mainTableView reloadData];
+        if (code == WXMRequestTypeSuccess || code == WXMRequestTypeLoadCache)  {
+            [self.mainTableView reloadData];
+        }
         [self wxm_endRefreshControl];
         [self wxm_setDefaultInterface:code];
-        NSLog(@"%@",self.currentDataSoure);
     }];
 }
 
@@ -57,9 +58,8 @@
 - (void)wxm_endRefreshControl {
     [self.mainTableView.mj_header endRefreshing];
     [self.mainTableView.mj_footer endRefreshing];
-    
     dispatch_queue_t queue = dispatch_get_main_queue();
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25f * NSEC_PER_SEC)),queue, ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.27f * NSEC_PER_SEC)),queue, ^{
         self.mainTableView.mj_footer.hidden = (self.currentDataSoure.count == 0);
         self.mainTableView.scrollEnabled = YES;
     });
@@ -133,7 +133,7 @@
 
 - (UITableView *)mainTableView {
     if (!_mainTableView) {
-        CGRect rect = CGRectMake(0, WXMBase_BarHeight, WXMBase_Width, WXMBase_Height - WXMBase_BarHeight);
+        CGRect rect = {0, WXMBase_BarHeight, WXMBase_Width, WXMBase_Height - WXMBase_BarHeight};
         NSString * iden = NSStringFromClass(self.class);
         _mainTableView = [[UITableView alloc] initWithFrame:rect];
         _mainTableView.rowHeight = 49;
@@ -151,7 +151,7 @@
 - (UITableView *)mainTableViewGrouped {
     if (!_mainTableView) {
         NSString * iden = NSStringFromClass(self.class);
-        CGRect rect = CGRectMake(0, WXMBase_BarHeight, WXMBase_Width, WXMBase_Height - WXMBase_BarHeight);
+        CGRect rect = {0, WXMBase_BarHeight, WXMBase_Width, WXMBase_Height - WXMBase_BarHeight};
         _mainTableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStyleGrouped];
         _mainTableView.rowHeight = 49;
         _mainTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);

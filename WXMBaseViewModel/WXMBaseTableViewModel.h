@@ -27,11 +27,11 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface WXMBaseTableViewModel : NSObject <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
-@property(nonatomic, strong, readwrite) NSMutableArray *dataSource;
+@property(nonatomic, strong, readonly) NSMutableArray *dataSource;
 @property(nonatomic, weak, readonly) UITableView *tableView;
 @property(nonatomic, weak, readonly) UIViewController <WXMTableViewModelProtocol>*viewController;
 
-+ (instancetype)wxm_tableVieWithViewController:(UIViewController *)viewController;
++ (instancetype)wxm_tableVieWithViewController:(UIViewController *)controller;
 - (void)wxm_setTableView:(UITableView *)tableView cellClass:(__nullable Class)cellClass;
 - (void)wxm_setTableView:(UITableView *)tableView
               dataSource:(__kindof NSArray *)dataSource

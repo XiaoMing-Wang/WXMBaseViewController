@@ -8,7 +8,7 @@
 
 #import "WXMBaseNetworkViewModel.h"
 @interface WXMBaseNetworkViewModel ()
-@property(nonatomic, weak, readwrite) UIViewController <WXMNetworkViewModelProtocol>*viewController;
+@property(nonatomic, weak, readwrite) UIViewController <WXMNetworkViewModelProtocol>*controller;
 @end
 @implementation WXMBaseNetworkViewModel
 
@@ -16,7 +16,7 @@
     WXMBaseNetworkViewModel *networkViewModel = [[self alloc] initWithController:controller];
     return networkViewModel;
 }
-- (instancetype)initWithController:(UIViewController<WXMNetworkViewModelProtocol>*)viewController {
+- (instancetype)initWithController:(UIViewController<WXMNetworkViewModelProtocol>*)controller {
     if (self = [super init]) {
        
         _lastPage = 1;
@@ -24,9 +24,11 @@
         _isRequestting = NO;
         _dataSource = @[].mutableCopy;
         _refreshType = WXMRefreshFreedom;
-        _viewController = viewController;
+        _controller = controller;
         _existCache = [self wxm_subclassCacheType];
+        [_dataSource wxm_setObserver:self selector:@selector(dataSource)];
         [self wxm_initRequestCommand];
+        [self wxm_listeningdataSourceObserver];
     }
     return self;
 }
@@ -34,12 +36,12 @@
 /** 缓存 */
 - (WXMExistCacheType)wxm_subclassCacheType {
     _existCache = WXMExistCacheTypeNone;
-    if (_viewController && [_viewController respondsToSelector:@selector(wxm_networkWithDataSourceCache)]) {
-        NSArray * cacheArray = [_viewController wxm_networkWithDataSourceCache];
+    if (_controller && [_controller respondsToSelector:@selector(wxm_networkWithDataSourceCache)]) {
+        NSArray * cacheArray = [_controller wxm_networkWithDataSourceCache];
         if (cacheArray.count > 0) _existCache = WXMExistCacheTypeExistCache;
         [self.dataSource addObjectsFromArray:cacheArray];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.requestCommand execute:@(WXMRefreshHeaderControl)];
+            [self.requestCommand execute:nil];
         });
     }
     return _existCache;
@@ -51,7 +53,8 @@
     __weak __typeof(self) weakself = self;
     _requestCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         WXMRefreshType refreshType = [input integerValue];
-        if (refreshType == WXMRefreshHeaderControl || !input) [weakself wxm_pullRefreshHeaderControl];
+        if (input == nil) [RACSignal empty];
+        if (refreshType == WXMRefreshHeaderControl) [weakself wxm_pullRefreshHeaderControl];
         if (refreshType == WXMRefreshFootControl) [weakself wxm_pullRefreshFootControl];
         return [weakself wxm_requestDataSourceRACSignal];
     }];
@@ -99,5 +102,25 @@
     if (self.refreshType != WXMRefreshFootControl) self.lastPage = self.currentPage = 1;
     self.refreshType = WXMRefreshFreedom;
     self.isRequestting = NO;
+}
+
+/** 设置监听者 用_dataSource = @[] 监听者会消失 */
+- (void)wxm_resetdataSourceObserver {
+    if (![self.dataSource isKindOfClass:NSMutableArray.class]) {
+        self.dataSource = self.dataSource.mutableCopy;
+    }
+    [self.dataSource wxm_setObserver:self selector:@selector(dataSource)];
+}
+
+/** 监听dataSource地址变化 dataSource地址变化后给他重新设置监听者 */
+- (void)wxm_listeningdataSourceObserver {
+    @weakify(self);
+    [RACObserve(self, dataSource)  subscribeNext:^(id _Nullable x) {
+        [self_weak_ wxm_resetdataSourceObserver];
+    }];
+}
+
+- (void)dealloc {
+    NSLog(@"%@ 释放 ",NSStringFromClass(self.class));
 }
 @end
