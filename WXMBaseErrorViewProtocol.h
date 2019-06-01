@@ -10,43 +10,18 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, WXMErrorStatusProtocolType) {
-    
-    /** 正常(去掉) */
-    WXMErrorProtocolTypeNormal = 0,
-    
-    /** 无网络 */
-    WXMErrorProtocolTypeBadNetwork,
-    
-    /** 无记录 */
-    WXMErrorProtocolTypeNorecord,
-    
-    /** 请求失败 */
-    WXMErrorProtocolTypeRequestFail,
-    
-    /** 加载中 */
-    WXMErrorProtocolTypeRequestLoading,
+    WXMErrorProtocolTypeNormal = 0,     /** 正常(去掉) */
+    WXMErrorProtocolTypeBadNetwork,     /** 无网络 */
+    WXMErrorProtocolTypeNorecord,       /** 无记录 */
+    WXMErrorProtocolTypeRequestFail,    /** 请求失败 */
+    WXMErrorProtocolTypeRequestLoading, /** 加载中 */
 };
 
 typedef NS_ENUM(NSUInteger, WXMErrorInterfaceType) {
-    
-    /** 预留 */
-    WXMErrorInterfaceTypeNone = 0,
-    
-    /** 无按钮 */
-    WXMErrorInterfaceTypeDefault,
-    
-    /** 有按钮 */
-    WXMErrorInterfaceTypeRefresh,
+    WXMErrorInterfaceTypeNone = 0, /** 预留 */
+    WXMErrorInterfaceTypeDefault,  /** 无按钮 */
+    WXMErrorInterfaceTypeRefresh,  /** 有按钮 */
 };
-//
-//typedef NS_ENUM(NSUInteger, WXMErrorShowType) {
-//    
-//    /** 全屏 */
-//    WXMErrorShowTypeFullScreen = 0,
-//    
-//    /**  */
-//    WXMErrorShowTypeFootControls,
-//};
 
 @protocol WXMBaseErrorViewProtocol <NSObject>
 @optional
@@ -62,18 +37,6 @@ typedef NS_ENUM(NSUInteger, WXMErrorInterfaceType) {
 
 /** 缺省页最小的高度 (tableFootView剩余高度会比errorControl小) */
 - (CGFloat)wxm_errorControlMinHeight;
-
-
-
-
-///** 显示缺省页 */
-//- (void)wxm_showErrorStatusViewWithType:(WXMErrorStatusProtocolType)errorType;
-//
-///** 有按钮的回调 */
-//- (void)wxm_showErrorStatusRefresh:(void (^)(void))callBack;
-//
-///** 隐藏缺省页 */
-//- (void)wxm_hidenErrorStatusView;
 
 @end
 

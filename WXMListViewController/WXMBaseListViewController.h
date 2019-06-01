@@ -15,8 +15,7 @@ typedef NS_ENUM(NSUInteger, WXMErrorType) {
     WXMErrorType_footControl = 1, /** tableFootView */
 };
 
-@interface WXMBaseListViewController : WXMBaseViewController
-<WXMBaseErrorViewProtocol,WXMBaseMBprogressProtocol>
+@interface WXMBaseListViewController : WXMBaseViewController<WXMBaseErrorViewProtocol>
 
 /** 异常显示默认full */
 @property (nonatomic, assign) WXMErrorType errorType;
