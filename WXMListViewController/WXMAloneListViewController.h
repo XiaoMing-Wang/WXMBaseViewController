@@ -9,9 +9,7 @@
 #import "WXMBaseViewController.h"
 #import "WXMBaseNetworkViewModel.h"
 #import "WXMBaseViewController.h"
-#import "WXMErrorStatusView.h"
 #import "WXMBaseListViewController.h"
-#import "UIView+WXMErrorStatusView.h"
 #import "WXMBaseListViewController.h"
 
 /** 不用viewmoderl的父类 */

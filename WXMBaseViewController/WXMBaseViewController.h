@@ -9,6 +9,9 @@
 #define WXMBase_Height [UIScreen mainScreen].bounds.size.height
 #define WXMBase_Iphonex ((WXMBase_Height == 812.0f) ? YES : NO)
 #define WXMBase_BarHeight ((WXMBase_Iphonex) ? 88.0f : 64.0f)
+#define WXMBase_Rect \
+CGRectMake(0, WXMBase_BarHeight, WXMBase_Width, WXMBase_Height - WXMBase_BarHeight)
+
 #import <UIKit/UIKit.h>
 #import "WXMBaseTableViewModel.h"
 #import "WXMBaseErrorViewProtocol.h"

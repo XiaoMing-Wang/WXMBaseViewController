@@ -20,9 +20,10 @@
     [self wxm_setupSameInterface];
     [self wxm_setupCustomInterface];
     self.navigationController.navigationBar.translucent = YES;
-    self.automaticallyAdjustsScrollViewInsets = NO;
     if (@available(iOS 11.0, *)) {
-        //self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    /** self.automaticallyAdjustsScrollViewInsets = NO; */
+        self.mainTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        self.mainScrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
 }
 /**子类重写 */
@@ -87,8 +88,7 @@
 /** TableView */
 - (UITableView *)mainTableView {
     if (!_mainTableView) {
-        CGRect rect = CGRectMake(0, WXMBase_BarHeight, WXMBase_Width, WXMBase_Height - WXMBase_BarHeight);
-        _mainTableView = [[UITableView alloc] initWithFrame:rect];
+        _mainTableView = [[UITableView alloc] initWithFrame:WXMBase_Rect];
         _mainTableView.rowHeight = 49;
         _mainTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
         _mainTableView.tableFooterView = [UIView new];
@@ -104,8 +104,7 @@
 /** ScrollView */
 - (UIScrollView *)mainScrollView {
     if (!_mainScrollView) {
-        CGRect rect = CGRectMake(0, WXMBase_BarHeight, WXMBase_Width, WXMBase_Height - WXMBase_BarHeight);
-        _mainScrollView = [[UIScrollView alloc] initWithFrame:rect];
+        _mainScrollView = [[UIScrollView alloc] initWithFrame:WXMBase_Rect];
         _mainScrollView.alwaysBounceVertical = YES;
         _mainScrollView.alwaysBounceHorizontal = NO;
         _mainScrollView.showsVerticalScrollIndicator = NO;
@@ -115,4 +114,11 @@
     return _mainScrollView;
 }
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [tableView dequeueReusableCellWithIdentifier:@"cell"];
+}
+
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 0;
+}
 @end
