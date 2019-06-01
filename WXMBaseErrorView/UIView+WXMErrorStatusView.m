@@ -8,19 +8,13 @@
 
 #import "UIView+WXMErrorStatusView.h"
 #import "WXMErrorStatusView.h"
-#import "WXMErrorLoadView.h"
 
 @implementation UIView (WXMErrorStatusView)
 - (void)showErrorStatusViewWithType:(WXMErrorStatusType)errorType {
     [self hidenErrorStatusView];
     if (errorType == WXMErrorStatusTypeNormal) return;
-    if (errorType == WXMErrorStatusTypeRequestLoading) {
-        WXMErrorLoadView *loading = [WXMErrorLoadView wxm_errorsLoadView];
-        [self addSubview:loading];
-    } else {
-        WXMErrorStatusView *error = [WXMErrorStatusView wxm_errorsViewWithType:errorType];
-        [self addSubview:error];
-    }
+    WXMErrorStatusView *error = [WXMErrorStatusView wxm_errorsViewWithType:errorType];
+    [self addSubview:error];
 }
 
 - (void)hidenErrorStatusView {

@@ -38,24 +38,42 @@ typedef NS_ENUM(NSUInteger, WXMErrorInterfaceType) {
     /** 有按钮 */
     WXMErrorInterfaceTypeRefresh,
 };
-
-typedef NS_ENUM(NSUInteger, WXMErrorShowType) {
-    /** 全屏 */
-    WXMErrorShowTypeFullScreen = 0,
-    WXMErrorShowTypeFootControls,
-};
+//
+//typedef NS_ENUM(NSUInteger, WXMErrorShowType) {
+//    
+//    /** 全屏 */
+//    WXMErrorShowTypeFullScreen = 0,
+//    
+//    /**  */
+//    WXMErrorShowTypeFootControls,
+//};
 
 @protocol WXMBaseErrorViewProtocol <NSObject>
 @optional
 
-/** 显示缺省页 */
-- (void)wxm_showErrorStatusViewWithType:(WXMErrorStatusProtocolType)errorType;
+/** loading */
+- (void)wxm_showloadingWithSupView:(UIView *)supView;
+- (void)wxm_hiddenLoadingView;
 
-/** 有按钮的回调 */
-- (void)wxm_showErrorStatusRefresh:(void (^)(void))callBack;
+/** 缺省图 */
+/** - (void)wxm_showErrorViewWithProtocolType:(WXMErrorStatusProtocolType)proType; */
+- (void)wxm_showErrorView:(UIView *)supView protocolType:(WXMErrorStatusProtocolType)proType;
+- (void)wxm_removeErrorView;
 
-/** 隐藏缺省页 */
-- (void)wxm_hidenErrorStatusView;
+/** 缺省页最小的高度 (tableFootView剩余高度会比errorControl小) */
+- (CGFloat)wxm_errorControlMinHeight;
+
+
+
+
+///** 显示缺省页 */
+//- (void)wxm_showErrorStatusViewWithType:(WXMErrorStatusProtocolType)errorType;
+//
+///** 有按钮的回调 */
+//- (void)wxm_showErrorStatusRefresh:(void (^)(void))callBack;
+//
+///** 隐藏缺省页 */
+//- (void)wxm_hidenErrorStatusView;
 
 @end
 

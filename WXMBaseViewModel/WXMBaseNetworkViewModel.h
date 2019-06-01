@@ -58,9 +58,10 @@ typedef NS_ENUM(NSUInteger, WXMRefreshType) {
 - (void)wxm_pullRefreshHeaderControl;
 - (void)wxm_pullRefreshFootControl;
 
-/** 获取缓存 */
+/** 获取缓存类型 初始化的时候自动调用 */
 - (WXMExistCacheType)wxm_subclassCacheType;
-- (RACSignal *)wxm_requestDataSourceRACSignal;
+- (RACSignal *)wxm_cacheDataSourceRACSignal;   /** 缓存 */
+- (RACSignal *)wxm_requestDataSourceRACSignal; /** 网络请求 */
 + (instancetype)wxm_networkWithViewController:(UIViewController *)controller;
 @end
 NS_ASSUME_NONNULL_END

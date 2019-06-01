@@ -57,6 +57,7 @@
     self.refreshType = WXMRefreshFreedom;
     self.isRequestting = NO;
 }
+
 - (NSMutableArray *)currentDataSoure {
     return self.dataSource;
 }

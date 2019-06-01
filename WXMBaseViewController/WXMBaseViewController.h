@@ -15,8 +15,7 @@
 #import "WXMBaseMBprogressProtocol.h"
 
 @interface WXMBaseViewController : UIViewController
-<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,WXMTableViewModelProtocol,
-WXMBaseErrorViewProtocol,WXMBaseMBprogressProtocol>
+<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,WXMTableViewModelProtocol>
 
 @property(nonatomic, strong) NSMutableArray *dataSource;
 @property(nonatomic, strong) UITableView *mainTableView;

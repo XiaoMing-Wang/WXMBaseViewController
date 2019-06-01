@@ -9,15 +9,16 @@
 #import "WXMBaseViewController.h"
 #import "WXMBaseNetworkViewModel.h"
 
-/** 错误类型 */
+/** 错误界面大小类型 */
 typedef NS_ENUM(NSUInteger, WXMErrorType) {
-    WXMErrorType_full = 0,
-    WXMErrorType_foot,
+    WXMErrorType_fullControl = 0, /** 全屏 */
+    WXMErrorType_footControl = 1, /** tableFootView */
 };
 
 @interface WXMBaseListViewController : WXMBaseViewController
+<WXMBaseErrorViewProtocol,WXMBaseMBprogressProtocol>
 
-/** 异常显示默认 full*/
+/** 异常显示默认full */
 @property (nonatomic, assign) WXMErrorType errorType;
 
 /** tableView */
@@ -38,8 +39,14 @@ typedef NS_ENUM(NSUInteger, WXMErrorType) {
 - (void)wxm_pullRefreshFootControl;
 - (void)wxm_endRefreshControl;
 
+/** 显示菊花 */
+- (void)wxm_showLoadingWithContentView;
+- (void)wxm_hiddenLoadingWithContentView;
+
 /** rac */
 - (void)wxm_initializeRacRequest;
 - (void)wxm_setDefaultInterface:(WXMRequestType)type;
+
+/** viewmodel的缓存代理回调 */
 - (NSArray *)wxm_networkWithDataSourceCache;
 @end

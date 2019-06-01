@@ -5,13 +5,11 @@
 //  Created by wq on 2019/5/26.
 //  Copyright © 2019年 wxm. All rights reserved.
 //
-#import "WXMErrorStatusView.h"
 #import "WXMBaseListViewController.h"
-#import "UIView+WXMErrorStatusView.h"
 
 @interface WXMBaseListViewController ()
-@property(nonatomic, strong) UIView *wxm_footView;
 @property(nonatomic, assign) BOOL wxm_listGrouped;
+@property(nonatomic, strong) UIView *wxm_footControl;
 @end
 
 @implementation WXMBaseListViewController
@@ -21,31 +19,43 @@
     [super viewDidLoad];
 }
 
-/** 网络请求 */
+/** 子类需要调用这个方法 初始化回调 Command*/
+/** 回调 Command初始化  */
 - (void)wxm_initializeRacRequest {
     [self.networkViewModel.requestCommand.executionSignals.switchToLatest subscribeNext:^(id x) {
-        NSInteger code = [x integerValue];
-        if (code == WXMRequestTypeSuccess || code == WXMRequestTypeLoadCache)  {
+        NSLog(@"刷新TableView");
+        WXMRequestType errorCode = [x integerValue];
+        if (errorCode == WXMRequestTypeSuccess || errorCode == WXMRequestTypeLoadCache)  {
             [self.mainTableView reloadData];
         }
         [self wxm_endRefreshControl];
-        [self wxm_setDefaultInterface:code];
+        [self wxm_setDefaultInterface:errorCode];
     }];
 }
 
 /** 判断缓存 */
 - (NSArray *)wxm_networkWithDataSourceCache {
     NSMutableArray * cacheArray = nil;
-    if (!cacheArray && self.errorType == WXMErrorType_full) {
-        [self.mainTableView showErrorStatusViewWithType:WXMErrorStatusTypeRequestLoading];
-    } else if (!cacheArray && self.errorType == WXMErrorType_foot) {
-        [self.wxm_footView showErrorStatusViewWithType:WXMErrorStatusTypeRequestLoading];
-    }
+    if (cacheArray.count == 0 || !cacheArray) [self wxm_showLoadingWithContentView];
     return cacheArray;
+}
+
+/** 显示菊花 */
+- (void)wxm_showLoadingWithContentView {
+    UIView * supView = _errorType ? self.wxm_footControl : self.mainTableView;
+    if ([self respondsToSelector:@selector(wxm_showloadingWithSupView:)]) {
+        [self wxm_showloadingWithSupView:supView];
+    }
+}
+- (void)wxm_hiddenLoadingWithContentView {
+    if ([self respondsToSelector:@selector(wxm_hiddenLoadingView)]) {
+        [self wxm_hiddenLoadingView];
+    }
 }
 
 /** 头部刷新 */
 - (void)wxm_pullRefreshHeaderControl {
+    self.mainTableView.scrollEnabled = NO;
     [self.networkViewModel.requestCommand execute:@(WXMRefreshHeaderControl)];
 }
 
@@ -66,59 +76,62 @@
 }
 
 /** 缺省图 */
-- (void)wxm_setDefaultInterface:(WXMRequestType)type {
-     if (self.networkViewModel.refreshType == WXMRefreshFootControl) {
-         self.mainTableView.mj_footer.hidden = NO;
-         [self.mainTableView showErrorStatusViewWithType:WXMErrorStatusTypeNormal];
-         return;
-     }
-   
-    /** 全屏 */
-    if (self.errorType == WXMErrorType_full) {
-        WXMErrorStatusType types = WXMErrorStatusTypeNormal;
-        if (self.currentDataSoure.count == 0) types = WXMErrorStatusTypeNorecord;
-        if (self.currentDataSoure.count == 0 && type != WXMRequestTypeSuccess){
-            types = WXMErrorStatusTypeRequestFail;
-        }
-        [self.mainTableView showErrorStatusViewWithType:types];
-        self.mainTableView.mj_footer.hidden = (self.networkViewModel.dataSource.count == 0);
+- (void)wxm_setDefaultInterface:(WXMRequestType)requestResult {
+    [self wxm_hiddenLoadingWithContentView];
+    
+    /** footView */
+    BOOL impleShow = [self respondsToSelector:@selector(wxm_showErrorView:protocolType:)];
+    BOOL impRemove = [self respondsToSelector:@selector(wxm_removeErrorView)];
+    if (self.networkViewModel.refreshType == WXMRefreshFootControl) {
+        self.mainTableView.mj_footer.hidden = NO;
+        if (impRemove) [self wxm_removeErrorView];
+        return;
+    }
+
+    /** header */
+    UIView * supView = self.mainTableView;
+    WXMErrorStatusProtocolType errTy = WXMErrorProtocolTypeNormal;
+    self.mainTableView.mj_footer.hidden = (self.networkViewModel.dataSource.count == 0);
+    if (self.currentDataSoure.count == 0) errTy = WXMErrorProtocolTypeNorecord;
+    if (self.currentDataSoure.count == 0 &&
+        (requestResult == WXMRequestTypeErrorCode || requestResult == WXMRequestTypeFail)){
+        errTy = WXMErrorProtocolTypeRequestFail;
     }
     
-    /** 半屏 */
-    if (self.errorType == WXMErrorType_foot) {
-        if (self.currentDataSoure.count > 0) self.mainTableView.tableFooterView = [UIView new];
-        if (self.currentDataSoure.count == 0) {
-            WXMErrorStatusType types = WXMErrorStatusTypeNorecord;
-            if (type != WXMRequestTypeSuccess) types = WXMErrorStatusTypeRequestFail;
-            [self.wxm_footView showErrorStatusViewWithType:types];
-            self.mainTableView.tableFooterView = self.wxm_footView;
-        }
+    if (self.errorType == WXMErrorType_footControl) {
+        self.mainTableView.tableFooterView = self.wxm_footControl;
+        supView = self.wxm_footControl;
     }
+    if (impleShow) [self wxm_showErrorView:supView protocolType:errTy];
 }
 
-/** errorType */
+/** 设置errorType */
 - (void)setErrorType:(WXMErrorType)errorType {
     _errorType = errorType;
-    if (errorType == WXMErrorType_foot) {
+    if (errorType == WXMErrorType_footControl) {
+        CGFloat errorControlH = 0;
+        if ([self respondsToSelector:@selector(wxm_errorControlMinHeight)]) {
+            errorControlH = self.wxm_errorControlMinHeight;
+        }
+        
         CGFloat headerHeight = self.mainTableView.tableHeaderView.frame.size.height;
         CGFloat footHeight = self.mainTableView.frame.size.height - headerHeight;
-        WXMErrorStatusView *erorr = [WXMErrorStatusView wxm_errorsViewWithType:WXMErrorStatusTypeNorecord];
-        CGFloat realH = MAX(footHeight, erorr.minHeight);
-        self.wxm_footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WXMBase_Width, realH)];
-        self.wxm_footView.backgroundColor = [UIColor greenColor];
-        self.mainTableView.tableFooterView = self.wxm_footView;
+        CGFloat realH = MAX(errorControlH, footHeight);
+        self.wxm_footControl = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WXMBase_Width, realH)];
+        self.wxm_footControl.backgroundColor = [UIColor redColor];
+        self.mainTableView.tableFooterView = self.wxm_footControl;
     }
 }
 
 #pragma mark -------------------------------- tableView delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (_wxm_listGrouped) return self.networkViewModel.dataSource.count;
+    if (_wxm_listGrouped) return self.currentDataSoure.count;
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (_wxm_listGrouped) return 1;
-    return self.networkViewModel.dataSource.count;
+    return self.currentDataSoure.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString * iden = NSStringFromClass(self.class);
@@ -164,6 +177,7 @@
     }
     return _mainTableView;
 }
+
 - (WXMMJDIYHeader *)listHeaderControl {
     if (!_listHeaderControl) {
         SEL sel = NSSelectorFromString(@"wxm_pullRefreshHeaderControl");
@@ -171,6 +185,7 @@
     }
     return _listHeaderControl;
 }
+
 - (MJRefreshAutoNormalFooter *)listFootControl {
     if (!_listFootControl) {
         SEL sel = NSSelectorFromString(@"wxm_pullRefreshFootControl");
@@ -179,10 +194,12 @@
     }
     return _listFootControl;
 }
+
 - (__kindof WXMBaseNetworkViewModel *)networkViewModel {
     if (!_networkViewModel) _networkViewModel = [WXMBaseNetworkViewModel wxm_networkWithViewController:self];
     return _networkViewModel;
 }
+
 - (NSMutableArray *)currentDataSoure {
     return self.networkViewModel.dataSource;
 }
