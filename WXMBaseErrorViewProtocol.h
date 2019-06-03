@@ -48,14 +48,21 @@ typedef NS_ENUM(NSUInteger, WXMErrorShowType) {
 @protocol WXMBaseErrorViewProtocol <NSObject>
 @optional
 
-/** 显示缺省页 */
-- (void)wxm_showErrorStatusViewWithType:(WXMErrorStatusProtocolType)errorType;
+/** 显示loading */
+- (void)wxm_showloadingWithSupControl:(UIView *)supControl;
 
-/** 有按钮的回调 */
-- (void)wxm_showErrorStatusRefresh:(void (^)(void))callBack;
+/** 缺省页最小的高度 (tableFootView剩余高度会比errorView小) */
+- (CGFloat)wxm_errorControlMinHeight;
 
-/** 隐藏缺省页 */
-- (void)wxm_hidenErrorStatusView;
+
+///** 显示缺省页 */
+//- (void)wxm_showErrorStatusViewWithType:(WXMErrorStatusProtocolType)errorType;
+//
+///** 有按钮的回调 */
+//- (void)wxm_showErrorStatusRefresh:(void (^)(void))callBack;
+//
+///** 隐藏缺省页 */
+//- (void)wxm_hidenErrorStatusView;
 
 @end
 
