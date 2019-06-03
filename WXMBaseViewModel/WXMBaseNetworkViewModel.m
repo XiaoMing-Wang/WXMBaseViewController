@@ -59,7 +59,7 @@
             return [self_weak_ wxm_requestDataSourceRACSignal];
         }
         
-        /** 刷新信号 */
+        /** 刷新Signal*/
         WXMRefreshType refreshType = [input integerValue];
         if (refreshType == WXMRefreshHeaderControl) [self_weak_ wxm_pullRefreshHeaderControl];
         if (refreshType == WXMRefreshFootControl) [self_weak_ wxm_pullRefreshFootControl];
@@ -76,7 +76,7 @@
     }];
 }
 
-/** 网络请求信号 子类重写 */
+/** 网络请求信号 子类需重写 */
 - (RACSignal *)wxm_requestDataSourceRACSignal {
     return [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber> subscriber) {
         [subscriber sendNext:@(WXMRequestTypeSuccess)];

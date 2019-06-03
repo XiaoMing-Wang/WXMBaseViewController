@@ -28,5 +28,6 @@
 #import "UIView+WXMErrorStatusView.h"
 
 #import "WXMBaseErrorViewProtocol.h"
-#import "WXMBaseMBprogressProtocol.h"
+#import "WXMBaseListViewController.h"
+#import "WXMAloneListViewController.h"
 #endif /* WXMBaseClassHeader_h */

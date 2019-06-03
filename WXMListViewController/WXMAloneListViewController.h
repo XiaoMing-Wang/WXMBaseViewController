@@ -9,11 +9,10 @@
 #import "WXMBaseViewController.h"
 #import "WXMBaseNetworkViewModel.h"
 #import "WXMBaseViewController.h"
-#import "WXMErrorStatusView.h"
 #import "WXMBaseListViewController.h"
-#import "UIView+WXMErrorStatusView.h"
 #import "WXMBaseListViewController.h"
 
+/** 不用viewmoderl的父类 */
 @interface WXMAloneListViewController : WXMBaseListViewController
 
 @property(nonatomic, assign) NSInteger lastPage;
@@ -23,15 +22,13 @@
 @property(nonatomic, strong, readwrite) UITableView *mainTableView;
 @property(nonatomic, strong, readwrite) NSMutableArray *dataSource;
 
-/** 是否存在缓存 */
+/** 缓存 */
 @property(nonatomic, assign) WXMExistCacheType existCache;
 
-/** 上下拉状态 */
+/** 刷新状态 */
 @property(nonatomic, assign) WXMRefreshType refreshType;
 @property(nonatomic, assign) BOOL isRequestting;
 
-/** 切换成分组模式 */
 - (void)wxm_pullRefreshSuccess;
 - (void)wxm_pullRefreshFail;
-
 @end

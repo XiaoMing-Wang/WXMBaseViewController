@@ -5,12 +5,11 @@
 //  Created by wq on 2019/5/26.
 //  Copyright © 2019年 wxm. All rights reserved.
 //
-#import "WXMErrorStatusView.h"
 #import "WXMBaseListViewController.h"
-#import "UIView+WXMErrorStatusView.h"
 
 @interface WXMBaseListViewController ()
 @property(nonatomic, assign) BOOL wxm_listGrouped;
+@property(nonatomic, strong) UIView *wxm_footControl;
 @end
 
 @implementation WXMBaseListViewController
@@ -20,29 +19,38 @@
     [super viewDidLoad];
 }
 
-/** 网络请求 Command初始化  */
+/** 子类需要调用这个方法 初始化回调 Command*/
+/** 回调 Command初始化  */
 - (void)wxm_initializeRacRequest {
     [self.networkViewModel.requestCommand.executionSignals.switchToLatest subscribeNext:^(id x) {
         NSLog(@"刷新TableView");
-        NSInteger code = [x integerValue];
-        if (code == WXMRequestTypeSuccess || code == WXMRequestTypeLoadCache)  {
+        WXMRequestType errorCode = [x integerValue];
+        if (errorCode == WXMRequestTypeSuccess || errorCode == WXMRequestTypeLoadCache)  {
             [self.mainTableView reloadData];
         }
         [self wxm_endRefreshControl];
-        [self wxm_setDefaultInterface:code];
+        [self wxm_setDefaultInterface:errorCode];
     }];
 }
 
 /** 判断缓存 */
 - (NSArray *)wxm_networkWithDataSourceCache {
     NSMutableArray * cacheArray = nil;
-    if (!cacheArray) {
-        UIView * supView = _errorType ? self.wxm_footControl : self.mainTableView;
-        if ([self respondsToSelector:@selector(wxm_showloadingWithSupView:)]) {
-            [self wxm_showloadingWithSupView:supView];
-        }
-    }
+    if (cacheArray.count == 0 || !cacheArray) [self wxm_showLoadingWithContentView];
     return cacheArray;
+}
+
+/** 显示菊花 */
+- (void)wxm_showLoadingWithContentView {
+    UIView * supView = _errorType ? self.wxm_footControl : self.mainTableView;
+    if ([self respondsToSelector:@selector(wxm_showloadingWithSupView:)]) {
+        [self wxm_showloadingWithSupView:supView];
+    }
+}
+- (void)wxm_hiddenLoadingWithContentView {
+    if ([self respondsToSelector:@selector(wxm_hiddenLoadingView)]) {
+        [self wxm_hiddenLoadingView];
+    }
 }
 
 /** 头部刷新 */
@@ -68,34 +76,33 @@
 }
 
 /** 缺省图 */
-- (void)wxm_setDefaultInterface:(WXMRequestType)type {
-//     if (self.networkViewModel.refreshType == WXMRefreshFootControl) {
-//         self.mainTableView.mj_footer.hidden = NO;
-//         [self.mainTableView showErrorStatusViewWithType:WXMErrorStatusTypeNormal];
-//         return;
-//     }
-//   
-//    /** 全屏 */
-//    if (self.errorType == WXMErrorType_full) {
-//        WXMErrorStatusType types = WXMErrorStatusTypeNormal;
-//        if (self.currentDataSoure.count == 0) types = WXMErrorStatusTypeNorecord;
-//        if (self.currentDataSoure.count == 0 && type != WXMRequestTypeSuccess){
-//            types = WXMErrorStatusTypeRequestFail;
-//        }
-//        [self.mainTableView showErrorStatusViewWithType:types];
-//        self.mainTableView.mj_footer.hidden = (self.networkViewModel.dataSource.count == 0);
-//    }
-//    
-//    /** 半屏 */
-//    if (self.errorType == WXMErrorType_foot) {
-//        if (self.currentDataSoure.count > 0) self.mainTableView.tableFooterView = [UIView new];
-//        if (self.currentDataSoure.count == 0) {
-//            WXMErrorStatusType types = WXMErrorStatusTypeNorecord;
-//            if (type != WXMRequestTypeSuccess) types = WXMErrorStatusTypeRequestFail;
-//            [self.wxm_footView showErrorStatusViewWithType:types];
-//            self.mainTableView.tableFooterView = self.wxm_footView;
-//        }
-//    }
+- (void)wxm_setDefaultInterface:(WXMRequestType)requestResult {
+    [self wxm_hiddenLoadingWithContentView];
+    
+    /** footView */
+    BOOL impleShow = [self respondsToSelector:@selector(wxm_showErrorView:protocolType:)];
+    BOOL impRemove = [self respondsToSelector:@selector(wxm_removeErrorView)];
+    if (self.networkViewModel.refreshType == WXMRefreshFootControl) {
+        self.mainTableView.mj_footer.hidden = NO;
+        if (impRemove) [self wxm_removeErrorView];
+        return;
+    }
+
+    /** header */
+    UIView * supView = self.mainTableView;
+    WXMErrorStatusProtocolType errTy = WXMErrorProtocolTypeNormal;
+    self.mainTableView.mj_footer.hidden = (self.networkViewModel.dataSource.count == 0);
+    if (self.currentDataSoure.count == 0) errTy = WXMErrorProtocolTypeNorecord;
+    if (self.currentDataSoure.count == 0 &&
+        (requestResult == WXMRequestTypeErrorCode || requestResult == WXMRequestTypeFail)){
+        errTy = WXMErrorProtocolTypeRequestFail;
+    }
+    
+    if (self.errorType == WXMErrorType_footControl) {
+        self.mainTableView.tableFooterView = self.wxm_footControl;
+        supView = self.wxm_footControl;
+    }
+    if (impleShow) [self wxm_showErrorView:supView protocolType:errTy];
 }
 
 /** 设置errorType */
@@ -112,6 +119,7 @@
         CGFloat realH = MAX(errorControlH, footHeight);
         self.wxm_footControl = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WXMBase_Width, realH)];
         self.wxm_footControl.backgroundColor = [UIColor redColor];
+        self.mainTableView.tableFooterView = self.wxm_footControl;
     }
 }
 
