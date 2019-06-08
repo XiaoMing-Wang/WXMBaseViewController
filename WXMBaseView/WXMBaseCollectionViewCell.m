@@ -15,8 +15,8 @@
     if (self = [super initWithFrame:frame]) [self wxm_setupInterface];
     return self;
 }
+
 - (void)wxm_setupInterface {
-    
 }
 
 @end

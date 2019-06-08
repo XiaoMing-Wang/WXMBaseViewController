@@ -21,17 +21,20 @@
     self.delegate = self;
     [self setupBaseTabBarViewController];
 }
+
 - (void)setupBaseTabBarViewController {
     UITabBarItem *item = [UITabBarItem appearance];
     UIColor *seColor = [UIColor redColor];
     UIColor *deColor = [UIColor blackColor];
     
-    [item setTitleTextAttributes:@{NSForegroundColorAttributeName:seColor} forState:UIControlStateSelected];
-    [item setTitleTextAttributes:@{NSForegroundColorAttributeName:deColor} forState:UIControlStateNormal];
+    [item setTitleTextAttributes:@{NSForegroundColorAttributeName:seColor}
+                        forState:UIControlStateSelected];
+    [item setTitleTextAttributes:@{NSForegroundColorAttributeName:deColor}
+                        forState:UIControlStateNormal];
+    
     self.tabBar.backgroundColor = [UIColor whiteColor];
     [self.tabBar setShadowImage:[UIImage imageNamed:@""]];
     [self.tabBar setBackgroundImage:[UIImage new]];
-    
     [self.array enumerateObjectsUsingBlock:^(NSDictionary *dic, NSUInteger idx, BOOL *stop) {
 //        [self addChildViewController:dic[@"viewController"]
 //                                 nav:dic[@"navigationController"]

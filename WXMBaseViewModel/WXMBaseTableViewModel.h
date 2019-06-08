@@ -26,7 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)wxm_scrollViewDidEndDecelerating;
 @end
 
-@interface WXMBaseTableViewModel : NSObject <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
+@interface WXMBaseTableViewModel : NSObject
+<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 @property(nonatomic, strong, readonly) NSMutableArray *dataSource;
 @property(nonatomic, weak, readonly) UITableView *tableView;
 @property(nonatomic, weak, readonly) UIViewController <WXMTableViewModelProtocol>*viewController;
