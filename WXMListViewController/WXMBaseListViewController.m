@@ -9,7 +9,6 @@
 
 @interface WXMBaseListViewController ()
 @property(nonatomic, assign) BOOL wxm_listGrouped;
-@property(nonatomic, strong) UIView *wxm_footControl;
 @end
 
 @implementation WXMBaseListViewController

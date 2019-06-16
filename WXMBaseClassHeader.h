@@ -11,6 +11,7 @@
 
 #import "WXMBaseTableViewModel.h"
 #import "WXMBaseNetworkViewModel.h"
+#import "NSMutableArray+WXMKVOKit.h"
 
 #import "WXMBaseModel.h"
 
@@ -30,4 +31,9 @@
 #import "WXMBaseErrorViewProtocol.h"
 #import "WXMBaseListViewController.h"
 #import "WXMAloneListViewController.h"
+
+#import "WXMCommonBaseTextFidleView.h"
+#import "WXMCommonBaseButtonView.h"
+#import "WXMConmonBaseCustomTransition.h"
+#import "WXMConmonBaseManager.h"
 #endif /* WXMBaseClassHeader_h */
