@@ -36,4 +36,8 @@
 #import "WXMCommonBaseButtonView.h"
 #import "WXMConmonBaseCustomTransition.h"
 #import "WXMConmonBaseManager.h"
+#import "WXMConmonBaseTableViewCell.h"
+#import "WXMCommonBasePOPView.h"
+#import "WXMCommonBaseTableHeaderView.h"
+
 #endif /* WXMBaseClassHeader_h */
