@@ -1,18 +1,17 @@
 //
-//  WXMBaseTextFidleView.m
-//  Multi-project-coordination
+//  WXMCommonBaseCustomView.m
+//  ModuleDebugging
 //
-//  Created by wq on 2019/6/16.
-//  Copyright © 2019年 wxm. All rights reserved.
+//  Created by edz on 2019/6/17.
+//  Copyright © 2019 wq. All rights reserved.
 //
 #define WXMCommonW [UIScreen mainScreen].bounds.size.width
-#import "WXMCommonBaseTextFidleView.h"
+#import "WXMCommonBaseCustomView.h"
 
-@interface WXMCommonBaseTextFidleView ()
+@interface WXMCommonBaseCustomView ()
 @property (nonatomic, assign) WXMCommonTextFieldLineType lineType;
 @end
-
-@implementation WXMCommonBaseTextFidleView
+@implementation WXMCommonBaseCustomView
 
 #pragma mark _________________________________ 自定义类型UI设置
 
@@ -21,27 +20,11 @@
     
 }
 
-
 #pragma mark _________________________________ SET
 
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     [self wxm_customDifferentInterface];
-}
-
-- (void)setKeyboardType:(UIKeyboardType)keyboardType {
-    _keyboardType = keyboardType;
-    self.textField.keyboardType = keyboardType;
-}
-
-- (void)setPlaceholder:(NSString *)placeholder {
-    _placeholder = placeholder;
-    self.textField.placeholder = placeholder;
-}
-
-- (void)setPlaceholderColor:(UIColor *)placeholderColor {
-    _placeholderColor = placeholderColor;
-    [self.textField setValue:placeholderColor forKeyPath:@"_placeholderLabel.textColor"];
 }
 
 /** 设置线条类型 */
@@ -79,6 +62,18 @@
     
 }
 
+/** Switch回调避免过快点击 */
+- (void)change:(UISwitch *)switchControl {
+    if (_delegate && [_delegate respondsToSelector:@selector(wxm_commonCellSwitchState:)]) {
+        [_delegate wxm_commonCellSwitchState:switchControl.on];
+    }
+    
+    switchControl.userInteractionEnabled = NO;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        switchControl.userInteractionEnabled = YES;
+    });
+}
+
 #pragma mark _________________________________ GET
 
 - (UILabel *)titleLabel {
@@ -101,19 +96,6 @@
         _detailLabel.numberOfLines = 1;
     }
     return _detailLabel;
-}
-
-- (UITextField *)textField {
-    if (!_textField) {
-        _textField = [[UITextField alloc] init];
-        _textField.delegate = self;
-        _textField.textColor = WXMCommonTitleColor;
-        _textField.font = [UIFont systemFontOfSize:WXMCommonTitleFont];
-        [_textField setValue:WXMCommonPlaceColor forKeyPath:@"_placeholderLabel.textColor"];
-        _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
-        [_textField addTarget:self action:@selector(textFieldValueChanged:) forControlEvents:UIControlEventEditingChanged];
-    }
-    return _textField;
 }
 
 - (CALayer *)line {
@@ -148,35 +130,15 @@
     return _control;
 }
 
-#pragma mark _________________________________textField delegate
-
-- (BOOL)textFieldShouldClear:(UITextField *)textField {
-    if (_delegate && [_delegate respondsToSelector:@selector(wxm_textFieldShouldClear:)]) {
-        return [self.delegate wxm_textFieldShouldClear:textField];
+- (UISwitch *)switchControl {
+    if (!_switchControl) {
+        _switchControl = [[UISwitch alloc] init];
+        UIControlEvents event = UIControlEventValueChanged;
+        _switchControl = [[UISwitch alloc] init];
+        _switchControl.frame = CGRectMake(0, 0, 80, self.frame.size.height);
+    /** _switchControl.onTintColor = [UIColor blueColor]; */
+        [_switchControl addTarget:self action:@selector(change:) forControlEvents:event];
     }
-    
-    if (_delegate && [_delegate respondsToSelector:@selector(wxm_textFieldValueChanged:)]) {
-        [_delegate wxm_textFieldValueChanged:textField];
-    }
-    return YES;
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if (_delegate && [_delegate respondsToSelector:@selector(wxm_textFieldShouldReturn:)]) {
-        return [_delegate wxm_textFieldShouldReturn:textField];
-    }
-    return YES;
-}
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if (self.maxCharacter == 0) return YES;
-    if (textField.text.length >= self.maxCharacter) return NO;
-    return YES;
-}
-
-- (void)textFieldValueChanged:(UITextField *)textField {
-    if (_delegate && [_delegate respondsToSelector:@selector(wxm_textFieldValueChanged:)]) {
-        [_delegate wxm_textFieldValueChanged:textField];
-    }
+    return _switchControl;
 }
 @end

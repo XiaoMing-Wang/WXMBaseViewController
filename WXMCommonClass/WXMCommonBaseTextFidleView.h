@@ -39,9 +39,7 @@ typedef NS_ENUM(NSUInteger, WXMCommonTextFieldLineType) {
 @property (nonatomic, strong) UITextField *textField;
 @property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, strong) UIImageView *arrowImage;
-
 @property (nonatomic, strong) UIControl *control;
-@property (nonatomic, strong) UIButton *commonButton;
 
 @property (nonatomic, strong) NSString *placeholder;
 @property (nonatomic, strong) UIColor *placeholderColor;

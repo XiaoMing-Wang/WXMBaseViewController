@@ -27,39 +27,4 @@
     
 }
 
-- (UIView *)mainBackground {
-    if (!_mainBackground) _mainBackground = [[UIView alloc] init];
-    return _mainBackground;
-}
-
-- (UILabel *)mainTitle {
-    if (!_mainTitle) _mainTitle = [[UILabel alloc] init];
-    return _mainTitle;
-}
-
-- (UILabel *)mainDetail {
-    if (!_mainDetail) _mainDetail = [[UILabel alloc] init];
-    return _mainDetail;
-}
-
-- (UILabel *)subDetail {
-    if (!_subDetail) _subDetail = [[UILabel alloc] init];
-    return _subDetail;
-}
-
-- (UIImageView *)titleIcon {
-    if (!_titleIcon) _titleIcon = [[UIImageView alloc] init];
-    return _titleIcon;
-}
-
-- (UIImageView *)detailIcon {
-    if (!_detailIcon) _detailIcon = [[UIImageView alloc] init];
-    return _detailIcon;
-}
-
-- (CALayer *)lineLabel {
-    if (!_lineLabel) _lineLabel = [[CALayer alloc] init];
-    return _lineLabel;
-}
-
 @end
