@@ -10,10 +10,18 @@
 
 @interface WXMConmonBaseTableViewCell : UITableViewCell
 
-//@property (nonatomic, strong) UIView *backgroundV;        /** 背景 */
-//@property (nonatomic, strong) UIImageView *iconImageView; /** 图标 */
-//@property (nonatomic, strong) UILabel *titleLabel;        /** 标题 */
-//@property (nonatomic, strong) UILabel *detailLabel;       /**  描述 */
-//@property (nonatomic, strong) UILabel *rightLabel;        /** 右边Label */
+@property (nonatomic, strong) UIView *mainBackground;  /** 背景 */
+@property (nonatomic, strong) UILabel *mainTitle;      /** 标题 */
+@property (nonatomic, strong) UILabel *mainDetail;     /** 描述 */
+@property (nonatomic, strong) UILabel *subDetail;      /** 子描述 */
+@property (nonatomic, strong) UIImageView *titleIcon;  /** 左图标 */
+@property (nonatomic, strong) UIImageView *detailIcon; /** 描述图标 */
+@property (nonatomic, strong) CALayer *lineLabel;      /** 线条 */
+
+/** 初始化 */
+- (void)wxm_setupInterface;
+
+/** 布局 */
+- (void)wxm_layoutInterface;
 
 @end
