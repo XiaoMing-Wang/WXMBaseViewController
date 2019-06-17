@@ -9,9 +9,9 @@
 #import "WXMBaseTableViewModel.h"
 @interface WXMBaseTableViewModel ()
 @property (nonatomic, copy) NSString *ident;
-@property(nonatomic, strong, readwrite) NSMutableArray *dataSource;
-@property(nonatomic, weak, readwrite) UITableView *tableView;
-@property(nonatomic, weak, readwrite) UIViewController <WXMTableViewModelProtocol>*viewController;
+@property (nonatomic, strong, readwrite) NSMutableArray *dataSource;
+@property (nonatomic, weak, readwrite) UITableView *tableView;
+@property (nonatomic, weak, readwrite) UIViewController<WXMTableViewModelProtocol> *viewController;
 @end
 @implementation WXMBaseTableViewModel
 #pragma clang diagnostic push
@@ -45,13 +45,16 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataSource.count;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.ident forIndexPath:indexPath];
     return cell;
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     SEL sel = @selector(wxm_tableViewHeightForRowAtIndexPath:);
     if (self.viewController && [self.viewController respondsToSelector:sel]) {
@@ -59,6 +62,7 @@
     }
     return 0;
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     SEL sel = @selector(wxm_tableViewForHeaderHeightInSection:);
     if (self.viewController && [self.viewController respondsToSelector:sel]) {
@@ -66,6 +70,7 @@
     }
     return 0;
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     SEL sel = @selector(wxm_tableViewForFooterHeightInSection:);
     if (self.viewController && [self.viewController respondsToSelector:sel]) {
@@ -73,6 +78,7 @@
     }
     return 0;
 }
+
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     SEL sel = @selector(wxm_tableViewForHeaderInSection:);
     if (self.viewController && [self.viewController respondsToSelector:sel]) {
@@ -80,6 +86,7 @@
     }
     return nil;
 }
+
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     SEL sel = @selector(wxm_tableViewForFooterInSection:);
     if (self.viewController && [self.viewController respondsToSelector:sel]) {
@@ -87,6 +94,7 @@
     }
     return nil;
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     SEL sel = @selector(wxm_tableViewDidSelectRowAtIndexPath:);
@@ -103,24 +111,28 @@
         [self.viewController wxm_scrollViewDidScroll];
     }
 }
+
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     SEL sel = @selector(wxm_scrollViewWillBeginDragging);
     if (self.viewController && [self.viewController respondsToSelector:sel]) {
         [self.viewController wxm_scrollViewWillBeginDragging];
     }
 }
+
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     SEL sel = @selector(wxm_scrollViewDidEndDraggingWithDecelerate:);
     if (self.viewController && [self.viewController respondsToSelector:sel]) {
         [self.viewController wxm_scrollViewDidEndDraggingWithDecelerate:decelerate];
     }
 }
+
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
     SEL sel = @selector(wxm_scrollViewWillBeginDecelerating);
     if (self.viewController && [self.viewController respondsToSelector:sel]) {
         [self.viewController wxm_scrollViewWillBeginDecelerating];
     }
 }
+
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     SEL sel = @selector(wxm_scrollViewDidEndDecelerating);
     if (self.viewController && [self.viewController respondsToSelector:sel]) {

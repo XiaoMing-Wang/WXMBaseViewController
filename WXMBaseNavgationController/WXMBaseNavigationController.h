@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WXMBaseNavigationController : UINavigationController <UINavigationControllerDelegate, UIViewControllerTransitioningDelegate>
+@interface WXMBaseNavigationController : UINavigationController
+<UINavigationControllerDelegate, UIViewControllerTransitioningDelegate>
 @end
 
