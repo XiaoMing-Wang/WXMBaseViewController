@@ -10,4 +10,10 @@
 
 @interface WXMBaseTableViewCell : UITableViewCell
 
+/** 初始化 */
+- (void)setupDefaultInterface;
+
+/** 布局 */
+- (void)setupAutomaticLayout;
+
 @end

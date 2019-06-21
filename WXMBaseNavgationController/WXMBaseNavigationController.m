@@ -20,12 +20,12 @@
 }
 
 /**  presen */
-- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+- (id<UIViewControllerAnimatedTransitioning> )animationControllerForPresentedController :(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
     return nil;
 }
 
 /** dismiss */
-- (nullable id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+- (nullable id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController :(UIViewController *)dismissed {
     return nil;
 }
 @end

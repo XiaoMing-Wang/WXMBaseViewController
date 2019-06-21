@@ -12,17 +12,18 @@
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    [self wxm_setupInterface];
+    [self setupDefaultInterface];
+    [self setupAutomaticLayout];
     return self;
 }
 
 /** 初始化 */
-- (void)wxm_setupInterface {
+- (void)setupDefaultInterface {
     
 }
 
 /** 布局 */
-- (void)wxm_layoutInterface {
+- (void)setupAutomaticLayout {
     
 }
 

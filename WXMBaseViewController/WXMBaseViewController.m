@@ -114,7 +114,7 @@
     return _mainScrollView;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath*)index {
     return [tableView dequeueReusableCellWithIdentifier:@"cell"];
 }
 

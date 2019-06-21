@@ -31,7 +31,6 @@
                         forState:UIControlStateSelected];
     [item setTitleTextAttributes:@{NSForegroundColorAttributeName:deColor}
                         forState:UIControlStateNormal];
-    
     self.tabBar.backgroundColor = [UIColor whiteColor];
     [self.tabBar setShadowImage:[UIImage imageNamed:@""]];
     [self.tabBar setBackgroundImage:[UIImage new]];

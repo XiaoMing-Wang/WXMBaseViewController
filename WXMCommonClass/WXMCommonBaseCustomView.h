@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WXMCommonBaseTextFidleView.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol WXMCommonCustomViewDelegate <NSObject>

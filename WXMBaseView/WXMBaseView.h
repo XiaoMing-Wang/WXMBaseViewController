@@ -10,4 +10,10 @@
 
 @interface WXMBaseView : UIView
 
+/** 初始化界面 */
+- (void)setupDefaultInterface;
+
+ /** 布局 */
+- (void)setupAutomaticLayout;
+
 @end

@@ -12,7 +12,7 @@
 @end
 @implementation WXMBaseNetworkViewModel
 
-+ (instancetype)wxm_networkWithViewController:(UIViewController<WXMNetworkViewModelProtocol>*)controller {
++ (instancetype)wxm_networkWithViewController:(UIViewController <WXMNetworkViewModelProtocol> *)controller {
     WXMBaseNetworkViewModel *networkViewModel = [[self alloc] initWithController:controller];
     return networkViewModel;
 }
@@ -95,7 +95,8 @@
 
 /** 尾部记载 */
 - (void)wxm_pullRefreshFootControl {
-    if (self.refreshType == WXMRefreshFootControl || self.refreshType == WXMRefreshHeaderControl) return;
+    if (self.refreshType == WXMRefreshFootControl ||
+        self.refreshType == WXMRefreshHeaderControl) return;
     self.refreshType = WXMRefreshFootControl;
     self.currentPage += 1;
     self.isRequestting = YES;

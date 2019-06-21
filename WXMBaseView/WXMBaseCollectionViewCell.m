@@ -12,11 +12,21 @@
 
 /** 初始化 */
 - (instancetype)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) [self wxm_setupInterface];
+    if (self = [super initWithFrame:frame]) {
+        [self setupDefaultInterface];
+        [self setupAutomaticLayout];
+    }
     return self;
 }
 
-- (void)wxm_setupInterface {
+/** 初始化 */
+- (void)setupDefaultInterface {
+    
+}
+
+/** 布局 */
+- (void)setupAutomaticLayout {
+    
 }
 
 @end

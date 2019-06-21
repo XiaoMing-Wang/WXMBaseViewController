@@ -10,4 +10,8 @@
 
 @implementation WXMBaseModel
 
+- (void)setNilValueForKey:(NSString *)key {
+    
+}
+
 @end

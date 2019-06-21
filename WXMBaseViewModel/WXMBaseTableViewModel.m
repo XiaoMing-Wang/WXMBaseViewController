@@ -17,7 +17,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
-+ (instancetype)wxm_tableVieWithViewController:(UIViewController<WXMTableViewModelProtocol>*)controller {
++ (instancetype)wxm_tableVieWithViewController:(UIViewController <WXMTableViewModelProtocol>* )controller {
     WXMBaseTableViewModel *tableViewModel = [self new];
     tableViewModel.viewController = controller;
     return tableViewModel;
@@ -30,8 +30,8 @@
 - (void)wxm_setTableView:(UITableView *)tableView
               dataSource:(__kindof NSArray * )dataSource
                cellClass:(__nullable Class)cellClass {
-   
-    self.ident = (self.viewController) ? NSStringFromClass(self.viewController.class) : @"cell";
+    
+    self.ident = @"cell";
     self.dataSource = dataSource;
     self.tableView = tableView;
     self.tableView.delegate = self;
@@ -50,8 +50,8 @@
     return self.dataSource.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.ident forIndexPath:indexPath];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)index {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:index];
     return cell;
 }
 
