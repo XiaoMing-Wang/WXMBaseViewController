@@ -8,6 +8,6 @@
 
 #import "WXMMultiFunctionView.h"
 
-@implementation WXMMultiFunctionView
+@implementation WXMMultiButtonView
 
 @end

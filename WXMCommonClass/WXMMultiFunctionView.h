@@ -10,9 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WXMMultiFunctionView : UIView
+@interface WXMMultiButtonView : UIButton
 
-@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *titlesLabel;
 @property (nonatomic, strong) UILabel *detailLabel;
 @property (nonatomic, strong) UIImageView *mainIconView;
 @property (nonatomic, strong) UIImageView *detailIconView;
