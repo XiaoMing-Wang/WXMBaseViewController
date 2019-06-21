@@ -6,7 +6,7 @@
 //  Copyright © 2019 wq. All rights reserved.
 //
 
-#import "WXMMultiFunctionView.h"
+#import "WXMMultiButtonView.h"
 
 @implementation WXMMultiButtonView
 
