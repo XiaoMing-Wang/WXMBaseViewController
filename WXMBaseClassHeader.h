@@ -9,6 +9,8 @@
 #ifndef WXMBaseClassHeader_h
 #define WXMBaseClassHeader_h
 
+#import "WXMGlobalStaticFile.h"
+
 #import "WXMBaseTableViewModel.h"
 #import "WXMBaseNetworkViewModel.h"
 #import "NSMutableArray+WXMKVOKit.h"
@@ -24,16 +26,16 @@
 #import "WXMBaseViewController.h"
 
 #import "WXMMJDIYHeader.h"
-#import "WXMErrorLoadView.h"
-#import "WXMErrorStatusView.h"
-#import "UIView+WXMErrorStatusView.h"
+/** #import "WXMErrorLoadView.h" */
+/** #import "WXMErrorStatusView.h" */
+/** #import "UIView+WXMErrorStatusView.h" */
 
 #import "WXMBaseErrorViewProtocol.h"
 #import "WXMBaseListViewController.h"
 #import "WXMAloneListViewController.h"
 
 #import "WXMCommonBaseTextFidleView.h"
-#import "WXMCommonBaseButtonView.h"
+#import "WXMCommonBaseThemeButton.h"
 #import "WXMConmonBaseCustomTransition.h"
 #import "WXMConmonBaseManager.h"
 #import "WXMConmonBaseTableViewCell.h"

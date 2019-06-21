@@ -14,6 +14,7 @@
               reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     [self wxm_setupInterface];
+    [self wxm_layoutInterface];
     return self;
 }
 

@@ -5,9 +5,15 @@
 //  Created by wq on 2019/6/16.
 //  Copyright © 2019年 wxm. All rights reserved.
 //
-#define WXMCommonLineX 16
+
 #define WXMCommonTitleFont 16
+#define WXMCommonDetailFont 14
+#define WXMCommonSubDetailFont 12
+#define WXMCommonLineX 16
+
 #define WXMCommonTitleColor [UIColor blackColor]
+#define WXMCommonDetailColor [UIColor blackColor]
+#define WXMCommonSubDetailColor [UIColor blackColor]
 #define WXMCommonPlaceColor [UIColor lightGrayColor]
 #define WXMCommonLineColor [UIColor grayColor]
 
@@ -31,11 +37,13 @@ typedef NS_ENUM(NSUInteger, WXMCommonTextFieldLineType) {
 
 @interface WXMCommonBaseTextFidleView : UIView <UITextFieldDelegate>
 
+/** 上下线条 */
 @property (nonatomic, strong) CALayer *line;
 @property (nonatomic, strong) CALayer *underLine;
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *detailLabel;
+@property (nonatomic, strong) UILabel *subDetailLabel;
 @property (nonatomic, strong) UITextField *textField;
 @property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, strong) UIImageView *arrowImage;

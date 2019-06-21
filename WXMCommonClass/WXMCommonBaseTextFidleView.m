@@ -96,11 +96,23 @@
     if (!_detailLabel) {
         _detailLabel = [[UILabel alloc] init];
         _detailLabel.textAlignment = NSTextAlignmentRight;
-        _detailLabel.font = [UIFont systemFontOfSize:WXMCommonTitleFont];
-        _detailLabel.textColor = WXMCommonTitleColor;
+        _detailLabel.font = [UIFont systemFontOfSize:WXMCommonDetailFont];
+        _detailLabel.textColor = WXMCommonDetailColor;
         _detailLabel.numberOfLines = 1;
     }
     return _detailLabel;
+}
+
+
+- (UILabel *)subDetailLabel {
+    if (!_subDetailLabel) {
+        _subDetailLabel = [[UILabel alloc] init];
+        _detailLabel.textAlignment = NSTextAlignmentCenter;
+        _detailLabel.font = [UIFont systemFontOfSize:WXMCommonSubDetailFont];
+        _detailLabel.textColor = WXMCommonSubDetailColor;
+        _detailLabel.numberOfLines = 1;
+    }
+    return _subDetailLabel;
 }
 
 - (UITextField *)textField {

@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *detailLabel;
+@property (nonatomic, strong) UILabel *subDetailLabel;
 @property (nonatomic, strong) UIImageView *arrowImage;
 @property (nonatomic, strong) UIControl *control;
 @property (nonatomic, strong) UISwitch *switchControl;

@@ -11,6 +11,7 @@
 @interface WXMCommonBaseCustomView ()
 @property (nonatomic, assign) WXMCommonTextFieldLineType lineType;
 @end
+
 @implementation WXMCommonBaseCustomView
 
 #pragma mark _________________________________ 自定义类型UI设置
@@ -98,6 +99,17 @@
     return _detailLabel;
 }
 
+- (UILabel *)subDetailLabel {
+    if (!_subDetailLabel) {
+        _subDetailLabel = [[UILabel alloc] init];
+        _detailLabel.textAlignment = NSTextAlignmentCenter;
+        _detailLabel.font = [UIFont systemFontOfSize:WXMCommonSubDetailFont];
+        _detailLabel.textColor = WXMCommonSubDetailColor;
+        _detailLabel.numberOfLines = 1;
+    }
+    return _subDetailLabel;
+}
+
 - (CALayer *)line {
     if (!_line) {
         _line = [[CALayer alloc] init];
@@ -136,7 +148,7 @@
         UIControlEvents event = UIControlEventValueChanged;
         _switchControl = [[UISwitch alloc] init];
         _switchControl.frame = CGRectMake(0, 0, 80, self.frame.size.height);
-    /** _switchControl.onTintColor = [UIColor blueColor]; */
+        _switchControl.onTintColor = [UIColor blueColor];
         [_switchControl addTarget:self action:@selector(change:) forControlEvents:event];
     }
     return _switchControl;
