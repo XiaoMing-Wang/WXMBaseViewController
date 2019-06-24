@@ -93,7 +93,7 @@
     self.isRequestting = YES;
 }
 
-/** 尾部记载 */
+/** 尾部加载 */
 - (void)wxm_pullRefreshFootControl {
     if (self.refreshType == WXMRefreshFootControl ||
         self.refreshType == WXMRefreshHeaderControl) return;
@@ -123,7 +123,10 @@
     if (![self.dataSource isKindOfClass:NSMutableArray.class]) {
         self.dataSource = self.dataSource.mutableCopy;
     }
-    [self.dataSource wxm_setObserver:self selector:@selector(dataSource)];
+    
+    if ([self.dataSource respondsToSelector:@selector(wxm_setObserver:selector:)]) {
+        [self.dataSource wxm_setObserver:self selector:@selector(dataSource)];
+    }
 }
 
 /** 监听dataSource地址变化 dataSource地址变化后给他重新设置监听者 */

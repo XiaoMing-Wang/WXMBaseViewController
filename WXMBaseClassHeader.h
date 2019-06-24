@@ -26,9 +26,6 @@
 #import "WXMBaseViewController.h"
 
 #import "WXMMJDIYHeader.h"
-/** #import "WXMErrorLoadView.h" */
-/** #import "WXMErrorStatusView.h" */
-/** #import "UIView+WXMErrorStatusView.h" */
 
 #import "WXMBaseErrorViewProtocol.h"
 #import "WXMBaseListViewController.h"

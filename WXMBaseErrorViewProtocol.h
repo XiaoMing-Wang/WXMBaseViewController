@@ -31,7 +31,6 @@ typedef NS_ENUM(NSUInteger, WXMErrorInterfaceType) {
 - (void)wxm_hiddenLoadingView;
 
 /** 缺省图 */
-/** - (void)wxm_showErrorViewWithProtocolType:(WXMErrorStatusProtocolType)proType; */
 - (void)wxm_showErrorView:(UIView *)supView protocolType:(WXMErrorStatusProtocolType)proType;
 - (void)wxm_removeErrorView;
 

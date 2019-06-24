@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 /** 双击通知 */
-NSString *const WXMTabBarDouble = @"WXMTabBarDouble";
+NSString *const WXMTabBarDouble = @"WXMTabBarDoubleClick";
 
 @interface WXMBaseTabBarViewController : UITabBarController
 
