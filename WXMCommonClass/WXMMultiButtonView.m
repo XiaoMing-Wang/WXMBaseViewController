@@ -13,6 +13,11 @@
 
 @implementation WXMMultiButtonView
 
++ (WXMMultiButtonView *)multiButtonViewWithType:(WXMMultiButtonType)multiButtonType {
+    WXMMultiButtonView *multiButtonView = [[WXMMultiButtonView alloc] initWithFrame:CGRectZero];
+    return multiButtonView;
+}
+
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self setupDefaultInterface];
