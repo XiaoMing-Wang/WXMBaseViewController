@@ -13,15 +13,20 @@
 CGRectMake(0, WXMBase_BarHeight, WXMBase_Width, WXMBase_Height - WXMBase_BarHeight)
 
 #import <UIKit/UIKit.h>
-#import "WXMBaseTableViewModel.h"
 #import "WXMBaseErrorViewProtocol.h"
+#import "WXMBaseTableViewModel.h"
+#import "WXMBaseNetworkViewModel.h"
 
 @interface WXMBaseViewController : UIViewController
-<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,WXMTableViewModelProtocol>
+<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, WXMTableViewModelProtocol>
 
-@property(nonatomic, strong) NSMutableArray *dataSource;
-@property(nonatomic, strong) UITableView *mainTableView;
-@property(nonatomic, strong) UIScrollView *mainScrollView;
+@property (nonatomic, assign) BOOL hiddenNavigationLine;
+@property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, strong) UITableView *mainTableView;
+@property (nonatomic, strong) UIScrollView *mainScrollView;
+
+@property (nonatomic, strong) WXMBaseNetworkViewModel *networkViewModel;
+@property (nonatomic, strong) WXMBaseTableViewModel *tableViewViewModel;
 
 /** 转场动画中 */
 @property (nonatomic, assign) BOOL transitions;
@@ -35,5 +40,7 @@ CGRectMake(0, WXMBase_BarHeight, WXMBase_Width, WXMBase_Height - WXMBase_BarHeig
 /** 手势默认YES */
 - (BOOL)interactivePop;
 
+/** 切换成分组模式 */
+- (UITableView *)mainTableViewGrouped;
 @end
 

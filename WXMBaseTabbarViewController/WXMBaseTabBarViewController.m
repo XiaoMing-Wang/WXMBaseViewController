@@ -5,7 +5,7 @@
 //  Created by edz on 2019/5/6.
 //  Copyright © 2019年 wq. All rights reserved.
 //
-
+NSString *const WXMTabBarDoubleClick = @"WXMTabBarDoubleClick";
 #import "WXMBaseTabBarViewController.h"
 
 @interface WXMBaseTabBarViewController () <UITabBarControllerDelegate>

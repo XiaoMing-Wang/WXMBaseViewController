@@ -5,9 +5,10 @@
 //  Created by edz on 2019/5/6.
 //  Copyright © 2019年 wq. All rights reserved.
 //
-
+#import <objc/runtime.h>
 #import "WXMBaseViewController.h"
 
+static char wxm_line;
 @interface WXMBaseViewController ()
 @property(readwrite, nonatomic) UIStatusBarStyle lastStatusBarStyle;
 @end
@@ -26,6 +27,7 @@
         self.mainScrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
 }
+
 /**子类重写 */
 - (void)wxm_setupCustomInterface {}
 - (void)wxm_setupSameInterface {
@@ -38,7 +40,22 @@
         self.navigationItem.leftBarButtonItem = nil;
         self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
         [self.navigationController.navigationBar setTitleTextAttributes:attributes];
+        
+        /** 线条  */
+        CALayer *line = [CALayer layer];
+        line.backgroundColor = [UIColor blackColor].CGColor;
+        line.frame = CGRectMake(0, 44,[UIScreen mainScreen].bounds.size.width, 0.5);
+        [self.navigationController.navigationBar.layer addSublayer:line];
+        objc_setAssociatedObject(self.navigationController, &wxm_line, line, 1);
+        /** [self.navigationController yd_setNavigationBarColor:YDO_navigationBarColor() alpha:1]; */
     }
+}
+
+/** 导航栏线条 */
+- (void)setHiddenNavigationLine:(BOOL)hiddenNavigationLine {
+    _hiddenNavigationLine = hiddenNavigationLine;
+    CALayer *line = objc_getAssociatedObject(self.navigationController, &wxm_line);
+    if (line) line.hidden = hiddenNavigationLine;
 }
 
 - (UIStatusBarStyle)statusBarStyle {
@@ -97,9 +114,28 @@
         _mainTableView.backgroundColor = [UIColor whiteColor];
         _mainTableView.delegate = self;
         _mainTableView.dataSource = self;
+        [_mainTableView registerClass:UITableViewCell.class forCellReuseIdentifier:@"defoCell"];
     }
     return _mainTableView;
 }
+
+/** 分组模式 */
+- (UITableView *)mainTableViewGrouped {
+    _mainTableView = nil;
+    _mainTableView = [[UITableView alloc] initWithFrame:WXMBase_Rect style:UITableViewStyleGrouped];
+    _mainTableView.rowHeight = 44;
+    _mainTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    _mainTableView.tableFooterView = [UIView new];
+    _mainTableView.showsVerticalScrollIndicator = NO;
+    _mainTableView.delegate = self;
+    _mainTableView.dataSource = self;
+    _mainTableView.backgroundColor = [UIColor whiteColor];
+    _mainTableView.separatorColor = [UIColor redColor];
+    _mainTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0,0,0,CGFLOAT_MIN)];
+    [_mainTableView registerClass:UITableViewCell.class forCellReuseIdentifier:@"defoCell"];
+    return _mainTableView;
+}
+
 
 /** ScrollView */
 - (UIScrollView *)mainScrollView {
@@ -115,10 +151,29 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath*)index {
-    return [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    return [tableView dequeueReusableCellWithIdentifier:@"defoCell"];
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 0;
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.mainScrollView endEditing:YES];
+}
+
+
+- (__kindof WXMBaseNetworkViewModel *)networkViewModel {
+    if (!_networkViewModel) {
+        _networkViewModel = [WXMBaseNetworkViewModel wxm_networkWithViewController:self];
+    }
+    return _networkViewModel;
+}
+
+- (__kindof WXMBaseTableViewModel *)tableViewViewModel {
+    if (!_tableViewViewModel) {
+        _tableViewViewModel = [WXMBaseTableViewModel wxm_tableVieWithViewController:self];
+    }
+    return _tableViewViewModel;
 }
 @end
