@@ -20,10 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (id<UITranProtocol>)animationControllerForPresentedController:(UIViewController *)presented
                                            presentingController:(UIViewController *)presenting
                                                sourceController:(UIViewController *)source;
-
 /** dismiss */
 - (id<UITranProtocol>)animationControllerForDismissedController:(UIViewController *)dismissed;
-
 
 /** push pop */
 - (id<UITranProtocol>)navigationController:(UINavigationController *)navigationController

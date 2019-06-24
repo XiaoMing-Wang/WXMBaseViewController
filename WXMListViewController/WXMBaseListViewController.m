@@ -13,6 +13,7 @@
 
 @implementation WXMBaseListViewController
 @synthesize mainTableView = _mainTableView;
+@synthesize networkViewModel = _networkViewModel;
 
 - (void)viewDidLoad {
     [super viewDidLoad];

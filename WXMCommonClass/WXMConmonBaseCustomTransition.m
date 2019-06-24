@@ -19,11 +19,12 @@
     return transition;
 }
 
-/**  */
+/** 自定义 */
 - (void)initializeCustomOperation {
     
 }
 
+/** 动画时间 */
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
     return  (_transitionDuration > 0) ? _transitionDuration : .25f;
 }
