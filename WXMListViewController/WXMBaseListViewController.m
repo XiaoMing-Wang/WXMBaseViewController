@@ -47,6 +47,7 @@
         [self wxm_showloadingWithSupView:supView];
     }
 }
+
 - (void)wxm_hiddenLoadingWithContentView {
     if ([self respondsToSelector:@selector(wxm_hiddenLoadingView)]) {
         [self wxm_hiddenLoadingView];
@@ -199,7 +200,9 @@
 }
 
 - (__kindof WXMBaseNetworkViewModel *)networkViewModel {
-    if (!_networkViewModel) _networkViewModel = [WXMBaseNetworkViewModel wxm_networkWithViewController:self];
+    if (!_networkViewModel) {
+        _networkViewModel = [WXMBaseNetworkViewModel wxm_networkWithViewController:self];
+    }
     return _networkViewModel;
 }
 

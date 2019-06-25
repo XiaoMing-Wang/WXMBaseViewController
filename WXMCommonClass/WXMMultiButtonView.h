@@ -31,6 +31,7 @@ typedef NS_ENUM(NSUInteger, WXMMultiButtonType) {
 @property (nonatomic, assign) WXMMultiButtonType multiButtonType;
 
 + (WXMMultiButtonView *)multiButtonViewWithType:(WXMMultiButtonType)multiButtonType;
+
 @end
 
 NS_ASSUME_NONNULL_END

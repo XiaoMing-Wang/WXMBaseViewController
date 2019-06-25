@@ -38,8 +38,8 @@
     _existCache = WXMExistCacheTypeNone;
     
     /** controller实现了wxm_networkWithDataSourceCache */
-    if (_controller && [_controller respondsToSelector:@selector(wxm_networkWithDataSourceCache)]) {
-        NSArray * cacheArray = [_controller wxm_networkWithDataSourceCache];
+    if ([self.controller respondsToSelector:@selector(wxm_networkWithDataSourceCache)]) {
+        NSArray * cacheArray = [self.controller wxm_networkWithDataSourceCache];
         if (cacheArray.count > 0) _existCache = WXMExistCacheTypeExistCache;
         [self.dataSource addObjectsFromArray:cacheArray];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -56,7 +56,7 @@
         
         /** 缓存Signal */
         if ([input isKindOfClass:[NSString class]] && [input isEqualToString:WXM_CacheSignal]) {
-            return [self_weak_ wxm_requestDataSourceRACSignal];
+            return [self_weak_ wxm_cacheDataSourceRACSignal];
         }
         
         /** 刷新Signal*/

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 UIKIT_EXTERN NSString *const WXMTabBarDoubleClick;
+
 @interface WXMBaseTabBarViewController : UITabBarController
 
 @end
