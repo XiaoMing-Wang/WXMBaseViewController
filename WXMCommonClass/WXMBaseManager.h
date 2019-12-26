@@ -1,15 +1,15 @@
 //
-//  WXMCommonBaseTableHeaderView.m
+//  WXMConmonBaseManager.h
 //  Multi-project-coordination
 //
 //  Created by wq on 2019/6/16.
 //  Copyright © 2019年 wxm. All rights reserved.
 //
 
-#import "WXMCommonBaseTableHeaderView.h"
+#import <Foundation/Foundation.h>
 
-@implementation WXMCommonBaseTableHeaderView
+@interface WXMBaseManager : NSObject
 
-
++ (instancetype)sharedInstance;
 
 @end

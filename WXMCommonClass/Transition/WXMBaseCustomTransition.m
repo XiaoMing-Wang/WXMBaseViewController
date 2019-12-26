@@ -6,12 +6,12 @@
 //  Copyright © 2019年 wxm. All rights reserved.
 //
 
-#import "WXMConmonBaseCustomTransition.h"
+#import "WXMBaseCustomTransition.h"
 
-@implementation WXMConmonBaseCustomTransition
+@implementation WXMBaseCustomTransition
 
 + (instancetype)transitionWithTransitionType:(WXMConmonBaseTransitionType)type {
-    WXMConmonBaseCustomTransition *transition = [[self alloc] init];
+    WXMBaseCustomTransition *transition = [[self alloc] init];
     transition.type = type;
     transition.transitionDuration = -1;
     transition.userInteractionEnabled = YES;

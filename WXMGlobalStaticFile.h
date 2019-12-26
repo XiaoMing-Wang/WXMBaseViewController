@@ -12,6 +12,21 @@ Red:((float)((0x##hexValue & 0xFF0000) >> 16)) / 255.0 \
 green:((float)((0x##hexValue & 0xFF00) >> 8)) / 255.0 \
 blue:((float)(0x##hexValue & 0xFF)) / 255.0 alpha:1.0f]
 
+/** iphoneX */
+#define WXMIPhoneX \
+({BOOL isPhoneX = NO;\
+if (@available(iOS 11.0, *)) {\
+isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bottom > 0.0;\
+}\
+(isPhoneX);\
+})
+
+#define WXMBase_Width [UIScreen mainScreen].bounds.size.width
+#define WXMBase_Height [UIScreen mainScreen].bounds.size.height
+#define WXMBase_BarHeight ((WXMIPhoneX) ? 88.0f : 64.0f)
+#define WXMBase_Rect \
+CGRectMake(0, WXMBase_BarHeight, WXMBase_Width, WXMBase_Height - WXMBase_BarHeight)
+
 #ifndef WXMGlobalStaticFile_h
 #define WXMGlobalStaticFile_h
 #import <UIKit/UIKit.h>

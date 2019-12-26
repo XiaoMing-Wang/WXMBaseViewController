@@ -7,20 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WXMCommonBaseTextFidleView.h"
+#import "WXMBaseTextFidleView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol WXMCommonCustomViewDelegate <NSObject>
+@protocol WXMCustomViewDelegate <NSObject>
 
 /** Switch状态改变 */
-- (void)wxm_commonCellSwitchState:(BOOL)isOpen;
+- (void)wt_commonCellSwitchState:(BOOL)isOpen;
 
 @optional
 
 @end
 
-@interface WXMCommonBaseCustomView : UIView
+@interface WXMBaseCustomView : UIView
 @property (nonatomic, strong) CALayer *line;
 @property (nonatomic, strong) CALayer *underLine;
 
@@ -30,13 +30,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIImageView *arrowImage;
 @property (nonatomic, strong) UIControl *control;
 @property (nonatomic, strong) UISwitch *switchControl;
-@property (nonatomic, weak) id<WXMCommonCustomViewDelegate> delegate;
+@property (nonatomic, weak) id<WXMCustomViewDelegate> delegate;
 
 /** 自定义配置 */
-- (void)wxm_customDifferentInterface;
+- (void)customDifferentInterface;
 
 /** 设置线条类型 */
-- (void)wxm_setLineType:(WXMCommonTextFieldLineType)lineType;
+- (void)setLineType:(WXMCommonTextFieldLineType)lineType;
 
 @end
 

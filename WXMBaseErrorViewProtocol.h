@@ -27,15 +27,15 @@ typedef NS_ENUM(NSUInteger, WXMErrorInterfaceType) {
 @optional
 
 /** loading */
-- (void)wxm_showloadingWithSupView:(UIView *)supView;
-- (void)wxm_hiddenLoadingView;
+- (void)showloadingWithSupView:(UIView *)supView;
+- (void)hiddenLoadingView;
 
 /** 缺省图 */
-- (void)wxm_showErrorView:(UIView *)supView protocolType:(WXMErrorStatusProtocolType)proType;
-- (void)wxm_removeErrorView;
+- (void)showErrorView:(UIView *)supView protocolType:(WXMErrorStatusProtocolType)proType;
+- (void)removeErrorView;
 
 /** 缺省页最小的高度 (tableFootView剩余高度会比errorControl小) */
-- (CGFloat)wxm_errorControlMinHeight;
+- (CGFloat)errorControlMinHeight;
 
 @end
 

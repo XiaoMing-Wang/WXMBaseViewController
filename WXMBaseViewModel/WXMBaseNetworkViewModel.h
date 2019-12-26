@@ -30,39 +30,30 @@ typedef NS_ENUM(NSUInteger, WXMRefreshType) {
     WXMRefreshFootControl,   /** 尾部 */
 };
 
-@protocol WXMNetworkViewModelProtocol <NSObject>
-@optional
-- (NSArray *)wxm_networkWithDataSourceCache;
-@end
-
 @interface WXMBaseNetworkViewModel : NSObject
 
-@property(nonatomic, assign) NSInteger lastPage;
-@property(nonatomic, assign) NSInteger currentPage;
+@property (nonatomic, assign) NSInteger lastPage;
+@property (nonatomic, assign) NSInteger currentPage;
 
 /** 缓存状态 */
-@property(nonatomic, assign) WXMExistCacheType existCache;
+@property (nonatomic, assign) WXMExistCacheType existCache;
 
 /** 刷新状态 */
-@property(nonatomic, assign) WXMRefreshType refreshType;
+@property (nonatomic, assign) WXMRefreshType refreshType;
 
 /** 请求状态 */
-@property(nonatomic, assign) BOOL isRequestting;
+@property (nonatomic, assign) BOOL isRequestting;
 
 /* 网络请求 */
-@property(nonatomic, strong, readonly) RACCommand *requestCommand;
-@property(nonatomic, strong, readwrite) NSMutableArray *dataSource;
-@property(nonatomic, weak, readonly) UIViewController <WXMNetworkViewModelProtocol>*controller;
+@property (nonatomic, strong, readwrite) NSMutableArray *dataSource;
+@property (nonatomic, weak, readonly) UIViewController *controller;
 
 /** 刷新 */
-- (void)wxm_pullRefreshHeaderControl;
-- (void)wxm_pullRefreshFootControl;
+- (void)pullRefreshHeaderControl;
+- (void)pullRefreshFootControl;
 
-/** 获取缓存类型 初始化的时候自动调用 viewcontroller实现wxm_networkWithDataSourceCache */
-- (WXMExistCacheType)wxm_subclassCacheType;
-- (RACSignal *)wxm_cacheDataSourceRACSignal;   /** 缓存 */
-- (RACSignal *)wxm_requestDataSourceRACSignal; /** 网络请求 */
-+ (instancetype)wxm_networkWithViewController:(UIViewController *)controller;
+- (WXMExistCacheType)subclassCacheType;
++ (instancetype)networkWithController:(UIViewController *)controller;
 @end
 NS_ASSUME_NONNULL_END
 

@@ -10,8 +10,7 @@
 
 @implementation WXMBaseModel
 
-- (void)setNilValueForKey:(NSString *)key {
-    
-}
+- (void)setNilValueForKey:(NSString *)key {}
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key {}
 
 @end

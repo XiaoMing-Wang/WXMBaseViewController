@@ -22,9 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol WXMCommonTextFieldDelegate <NSObject>
 @optional
-- (BOOL)wxm_textFieldShouldClear:(UITextField *)textField;
-- (BOOL)wxm_textFieldShouldReturn:(UITextField *)textField;
-- (void)wxm_textFieldValueChanged:(UITextField *)textField;
+- (BOOL)wt_textFieldShouldClear:(UITextField *)textField;
+- (BOOL)wt_textFieldShouldReturn:(UITextField *)textField;
+- (void)wt_textFieldValueChanged:(UITextField *)textField;
 @end
 
 /** 线条类型 */
@@ -35,7 +35,7 @@ typedef NS_ENUM(NSUInteger, WXMCommonTextFieldLineType) {
     WXMCommonTextFieldLineTypeBoth,
 };
 
-@interface WXMCommonBaseTextFidleView : UIView <UITextFieldDelegate>
+@interface WXMBaseTextFidleView : UIView <UITextFieldDelegate>
 
 /** 上下线条 */
 @property (nonatomic, strong) CALayer *line;
@@ -56,10 +56,10 @@ typedef NS_ENUM(NSUInteger, WXMCommonTextFieldLineType) {
 @property (nonatomic, weak) id<WXMCommonTextFieldDelegate> delegate;
 
 /** 自定义配置 */
-- (void)wxm_customDifferentInterface;
+- (void)customDifferentInterface;
 
 /** 设置线条类型 */
-- (void)wxm_setLineType:(WXMCommonTextFieldLineType)lineType;
+- (void)setLineType:(WXMCommonTextFieldLineType)lineType;
 
 @end
 

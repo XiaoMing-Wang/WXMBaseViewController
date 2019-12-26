@@ -6,25 +6,25 @@
 //  Copyright © 2019年 wxm. All rights reserved.
 //
 #define WXMCommonWidth [UIScreen mainScreen].bounds.size.width
-#import "WXMCommonBaseThemeButton.h"
+#import "WXMBaseThemeButton.h"
 
-@interface WXMCommonBaseThemeButton ()
+@interface WXMBaseThemeButton ()
 @property (nonatomic, strong) UIActivityIndicatorView *indicator;
 @property (nonatomic, copy) NSString *signTitle;
 @end
 
-@implementation WXMCommonBaseThemeButton
+@implementation WXMBaseThemeButton
 
 /** 主题 */
-+ (WXMCommonBaseThemeButton *)wxm_themeButtonWithTitle:(NSString *)title {
-    WXMCommonBaseThemeButton *themeButton = [WXMCommonBaseThemeButton new];
++ (WXMBaseThemeButton *)themeButtonWithTitle:(NSString *)title {
+    WXMBaseThemeButton *themeButton = [WXMBaseThemeButton new];
     [themeButton setTitle:title forState:UIControlStateNormal];
     [themeButton wxm_setDefaultThemeInterface];
     return themeButton;
 }
 
-+ (WXMCommonBaseThemeButton *)wxm_themeButtonDisabledWithTitle:(NSString *)title {
-    WXMCommonBaseThemeButton *themeButton = [self wxm_themeButtonWithTitle:title];
++ (WXMBaseThemeButton *)themeButtonDisabledWithTitle:(NSString *)title {
+    WXMBaseThemeButton *themeButton = [self themeButtonWithTitle:title];
     themeButton.enabled = NO;
     return themeButton;
 }
@@ -42,43 +42,43 @@
 
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
-    [self wxm_customDifferentInterface];
+    [self customDifferentInterface];
 }
 
 /** 自定义配置 */
-- (void)wxm_customDifferentInterface {
+- (void)customDifferentInterface {
     CGFloat width = self.frame.size.width;
     CGFloat height = self.frame.size.height;
     self.indicator.center = CGPointMake(width / 2, height / 2);
 }
 
-- (void)wxm_setBackgroundColor:(UIColor *)color forState:(UIControlState)state {
+- (void)setBackgroundColor:(UIColor *)color forState:(UIControlState)state {
     [self setBackgroundImage:[self imageFromColor:color] forState:state];
 }
 
-- (void)wxm_setTitleColor:(UIColor *)color forState:(UIControlState)state {
+- (void)setTitleColor:(UIColor *)color forState:(UIControlState)state {
     [self setTitleColor:color forState:state];
 }
 
-- (void)setButtonState:(WXMCommonStateButtonState)buttonState {
+- (void)setButtonState:(WXMStateButtonState)buttonState {
     _buttonState = buttonState;
     self.enabled = YES;
     self.userInteractionEnabled = YES;
     
-    if (_buttonState == WXMCommonStateButtonStateNormal) {
+    if (_buttonState == WXMStateButtonStateNormal) {
         [self.indicator stopAnimating];
         if (self.signTitle.length > 0) {
             [self setTitle:self.signTitle forState:UIControlStateNormal];
         }
-    } else if (_buttonState == WXMCommonStateButtonStateDisabled) {
+    } else if (_buttonState == WXMStateButtonStateDisabled) {
         self.enabled = NO;
-    } else if (_buttonState == WXMCommonStateButtonStateLoading)  {
+    } else if (_buttonState == WXMStateButtonStateLoading)  {
         self.userInteractionEnabled = NO;
         self.signTitle = self.titleLabel.text;
         [self.indicator startAnimating];
         [self addSubview:self.indicator];
     }
-    [self wxm_customDifferentInterface];
+    [self customDifferentInterface];
 }
 
 - (UIActivityIndicatorView *)indicator {
