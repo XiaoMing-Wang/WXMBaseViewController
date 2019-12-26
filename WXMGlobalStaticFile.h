@@ -46,6 +46,42 @@ static inline UIColor *WXM_viewBackgroundColor() {
     return WXMCOLOR_WITH_HEX(002632);
 }
 
+/** 文字描述 */
+static inline UIColor *WXM_textDescribeColor() {
+    return WXMCOLOR_WITH_HEX(002632);
+}
+
+/** textField */
+static inline UIColor *WXM_textFieldColor() {
+    return WXMCOLOR_WITH_HEX(002632);
+}
+
+#pragma mark ____________________________________ 字体
+
+static inline UIFont *YDO_font24() {
+    return [UIFont systemFontOfSize:24];
+}
+static inline UIFont *YDO_font20() {
+    return [UIFont systemFontOfSize:20];
+}
+static inline UIFont *YDO_font18() {
+    return [UIFont systemFontOfSize:18];
+}
+static inline UIFont *YDO_font16() {
+    return [UIFont systemFontOfSize:16];
+}
+static inline UIFont *YDO_font14() {
+    return [UIFont systemFontOfSize:14];
+}
+static inline UIFont *YDO_font12() {
+    return [UIFont systemFontOfSize:12];
+}
+static inline UIFont *YDO_font11() {
+    return [UIFont systemFontOfSize:11];
+}
+static inline UIFont *YDO_font8() {
+    return [UIFont systemFontOfSize:8];
+}
 
 
 #endif /* WXMGlobalStaticFile_h */
