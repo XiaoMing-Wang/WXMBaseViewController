@@ -9,12 +9,12 @@
 #import "WXMAloneListViewController.h"
 
 @interface WXMAloneListViewController ()
-@property(nonatomic, strong) UIView *wxm_footView;
-@property(nonatomic, assign) BOOL wxm_listGrouped;
+@property (nonatomic, strong) UIView *footView;
+@property (nonatomic, assign) BOOL listGrouped;
 @end
 
 @implementation WXMAloneListViewController
-@synthesize mainTableView = _mainTableView;
+@synthesize tableView = _tableView;
 @synthesize dataSource = _dataSource;
 
 - (void)viewDidLoad {
@@ -27,7 +27,7 @@
 }
 
 /** 头部刷新 */
-- (void)wxm_pullRefreshHeaderControl {
+- (void)pullRefreshHeaderControl {
     if (self.refreshType == WXMRefreshHeaderControl) return;
     self.refreshType = WXMRefreshHeaderControl;
     self.lastPage = self.currentPage = 1;
@@ -35,7 +35,7 @@
 }
 
 /** 尾部加载 */
-- (void)wxm_pullRefreshFootControl {
+- (void)pullRefreshFootControl {
     if (self.refreshType == WXMRefreshFootControl ||
         self.refreshType == WXMRefreshHeaderControl) return;
     self.refreshType = WXMRefreshFootControl;
@@ -44,7 +44,7 @@
 }
 
 /** 请求成功 */
-- (void)wxm_pullRefreshSuccess {
+- (void)pullRefreshSuccess {
     if (self.refreshType == WXMRefreshFootControl) self.lastPage = self.currentPage;
     if (self.refreshType != WXMRefreshFootControl) self.lastPage = self.currentPage = 1;
     self.refreshType = WXMRefreshFreedom;
@@ -52,7 +52,7 @@
 }
 
 /** 请求失败 */
-- (void)wxm_pullRefreshFail {
+- (void)pullRefreshFail {
     if (self.refreshType == WXMRefreshFootControl) self.currentPage = self.lastPage;
     if (self.refreshType != WXMRefreshFootControl) self.lastPage = self.currentPage = 1;
     self.refreshType = WXMRefreshFreedom;

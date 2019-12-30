@@ -10,25 +10,24 @@
 #import "WXMBaseNetworkViewModel.h"
 #import "WXMBaseViewController.h"
 #import "WXMBaseListViewController.h"
-#import "WXMBaseListViewController.h"
 
 /** 不用viewmoderl的父类 */
 @interface WXMAloneListViewController : WXMBaseListViewController
 
-@property(nonatomic, assign) NSInteger lastPage;
-@property(nonatomic, assign) NSInteger currentPage;
+@property (nonatomic, assign) NSInteger lastPage;
+@property (nonatomic, assign) NSInteger currentPage;
 
 /** tableView */
-@property(nonatomic, strong, readwrite) UITableView *mainTableView;
-@property(nonatomic, strong, readwrite) NSMutableArray *dataSource;
+@property (nonatomic, strong, readwrite) UITableView *tableView;
+@property (nonatomic, strong, readwrite) NSMutableArray *dataSource;
 
 /** 缓存 */
-@property(nonatomic, assign) WXMExistCacheType existCache;
+@property (nonatomic, assign) WXMExistCacheType existCache;
 
 /** 刷新状态 */
-@property(nonatomic, assign) WXMRefreshType refreshType;
-@property(nonatomic, assign) BOOL isRequestting;
+@property (nonatomic, assign) WXMRefreshType refreshType;
+@property (nonatomic, assign) BOOL isRequestting;
 
-- (void)wxm_pullRefreshSuccess;
-- (void)wxm_pullRefreshFail;
+- (void)pullRefreshSuccess;
+- (void)pullRefreshFail;
 @end

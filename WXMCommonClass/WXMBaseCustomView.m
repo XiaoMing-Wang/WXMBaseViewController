@@ -6,17 +6,17 @@
 //  Copyright © 2019 wq. All rights reserved.
 //
 #define WXMCommonW [UIScreen mainScreen].bounds.size.width
-#import "WXMCommonBaseCustomView.h"
+#import "WXMBaseCustomView.h"
 
-@interface WXMCommonBaseCustomView ()
+@interface WXMBaseCustomView ()
 @property (nonatomic, assign) WXMCommonTextFieldLineType lineType;
 @end
 
-@implementation WXMCommonBaseCustomView
+@implementation WXMBaseCustomView
 
 #pragma mark _________________________________ 自定义类型UI设置
 
-- (void)wxm_customDifferentInterface {
+- (void)customDifferentInterface {
     
     
 }
@@ -25,11 +25,11 @@
 
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
-    [self wxm_customDifferentInterface];
+    [self customDifferentInterface];
 }
 
 /** 设置线条类型 */
-- (void)wxm_setLineType:(WXMCommonTextFieldLineType)lineType {
+- (void)setLineType:(WXMCommonTextFieldLineType)lineType {
     _lineType = lineType;
     CGFloat top = self.frame.size.height - 0.5;
     
@@ -65,8 +65,8 @@
 
 /** Switch回调避免过快点击 */
 - (void)change:(UISwitch *)switchControl {
-    if (_delegate && [_delegate respondsToSelector:@selector(wxm_commonCellSwitchState:)]) {
-        [_delegate wxm_commonCellSwitchState:switchControl.on];
+    if (_delegate && [_delegate respondsToSelector:@selector(wt_commonCellSwitchState:)]) {
+        [_delegate wt_commonCellSwitchState:switchControl.on];
     }
     
     switchControl.userInteractionEnabled = NO;

@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WXMConmonTransitionNavigationViewController : UINavigationController
+@interface WXMTransitionNavigationViewController : UINavigationController
 <UIViewControllerTransitioningDelegate, UINavigationControllerDelegate>
 
 /** 是否开启自定义转场 */

@@ -41,7 +41,7 @@
         if (!CGSizeEqualToSize(_lordiImageSize, CGSizeZero)) imageSize = _lordiImageSize;
         self.lordimageView.frame = (CGRect){CGPointZero,imageSize};
         [self.titlesLabel sizeToFit];
-        [self wxm_venicalSet:_lordimageView nether:_titlesLabel interval:self.interval];
+        [self venicalSet:_lordimageView nether:_titlesLabel interval:self.interval];
     }
 }
 
@@ -68,7 +68,7 @@
 }
 
 /** 上下居中对齐 */
-- (void)wxm_venicalSet:(UIView *)above nether:(UIView *)nether interval:(CGFloat)interval {
+- (void)venicalSet:(UIView *)above nether:(UIView *)nether interval:(CGFloat)interval {
     if (!above || !nether || self.frame.size.height == 0) return;
     CGFloat totalHeight = self.frame.size.height;
     CGFloat totalInterval = totalHeight - above.frame.size.height - nether.frame.size.height;
@@ -83,7 +83,7 @@
 }
 
 /** 左右居中对齐 */
-- (void)wxm_horizontalSet:(UIView *)left nether:(UIView *)right interval:(CGFloat)interval {
+- (void)horizontalSet:(UIView *)left nether:(UIView *)right interval:(CGFloat)interval {
     if (!left || !right || self.frame.size.width == 0) return;
     CGFloat totalWidth = self.frame.size.width;
     CGFloat totalInterval = totalWidth - left.frame.size.width - right.frame.size.width;

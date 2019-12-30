@@ -8,7 +8,7 @@
 #import <objc/runtime.h>
 #import "WXMBaseViewController.h"
 
-static char wxm_line;
+static char wxmLine;
 @interface WXMBaseViewController ()
 @property(readwrite, nonatomic) UIStatusBarStyle lastStatusBarStyle;
 @end
@@ -18,19 +18,19 @@ static char wxm_line;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self wxm_setupSameInterface];
-    [self wxm_setupCustomInterface];
+    [self initializeSameInterface];
+    [self initializeDefaultInterface];
     self.navigationController.navigationBar.translucent = YES;
     if (@available(iOS 11.0, *)) {
-    /** self.automaticallyAdjustsScrollViewInsets = NO; */
-        self.mainTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        self.mainScrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        self.automaticallyAdjustsScrollViewInsets = NO;
+        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
 }
 
 /**子类重写 */
-- (void)wxm_setupCustomInterface {}
-- (void)wxm_setupSameInterface {
+- (void)initializeDefaultInterface {}
+- (void)initializeSameInterface {
     self.view.backgroundColor = [UIColor whiteColor];
     if (self.navigationController.viewControllers.firstObject &&
         [self.navigationController.viewControllers.firstObject isKindOfClass:self.class] &&
@@ -44,9 +44,9 @@ static char wxm_line;
         /** 线条  */
         CALayer *line = [CALayer layer];
         line.backgroundColor = [UIColor blackColor].CGColor;
-        line.frame = CGRectMake(0, 44,[UIScreen mainScreen].bounds.size.width, 0.5);
+        line.frame = CGRectMake(0, 44, WXMBase_Width, 0.5);
         [self.navigationController.navigationBar.layer addSublayer:line];
-        objc_setAssociatedObject(self.navigationController, &wxm_line, line, 1);
+        objc_setAssociatedObject(self.navigationController, &wxmLine, line, 1);
         /** [self.navigationController yd_setNavigationBarColor:YDO_navigationBarColor() alpha:1]; */
     }
 }
@@ -54,7 +54,7 @@ static char wxm_line;
 /** 导航栏线条 */
 - (void)setHiddenNavigationLine:(BOOL)hiddenNavigationLine {
     _hiddenNavigationLine = hiddenNavigationLine;
-    CALayer *line = objc_getAssociatedObject(self.navigationController, &wxm_line);
+    CALayer *line = objc_getAssociatedObject(self.navigationController, &wxmLine);
     if (line) line.hidden = hiddenNavigationLine;
 }
 
@@ -86,14 +86,87 @@ static char wxm_line;
         [self.navigationController.viewControllers.firstObject isKindOfClass:[self class]] &&
         self.navigationController.viewControllers.count == 1) {
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-    } else self.navigationController.interactivePopGestureRecognizer.enabled = self.interactivePop;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    } else {
+        self.navigationController.interactivePopGestureRecognizer.enabled = self.interactivePop;
+    }
+    
+    dispatch_time_t when = dispatch_time(DISPATCH_TIME_NOW,(1.0 * NSEC_PER_SEC));
+    dispatch_after(when, dispatch_get_main_queue(), ^{
         self.loaded = YES;
     });
 }
 
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+/** TableView */
+- (UITableView *)tableView {
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:WXMBase_Rect];
+        _tableView.rowHeight = 49;
+        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        _tableView.tableFooterView = [UIView new];
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.separatorColor = [UIColor redColor];
+        _tableView.backgroundColor = [UIColor whiteColor];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        [_tableView registerClass:UITableViewCell.class forCellReuseIdentifier:@"defoCell"];
+    }
+    return _tableView;
+}
+
+/** 分组模式 */
+- (UITableView *)tableViewGrouped {
+    _tableView = nil;
+    _tableView = [[UITableView alloc] initWithFrame:WXMBase_Rect style:UITableViewStyleGrouped];
+    _tableView.rowHeight = 44;
+    _tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    _tableView.tableFooterView = [UIView new];
+    _tableView.showsVerticalScrollIndicator = NO;
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.backgroundColor = [UIColor whiteColor];
+    _tableView.separatorColor = [UIColor redColor];
+    _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0,0,0,CGFLOAT_MIN)];
+    [_tableView registerClass:UITableViewCell.class forCellReuseIdentifier:@"defoCell"];
+    return _tableView;
+}
+
+/** ScrollView */
+- (UIScrollView *)scrollView {
+    if (!_scrollView) {
+        _scrollView = [[UIScrollView alloc] initWithFrame:WXMBase_Rect];
+        _scrollView.alwaysBounceVertical = YES;
+        _scrollView.alwaysBounceHorizontal = NO;
+        _scrollView.showsVerticalScrollIndicator = NO;
+        _scrollView.showsHorizontalScrollIndicator = NO;
+        _scrollView.delegate = self;
+    }
+    return _scrollView;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)table cellForRowAtIndexPath:(NSIndexPath*)index {
+    return [table dequeueReusableCellWithIdentifier:@"defoCell"];
+}
+
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 0;
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.scrollView endEditing:YES];
+}
+
+- (__kindof WXMBaseNetworkViewModel *)networkViewModel {
+    if (!_networkViewModel) {
+        _networkViewModel = [WXMBaseNetworkViewModel networkWithController:self];
+    }
+    return _networkViewModel;
+}
+
+- (__kindof WXMBaseTableViewModel *)tableViewViewModel {
+    if (!_tableViewViewModel) {
+        _tableViewViewModel = [WXMBaseTableViewModel tableVieWithController:self];
+    }
+    return _tableViewViewModel;
 }
 
 /** dataSource */
@@ -102,78 +175,8 @@ static char wxm_line;
     return _dataSource;
 }
 
-/** TableView */
-- (UITableView *)mainTableView {
-    if (!_mainTableView) {
-        _mainTableView = [[UITableView alloc] initWithFrame:WXMBase_Rect];
-        _mainTableView.rowHeight = 49;
-        _mainTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-        _mainTableView.tableFooterView = [UIView new];
-        _mainTableView.showsVerticalScrollIndicator = NO;
-        _mainTableView.separatorColor = [UIColor redColor];
-        _mainTableView.backgroundColor = [UIColor whiteColor];
-        _mainTableView.delegate = self;
-        _mainTableView.dataSource = self;
-        [_mainTableView registerClass:UITableViewCell.class forCellReuseIdentifier:@"defoCell"];
-    }
-    return _mainTableView;
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-/** 分组模式 */
-- (UITableView *)mainTableViewGrouped {
-    _mainTableView = nil;
-    _mainTableView = [[UITableView alloc] initWithFrame:WXMBase_Rect style:UITableViewStyleGrouped];
-    _mainTableView.rowHeight = 44;
-    _mainTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    _mainTableView.tableFooterView = [UIView new];
-    _mainTableView.showsVerticalScrollIndicator = NO;
-    _mainTableView.delegate = self;
-    _mainTableView.dataSource = self;
-    _mainTableView.backgroundColor = [UIColor whiteColor];
-    _mainTableView.separatorColor = [UIColor redColor];
-    _mainTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0,0,0,CGFLOAT_MIN)];
-    [_mainTableView registerClass:UITableViewCell.class forCellReuseIdentifier:@"defoCell"];
-    return _mainTableView;
-}
-
-
-/** ScrollView */
-- (UIScrollView *)mainScrollView {
-    if (!_mainScrollView) {
-        _mainScrollView = [[UIScrollView alloc] initWithFrame:WXMBase_Rect];
-        _mainScrollView.alwaysBounceVertical = YES;
-        _mainScrollView.alwaysBounceHorizontal = NO;
-        _mainScrollView.showsVerticalScrollIndicator = NO;
-        _mainScrollView.showsHorizontalScrollIndicator = NO;
-        _mainScrollView.delegate = self;
-    }
-    return _mainScrollView;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath*)index {
-    return [tableView dequeueReusableCellWithIdentifier:@"defoCell"];
-}
-
-- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    [self.mainScrollView endEditing:YES];
-}
-
-
-- (__kindof WXMBaseNetworkViewModel *)networkViewModel {
-    if (!_networkViewModel) {
-        _networkViewModel = [WXMBaseNetworkViewModel wxm_networkWithViewController:self];
-    }
-    return _networkViewModel;
-}
-
-- (__kindof WXMBaseTableViewModel *)tableViewViewModel {
-    if (!_tableViewViewModel) {
-        _tableViewViewModel = [WXMBaseTableViewModel wxm_tableVieWithViewController:self];
-    }
-    return _tableViewViewModel;
-}
 @end

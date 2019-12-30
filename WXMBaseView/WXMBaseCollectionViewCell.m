@@ -13,14 +13,14 @@
 /** 初始化 */
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        [self setupDefaultInterface];
+        [self initializeDefaultInterface];
         [self setupAutomaticLayout];
     }
     return self;
 }
 
 /** 初始化 */
-- (void)setupDefaultInterface {
+- (void)initializeDefaultInterface {
     
 }
 

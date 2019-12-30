@@ -6,9 +6,9 @@
 //  Copyright © 2019年 wxm. All rights reserved.
 //
 
-#import "WXMConmonBaseManager.h"
+#import "WXMBaseManager.h"
 
-@implementation WXMConmonBaseManager
+@implementation WXMBaseManager
 
 + (instancetype)sharedInstance {
     static id manager = nil;

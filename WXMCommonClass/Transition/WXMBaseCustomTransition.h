@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface WXMConmonBaseCustomTransition : NSObject<UIViewControllerAnimatedTransitioning>
+@interface WXMBaseCustomTransition : NSObject<UIViewControllerAnimatedTransitioning>
 
 /** 自定义转场动画 */
 typedef NS_ENUM(NSUInteger, WXMConmonBaseTransitionType) {

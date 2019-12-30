@@ -20,30 +20,27 @@ typedef NS_ENUM(NSUInteger, WXMErrorType) {
 
 @interface WXMBaseListViewController : WXMBaseViewController<WXMBaseErrorViewProtocol>
 
-/** 异常显示默认 full*/
+/** 异常显示默认full */
 @property (nonatomic, assign) WXMErrorType errorType;
 
 /** tableView */
-@property(nonatomic, strong, readwrite) UITableView *mainTableView;
-@property(nonatomic, strong) UIView *wxm_footControl;
+@property (nonatomic, strong, readwrite) UITableView *tableView;
+@property (nonatomic, strong, readwrite) UIView *footControl;
 
 /** viewmodel */
-@property (nonatomic, strong) WXMBaseNetworkViewModel *networkViewModel;
+@property (nonatomic, strong) __kindof WXMBaseNetworkViewModel *networkViewModel;
 
 /** 刷新控件 */
 @property (nonatomic, strong) WXMMJDIYHeader *listHeaderControl;
 @property (nonatomic, strong) MJRefreshAutoNormalFooter *listFootControl;
 
 /** 切换成分组模式 */
-- (UITableView *)mainTableViewGrouped;
+- (UITableView *)tableViewGrouped;
 
 /** 刷新 */
-- (void)wxm_pullRefreshHeaderControl;
-- (void)wxm_pullRefreshFootControl;
-- (void)wxm_endRefreshControl;
+- (void)pullRefreshHeaderControl;
+- (void)pullRefreshFootControl;
+- (void)endRefreshControl;
 
-/** rac */
-- (void)wxm_initializeRacRequest;
-- (void)wxm_setDefaultInterface:(WXMRequestType)type;
-- (NSArray *)wxm_networkWithDataSourceCache;
+- (void)setDefaultInterface:(WXMRequestType)type;
 @end

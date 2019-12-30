@@ -6,17 +6,17 @@
 //  Copyright © 2019年 wxm. All rights reserved.
 //
 #define WXMCommonW [UIScreen mainScreen].bounds.size.width
-#import "WXMCommonBaseTextFidleView.h"
+#import "WXMBaseTextFidleView.h"
 
-@interface WXMCommonBaseTextFidleView ()
+@interface WXMBaseTextFidleView ()
 @property (nonatomic, assign) WXMCommonTextFieldLineType lineType;
 @end
 
-@implementation WXMCommonBaseTextFidleView
+@implementation WXMBaseTextFidleView
 
 #pragma mark _________________________________ 自定义类型UI设置
 
-- (void)wxm_customDifferentInterface {
+- (void)customDifferentInterface {
     
     
 }
@@ -26,7 +26,7 @@
 
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
-    [self wxm_customDifferentInterface];
+    [self customDifferentInterface];
 }
 
 - (void)setKeyboardType:(UIKeyboardType)keyboardType {
@@ -41,11 +41,11 @@
 
 - (void)setPlaceholderColor:(UIColor *)placeholderColor {
     _placeholderColor = placeholderColor;
-    [self.textField setValue:placeholderColor forKeyPath:@"_placeholderLabel.textColor"];
+    //[self.textField setValue:placeholderColor forKeyPath:@"_placeholderLabel.textColor"];
 }
 
 /** 设置线条类型 */
-- (void)wxm_setLineType:(WXMCommonTextFieldLineType)lineType {
+- (void)setLineType:(WXMCommonTextFieldLineType)lineType {
     _lineType = lineType;
     CGFloat top = self.frame.size.height - 0.5;
     
@@ -121,7 +121,7 @@
         _textField.delegate = self;
         _textField.textColor = WXMCommonTitleColor;
         _textField.font = [UIFont systemFontOfSize:WXMCommonTitleFont];
-        [_textField setValue:WXMCommonPlaceColor forKeyPath:@"_placeholderLabel.textColor"];
+        //[_textField setValue:WXMCommonPlaceColor forKeyPath:@"_placeholderLabel.textColor"];
         _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         [_textField addTarget:self action:@selector(textFieldValueChanged:) forControlEvents:UIControlEventEditingChanged];
     }
@@ -163,19 +163,19 @@
 #pragma mark _________________________________textField delegate
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
-    if (_delegate && [_delegate respondsToSelector:@selector(wxm_textFieldShouldClear:)]) {
-        return [self.delegate wxm_textFieldShouldClear:textField];
+    if (_delegate && [_delegate respondsToSelector:@selector(wt_textFieldShouldClear:)]) {
+        return [self.delegate wt_textFieldShouldClear:textField];
     }
     
-    if (_delegate && [_delegate respondsToSelector:@selector(wxm_textFieldValueChanged:)]) {
-        [_delegate wxm_textFieldValueChanged:textField];
+    if (_delegate && [_delegate respondsToSelector:@selector(wt_textFieldValueChanged:)]) {
+        [_delegate wt_textFieldValueChanged:textField];
     }
     return YES;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if (_delegate && [_delegate respondsToSelector:@selector(wxm_textFieldShouldReturn:)]) {
-        return [_delegate wxm_textFieldShouldReturn:textField];
+    if (_delegate && [_delegate respondsToSelector:@selector(wt_textFieldShouldReturn:)]) {
+        return [_delegate wt_textFieldShouldReturn:textField];
     }
     return YES;
 }
@@ -187,8 +187,8 @@
 }
 
 - (void)textFieldValueChanged:(UITextField *)textField {
-    if (_delegate && [_delegate respondsToSelector:@selector(wxm_textFieldValueChanged:)]) {
-        [_delegate wxm_textFieldValueChanged:textField];
+    if (_delegate && [_delegate respondsToSelector:@selector(wt_textFieldValueChanged:)]) {
+        [_delegate wt_textFieldValueChanged:textField];
     }
 }
 @end

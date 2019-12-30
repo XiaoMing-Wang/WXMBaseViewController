@@ -9,7 +9,6 @@
 #import "WXMBaseTableViewModel.h"
 @interface WXMBaseTableViewModel ()
 @property (nonatomic, copy) NSString *ident;
-@property (nonatomic, strong, readwrite) NSMutableArray *dataSource;
 @property (nonatomic, weak, readwrite) UITableView *tableView;
 @property (nonatomic, weak, readwrite) UIViewController<WXMTableViewModelProtocol> *viewController;
 @end
@@ -17,19 +16,19 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
-+ (instancetype)wxm_tableVieWithViewController:(UIViewController <WXMTableViewModelProtocol>* )controller {
++ (instancetype)tableVieWithController:(UIViewController<WXMTableViewModelProtocol>*)controller {
     WXMBaseTableViewModel *tableViewModel = [self new];
     tableViewModel.viewController = controller;
     return tableViewModel;
 }
 
-- (void)wxm_setTableView:(UITableView *)tableView cellClass:(__nullable Class)cellClass {
-    [self wxm_setTableView:tableView dataSource:@[].mutableCopy cellClass:cellClass];
+- (void)setTableView:(UITableView *)tableView cellClass:(__nullable Class)cellClass {
+    [self setTableView:tableView dataSource:@[].mutableCopy cellClass:cellClass];
 }
 
-- (void)wxm_setTableView:(UITableView *)tableView
-              dataSource:(__kindof NSArray * )dataSource
-               cellClass:(__nullable Class)cellClass {
+- (void)setTableView:(UITableView *)tableView
+          dataSource:(__kindof NSArray * )dataSource
+           cellClass:(__nullable Class)cellClass {
     
     self.ident = @"cell";
     self.dataSource = dataSource;
@@ -56,87 +55,87 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    SEL sel = @selector(wxm_tableViewHeightForRowAtIndexPath:);
+    SEL sel = @selector(wt_tableViewHeightForRowAtIndexPath:);
     if (self.viewController && [self.viewController respondsToSelector:sel]) {
-        return [self.viewController wxm_tableViewHeightForRowAtIndexPath:indexPath];
+        return [self.viewController wt_tableViewHeightForRowAtIndexPath:indexPath];
     }
-    return 0;
+    return tableView.rowHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    SEL sel = @selector(wxm_tableViewForHeaderHeightInSection:);
+    SEL sel = @selector(wt_tableViewForHeaderHeightInSection:);
     if (self.viewController && [self.viewController respondsToSelector:sel]) {
-        return [self.viewController wxm_tableViewForHeaderHeightInSection:section];
+        return [self.viewController wt_tableViewForHeaderHeightInSection:section];
     }
     return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    SEL sel = @selector(wxm_tableViewForFooterHeightInSection:);
+    SEL sel = @selector(wt_tableViewForFooterHeightInSection:);
     if (self.viewController && [self.viewController respondsToSelector:sel]) {
-        return [self.viewController wxm_tableViewForFooterHeightInSection:section];
+        return [self.viewController wt_tableViewForFooterHeightInSection:section];
     }
     return 0;
 }
 
-- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    SEL sel = @selector(wxm_tableViewForHeaderInSection:);
+- (nullable UIView *)tableView:(UITableView *)table viewForHeaderInSection:(NSInteger)section {
+    SEL sel = @selector(wt_tableViewForHeaderInSection:);
     if (self.viewController && [self.viewController respondsToSelector:sel]) {
-        return [self.viewController wxm_tableViewForHeaderInSection:section];
+        return [self.viewController wt_tableViewForHeaderInSection:section];
     }
     return nil;
 }
 
-- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    SEL sel = @selector(wxm_tableViewForFooterInSection:);
+- (nullable UIView *)tableView:(UITableView *)table viewForFooterInSection:(NSInteger)section {
+    SEL sel = @selector(wt_tableViewForFooterInSection:);
     if (self.viewController && [self.viewController respondsToSelector:sel]) {
-        return [self.viewController wxm_tableViewForFooterInSection:section];
+        return [self.viewController wt_tableViewForFooterInSection:section];
     }
     return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    SEL sel = @selector(wxm_tableViewDidSelectRowAtIndexPath:);
+    SEL sel = @selector(wt_tableViewDidSelectRowAtIndexPath:);
     if (self.viewController && [self.viewController respondsToSelector:sel]) {
-        [self.viewController wxm_tableViewDidSelectRowAtIndexPath:indexPath];
+        [self.viewController wt_tableViewDidSelectRowAtIndexPath:indexPath];
     }
 }
 
 #pragma mark -------------------------------- scrollView delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    SEL sel = @selector(wxm_scrollViewDidScroll);
+    SEL sel = @selector(wt_scrollViewDidScroll);
     if (self.viewController && [self.viewController respondsToSelector:sel]) {
-        [self.viewController wxm_scrollViewDidScroll];
+        [self.viewController wt_scrollViewDidScroll];
     }
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    SEL sel = @selector(wxm_scrollViewWillBeginDragging);
+    SEL sel = @selector(wt_scrollViewWillBeginDragging);
     if (self.viewController && [self.viewController respondsToSelector:sel]) {
-        [self.viewController wxm_scrollViewWillBeginDragging];
+        [self.viewController wt_scrollViewWillBeginDragging];
     }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    SEL sel = @selector(wxm_scrollViewDidEndDraggingWithDecelerate:);
+    SEL sel = @selector(wt_scrollViewDidEndDraggingWithDecelerate:);
     if (self.viewController && [self.viewController respondsToSelector:sel]) {
-        [self.viewController wxm_scrollViewDidEndDraggingWithDecelerate:decelerate];
+        [self.viewController wt_scrollViewDidEndDraggingWithDecelerate:decelerate];
     }
 }
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
-    SEL sel = @selector(wxm_scrollViewWillBeginDecelerating);
+    SEL sel = @selector(wt_scrollViewWillBeginDecelerating);
     if (self.viewController && [self.viewController respondsToSelector:sel]) {
-        [self.viewController wxm_scrollViewWillBeginDecelerating];
+        [self.viewController wt_scrollViewWillBeginDecelerating];
     }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    SEL sel = @selector(wxm_scrollViewDidEndDecelerating);
+    SEL sel = @selector(wt_scrollViewDidEndDecelerating);
     if (self.viewController && [self.viewController respondsToSelector:sel]) {
-        [self.viewController wxm_scrollViewDidEndDecelerating];
+        [self.viewController wt_scrollViewDidEndDecelerating];
     }
 }
 #pragma clang diagnostic pop

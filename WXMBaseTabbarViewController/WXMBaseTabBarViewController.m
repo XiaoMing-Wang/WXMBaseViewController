@@ -66,15 +66,15 @@ NSString *const WXMTabBarDoubleClick = @"WXMTabBarDoubleClick";
              ];
 }
 
-- (void)tabBarController:(UITabBarController *)tabBarController
- didSelectViewController:(UIViewController *)viewController {
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
     
     NSDate *date = [[NSDate alloc] init];
     if (tabBarController.selectedIndex == _currentIndex &&
         (date.timeIntervalSince1970 - _lastDate.timeIntervalSince1970 < 0.4)) {
-        UINavigationController * navigationController = tabBarController.selectedViewController;
-        NSString *classString = NSStringFromClass(navigationController.visibleViewController.class);
-        [[NSNotificationCenter defaultCenter] postNotificationName:WXMTabBarDoubleClick object:classString];
+        UINavigationController *navigation = tabBarController.selectedViewController;
+        NSString *classString = NSStringFromClass(navigation.visibleViewController.class);
+        NSNotificationCenter *kCenter = [NSNotificationCenter defaultCenter];
+        [kCenter postNotificationName:WXMTabBarDoubleClick object:classString];
     }
     if (tabBarController.selectedIndex == _currentIndex) _lastDate = date;
     _currentIndex = tabBarController.selectedIndex;

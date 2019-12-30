@@ -11,7 +11,7 @@
 @interface WXMBaseCollectionViewCell : UICollectionViewCell
 
 /** 初始化 */
-- (void)setupDefaultInterface;
+- (void)initializeDefaultInterface;
 
 /** 布局 */
 - (void)setupAutomaticLayout;

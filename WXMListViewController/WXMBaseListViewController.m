@@ -8,91 +8,71 @@
 #import "WXMBaseListViewController.h"
 
 @interface WXMBaseListViewController ()
-@property(nonatomic, assign) BOOL wxm_listGrouped;
+@property(nonatomic, assign) BOOL listGrouped;
 @end
 
 @implementation WXMBaseListViewController
-@synthesize mainTableView = _mainTableView;
+@synthesize tableView = _tableView;
 @synthesize networkViewModel = _networkViewModel;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 }
 
-/** 子类需要调用这个方法 初始化回调 Command*/
-/** 回调 Command初始化  */
-- (void)wxm_initializeRacRequest {
-    [self.networkViewModel.requestCommand.executionSignals.switchToLatest subscribeNext:^(id x) {
-        NSLog(@"刷新TableView");
-        WXMRequestType errorCode = [x integerValue];
-        if (errorCode == WXMRequestTypeSuccess || errorCode == WXMRequestTypeLoadCache)  {
-            [self.mainTableView reloadData];
-        }
-        [self wxm_endRefreshControl];
-        [self wxm_setDefaultInterface:errorCode];
-    }];
-}
-
-/** 判断缓存 */
-- (NSArray *)wxm_networkWithDataSourceCache {
-    NSMutableArray * cacheArray = nil;
-    if (cacheArray.count == 0 || !cacheArray) [self wxm_showLoadingWithContentView];
-    return cacheArray;
-}
-
 /** 显示菊花 */
-- (void)wxm_showLoadingWithContentView {
-    UIView * supView = _errorType ? self.wxm_footControl : self.mainTableView;
-    if ([self respondsToSelector:@selector(wxm_showloadingWithSupView:)]) {
-        [self wxm_showloadingWithSupView:supView];
+- (void)showLoadingWithContentView {
+    UIView * supView = _errorType ? self.footControl : self.tableView;
+    if ([self respondsToSelector:@selector(showloadingWithSupView:)]) {
+        [self showloadingWithSupView:supView];
     }
 }
 
-- (void)wxm_hiddenLoadingWithContentView {
-    if ([self respondsToSelector:@selector(wxm_hiddenLoadingView)]) {
-        [self wxm_hiddenLoadingView];
+/** 隐藏菊花 */
+- (void)hiddenLoadingWithContentView {
+    if ([self respondsToSelector:@selector(hiddenLoadingView)]) {
+        [self hiddenLoadingView];
     }
 }
 
 /** 头部刷新 */
-- (void)wxm_pullRefreshHeaderControl {
-    self.mainTableView.scrollEnabled = NO;
-    [self.networkViewModel.requestCommand execute:@(WXMRefreshHeaderControl)];
+- (void)pullRefreshHeaderControl {
+    self.tableView.scrollEnabled = NO;
+    [self.networkViewModel pullRefreshHeaderControl];
 }
 
 /** 尾部加载 */
-- (void)wxm_pullRefreshFootControl {
-    [self.networkViewModel.requestCommand execute:@(WXMRefreshFootControl)];
+- (void)pullRefreshFootControl {
+    [self.networkViewModel pullRefreshFootControl];
 }
 
 /** 结束刷新 */
-- (void)wxm_endRefreshControl {
-    [self.mainTableView.mj_header endRefreshing];
-    [self.mainTableView.mj_footer endRefreshing];
+- (void)endRefreshControl {
+    [self.tableView.mj_header endRefreshing];
+    [self.tableView.mj_footer endRefreshing];
     dispatch_queue_t queue = dispatch_get_main_queue();
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.27f * NSEC_PER_SEC)),queue, ^{
-        self.mainTableView.mj_footer.hidden = (self.currentDataSoure.count == 0);
-        self.mainTableView.scrollEnabled = YES;
+        self.tableView.mj_footer.hidden = (self.currentDataSoure.count == 0);
+        self.tableView.scrollEnabled = YES;
     });
 }
 
 /** 缺省图 */
-- (void)wxm_setDefaultInterface:(WXMRequestType)requestResult {
-    [self wxm_hiddenLoadingWithContentView];
+- (void)setDefaultInterface:(WXMRequestType)requestResult {
+    [self hiddenLoadingWithContentView];
     
     /** footView */
-    BOOL impleShow = [self respondsToSelector:@selector(wxm_showErrorView:protocolType:)];
-    BOOL impRemove = [self respondsToSelector:@selector(wxm_removeErrorView)];
+    BOOL impleShow = [self respondsToSelector:@selector(showErrorView:protocolType:)];
+    BOOL impRemove = [self respondsToSelector:@selector(removeErrorView)];
     if (self.networkViewModel.refreshType == WXMRefreshFootControl) {
-        self.mainTableView.mj_footer.hidden = NO;
-        if (impRemove) [self wxm_removeErrorView];
+        self.tableView.mj_footer.hidden = NO;
+        if (impRemove) [self removeErrorView];
         return;
     }
 
     /** header */
-    UIView * supView = self.mainTableView;
+    UIView *supView = self.tableView;
     WXMErrorStatusProtocolType errTy = WXMErrorProtocolTypeNormal;
-    self.mainTableView.mj_footer.hidden = (self.networkViewModel.dataSource.count == 0);
+    self.tableView.mj_footer.hidden = (self.networkViewModel.dataSource.count == 0);
     if (self.currentDataSoure.count == 0) errTy = WXMErrorProtocolTypeNorecord;
     if (self.currentDataSoure.count == 0 &&
         (requestResult == WXMRequestTypeErrorCode || requestResult == WXMRequestTypeFail)){
@@ -100,10 +80,10 @@
     }
     
     if (self.errorType == WXMErrorType_footControl) {
-        self.mainTableView.tableFooterView = self.wxm_footControl;
-        supView = self.wxm_footControl;
+        self.tableView.tableFooterView = self.footControl;
+        supView = self.footControl;
     }
-    if (impleShow) [self wxm_showErrorView:supView protocolType:errTy];
+    if (impleShow) [self showErrorView:supView protocolType:errTy];
 }
 
 /** 设置errorType */
@@ -111,34 +91,36 @@
     _errorType = errorType;
     if (errorType == WXMErrorType_footControl) {
         CGFloat errorControlH = 0;
-        if ([self respondsToSelector:@selector(wxm_errorControlMinHeight)]) {
-            errorControlH = self.wxm_errorControlMinHeight;
+        if ([self respondsToSelector:@selector(errorControlMinHeight)]) {
+            errorControlH = self.errorControlMinHeight;
         }
         
-        CGFloat headerHeight = self.mainTableView.tableHeaderView.frame.size.height;
-        CGFloat footHeight = self.mainTableView.frame.size.height - headerHeight;
+        CGFloat headerHeight = self.tableView.tableHeaderView.frame.size.height;
+        CGFloat footHeight = self.tableView.frame.size.height - headerHeight;
         CGFloat realH = MAX(errorControlH, footHeight);
-        self.wxm_footControl = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WXMBase_Width, realH)];
-        self.wxm_footControl.backgroundColor = [UIColor redColor];
-        self.mainTableView.tableFooterView = self.wxm_footControl;
+        self.footControl = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WXMBase_Width, realH)];
+        self.footControl.backgroundColor = [UIColor redColor];
+        self.tableView.tableFooterView = self.footControl;
     }
 }
 
 #pragma mark -------------------------------- tableView delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (_wxm_listGrouped) return self.currentDataSoure.count;
+    if (_listGrouped) return self.currentDataSoure.count;
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (_wxm_listGrouped) return 1;
+    if (_listGrouped) return 1;
     return self.currentDataSoure.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString * iden = NSStringFromClass(self.class);
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:iden forIndexPath:indexPath];
+    UITableViewCell *cell = nil;
+    cell = [tableView dequeueReusableCellWithIdentifier:iden forIndexPath:indexPath];
     return cell;
 }
 
@@ -148,44 +130,45 @@
 
 #pragma mark -------------------------------- lazy
 
-- (UITableView *)mainTableView {
-    if (!_mainTableView) {
+- (UITableView *)tableView {
+    if (!_tableView) {
         CGRect rect = {0, WXMBase_BarHeight, WXMBase_Width, WXMBase_Height - WXMBase_BarHeight};
         NSString * iden = NSStringFromClass(self.class);
-        _mainTableView = [[UITableView alloc] initWithFrame:rect];
-        _mainTableView.rowHeight = 49;
-        _mainTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-        _mainTableView.tableFooterView = [UIView new];
-        _mainTableView.showsVerticalScrollIndicator = NO;
-        _mainTableView.delegate = self;
-        _mainTableView.dataSource = self;
-        _mainTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
-        [_mainTableView registerClass:UITableViewCell.class forCellReuseIdentifier:iden];
+        _tableView = [[UITableView alloc] initWithFrame:rect];
+        _tableView.rowHeight = 49;
+        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        _tableView.tableFooterView = [UIView new];
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
+        [_tableView registerClass:UITableViewCell.class forCellReuseIdentifier:iden];
     }
-    return _mainTableView;
+    return _tableView;
 }
 
-- (UITableView *)mainTableViewGrouped {
-    if (!_mainTableView) {
+- (UITableView *)tableViewGrouped {
+    if (!_tableView) {
         NSString * iden = NSStringFromClass(self.class);
         CGRect rect = {0, WXMBase_BarHeight, WXMBase_Width, WXMBase_Height - WXMBase_BarHeight};
-        _mainTableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStyleGrouped];
-        _mainTableView.rowHeight = 49;
-        _mainTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-        _mainTableView.tableFooterView = [UIView new];
-        _mainTableView.showsVerticalScrollIndicator = NO;
-        _mainTableView.delegate = self;
-        _mainTableView.dataSource = self;
-        _mainTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
-        [_mainTableView registerClass:UITableViewCell.class forCellReuseIdentifier:iden];
+        _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStyleGrouped];
+        _tableView.rowHeight = 49;
+        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        _tableView.tableFooterView = [UIView new];
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
+        [_tableView registerClass:UITableViewCell.class forCellReuseIdentifier:iden];
     }
-    return _mainTableView;
+    return _tableView;
 }
 
 - (WXMMJDIYHeader *)listHeaderControl {
     if (!_listHeaderControl) {
         SEL sel = NSSelectorFromString(@"wxm_pullRefreshHeaderControl");
-        _listHeaderControl = [WXMMJDIYHeader headerWithRefreshingTarget:self refreshingAction:sel];
+        _listHeaderControl =
+        [WXMMJDIYHeader headerWithRefreshingTarget:self refreshingAction:sel];
     }
     return _listHeaderControl;
 }
@@ -193,7 +176,8 @@
 - (MJRefreshAutoNormalFooter *)listFootControl {
     if (!_listFootControl) {
         SEL sel = NSSelectorFromString(@"wxm_pullRefreshFootControl");
-        _listFootControl = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:sel];
+        _listFootControl =
+        [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:sel];
         _listFootControl.hidden = YES;
     }
     return _listFootControl;
@@ -201,7 +185,7 @@
 
 - (__kindof WXMBaseNetworkViewModel *)networkViewModel {
     if (!_networkViewModel) {
-        _networkViewModel = [WXMBaseNetworkViewModel wxm_networkWithViewController:self];
+        _networkViewModel = [WXMBaseNetworkViewModel networkWithController:self];
     }
     return _networkViewModel;
 }
