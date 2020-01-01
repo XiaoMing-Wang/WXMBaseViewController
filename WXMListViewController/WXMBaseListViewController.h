@@ -11,6 +11,7 @@
 
 /** 错误界面大小类型 */
 typedef NS_ENUM(NSUInteger, WXMErrorType) {
+    
     /** 全屏 */
     WXMErrorType_fullControl = 0,
     

@@ -166,7 +166,7 @@
 
 - (WXMMJDIYHeader *)listHeaderControl {
     if (!_listHeaderControl) {
-        SEL sel = NSSelectorFromString(@"wxm_pullRefreshHeaderControl");
+        SEL sel = @selector(pullRefreshHeaderControl);
         _listHeaderControl =
         [WXMMJDIYHeader headerWithRefreshingTarget:self refreshingAction:sel];
     }
@@ -175,7 +175,7 @@
 
 - (MJRefreshAutoNormalFooter *)listFootControl {
     if (!_listFootControl) {
-        SEL sel = NSSelectorFromString(@"wxm_pullRefreshFootControl");
+        SEL sel = @selector(pullRefreshFootControl);
         _listFootControl =
         [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:sel];
         _listFootControl.hidden = YES;

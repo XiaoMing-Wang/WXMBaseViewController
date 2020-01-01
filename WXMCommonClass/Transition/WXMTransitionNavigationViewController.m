@@ -39,11 +39,9 @@
                           toViewController:(UIViewController *)toVC {
     
     if (operation == UINavigationControllerOperationPush) {
-        
-        
+                
     } else if (operation == UINavigationControllerOperationPop) {
-        
-        
+                
     }
     return nil;
 }

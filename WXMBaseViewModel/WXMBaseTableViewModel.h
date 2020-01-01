@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (CGFloat)wt_tableViewForHeaderHeightInSection:(NSInteger)section;
 - (CGFloat)wt_tableViewForFooterHeightInSection:(NSInteger)section;
 - (CGFloat)wt_tableViewHeightForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)wt_tableCustomEvent:(NSString *)event object:(id)object;
 
 - (void)wt_tableViewDidSelectRowAtIndexPath:(NSIndexPath *)index;
 - (void)wt_scrollViewDidScroll;
