@@ -119,6 +119,14 @@
     return _textField;
 }
 
+- (UITextView *)textView {
+    if (!_textView) {
+        _textView = [[UITextView alloc] init];
+        _textView.delegate = self;
+    }
+    return _textView;
+}
+
 - (CALayer *)line {
     if (!_line) {
         _line = [[CALayer alloc] init];
@@ -153,6 +161,12 @@
 
 #pragma mark _________________________________textField delegate
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    if ([self.delegate respondsToSelector:@selector(wt_textFieldDidBeginEditing:)]) {
+        [self.delegate wt_textFieldDidBeginEditing:textField];
+    }
+}
+
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
     if ([self.delegate respondsToSelector:@selector(wt_textFieldShouldClear:)]) {
         return [self.delegate wt_textFieldShouldClear:textField];
@@ -181,6 +195,41 @@
 - (void)textFieldValueChanged:(UITextField *)textField {
     if ([self.delegate respondsToSelector:@selector(wt_textFieldValueChanged:)]) {
         [self.delegate wt_textFieldValueChanged:textField];
+    }
+}
+
+#pragma mark _________________________________textView delegate
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    if ([self.delegate respondsToSelector:@selector(wt_textViewDidBeginEditing:)]) {
+        [self.delegate wt_textViewDidBeginEditing:textView];
+    }
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@""]) return YES;
+    if (self.maxCharacter == 0) return YES;
+    if (text.length >= self.maxCharacter) return NO;
+    if([text isEqualToString:@"\n"]){
+        if ([self.delegate respondsToSelector:@selector(wt_textViewShouldReturn:)]) {
+            [self.delegate wt_textViewShouldReturn:textView];
+        }
+    }
+    return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
+    if ([self.delegate respondsToSelector:@selector(wt_textViewValueChanged:)]) {
+        [self.delegate wt_textViewValueChanged:textView];
+    }
+    
+    /** 自适应高度 */
+    if (self.adaptiveHeight) {
+        CGFloat tfWidth = textView.frame.size.width;
+        float textViewHeight = [textView sizeThatFits:CGSizeMake(tfWidth, MAXFLOAT)].height;
+        CGRect frame = textView.frame;
+        frame.size.height = textViewHeight;
+        textView.frame = frame;
     }
 }
 @end
