@@ -106,9 +106,6 @@ static char wxmLine;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.separatorColor = [UIColor redColor];
         _tableView.backgroundColor = [UIColor whiteColor];
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
-        [_tableView registerClass:UITableViewCell.class forCellReuseIdentifier:@"defoCell"];
     }
     return _tableView;
 }
@@ -117,16 +114,13 @@ static char wxmLine;
 - (UITableView *)tableViewGrouped {
     _tableView = nil;
     _tableView = [[UITableView alloc] initWithFrame:WXMBase_Rect style:UITableViewStyleGrouped];
-    _tableView.rowHeight = 44;
+    _tableView.rowHeight = 49;
     _tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     _tableView.tableFooterView = [UIView new];
     _tableView.showsVerticalScrollIndicator = NO;
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
     _tableView.backgroundColor = [UIColor whiteColor];
     _tableView.separatorColor = [UIColor redColor];
     _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0,0,0,CGFLOAT_MIN)];
-    [_tableView registerClass:UITableViewCell.class forCellReuseIdentifier:@"defoCell"];
     return _tableView;
 }
 
@@ -143,31 +137,40 @@ static char wxmLine;
     return _scrollView;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)table cellForRowAtIndexPath:(NSIndexPath*)index {
-    return [table dequeueReusableCellWithIdentifier:@"defoCell"];
-}
-
-- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
-}
-
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    [self.scrollView endEditing:YES];
+    if (self.scrollView) [self.scrollView endEditing:YES];
+}
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+- (__kindof WXMBaseTableViewModel *)tableViewViewModel {
+    if (!_tableViewViewModel) {
+        SEL sel = @selector(tableVieWithController:);
+        _tableViewViewModel = [self.tableViewViewModelClass performSelector:sel withObject:self];
+    }
+    return _tableViewViewModel;
 }
 
 - (__kindof WXMBaseNetworkViewModel *)networkViewModel {
     if (!_networkViewModel) {
-        _networkViewModel = [WXMBaseNetworkViewModel networkWithController:self];
+        SEL sel = @selector(networkWithController:);
+        _networkViewModel = [self.tableViewViewModelClass performSelector:sel withObject:self];
     }
     return _networkViewModel;
 }
 
-- (__kindof WXMBaseTableViewModel *)tableViewViewModel {
-    if (!_tableViewViewModel) {
-        _tableViewViewModel = [WXMBaseTableViewModel tableVieWithController:self];
-    }
-    return _tableViewViewModel;
+/** viewmodel类 */
+- (Class)tableViewViewModelClass {
+    return WXMBaseTableViewModel.class;
 }
+
+/** network类 */
+- (Class)networkViewModelClass {
+    return WXMBaseNetworkViewModel.class;
+}
+
+#pragma clang diagnostic pop
 
 /** dataSource */
 - (NSMutableArray *)dataSource {

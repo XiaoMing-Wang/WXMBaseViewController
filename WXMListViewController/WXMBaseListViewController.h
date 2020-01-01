@@ -29,7 +29,7 @@ typedef NS_ENUM(NSUInteger, WXMErrorType) {
 @property (nonatomic, strong, readwrite) UIView *footControl;
 
 /** viewmodel */
-@property (nonatomic, strong) __kindof WXMBaseNetworkViewModel *networkViewModel;
+@property (nonatomic, strong) WXMBaseNetworkViewModel *networkViewModel;
 
 /** 刷新控件 */
 @property (nonatomic, strong) WXMMJDIYHeader *listHeaderControl;
@@ -42,6 +42,5 @@ typedef NS_ENUM(NSUInteger, WXMErrorType) {
 - (void)pullRefreshHeaderControl;
 - (void)pullRefreshFootControl;
 - (void)endRefreshControl;
-
 - (void)setDefaultInterface:(WXMRequestType)type;
 @end

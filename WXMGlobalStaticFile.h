@@ -58,30 +58,53 @@ static inline UIColor *WXM_textFieldColor() {
 
 #pragma mark ____________________________________ 字体
 
-static inline UIFont *YDO_font24() {
+static inline UIFont *WXM_font24() {
     return [UIFont systemFontOfSize:24];
 }
-static inline UIFont *YDO_font20() {
+static inline UIFont *WXM_font20() {
     return [UIFont systemFontOfSize:20];
 }
-static inline UIFont *YDO_font18() {
+static inline UIFont *WXM_font18() {
     return [UIFont systemFontOfSize:18];
 }
-static inline UIFont *YDO_font16() {
+static inline UIFont *WXM_font16() {
     return [UIFont systemFontOfSize:16];
 }
-static inline UIFont *YDO_font14() {
+static inline UIFont *WXM_font14() {
     return [UIFont systemFontOfSize:14];
 }
-static inline UIFont *YDO_font12() {
+static inline UIFont *WXM_font12() {
     return [UIFont systemFontOfSize:12];
 }
-static inline UIFont *YDO_font11() {
+static inline UIFont *WXM_font11() {
     return [UIFont systemFontOfSize:11];
 }
-static inline UIFont *YDO_font8() {
+static inline UIFont *WXM_font8() {
     return [UIFont systemFontOfSize:8];
 }
 
-
+static inline UIFont *WXM_bfont24() {
+    return [UIFont boldSystemFontOfSize:24];
+}
+static inline UIFont *WXM_bfont20() {
+    return [UIFont boldSystemFontOfSize:20];
+}
+static inline UIFont *WXM_bfont18() {
+    return [UIFont boldSystemFontOfSize:18];
+}
+static inline UIFont *WXM_bfont16() {
+    return [UIFont boldSystemFontOfSize:16];
+}
+static inline UIFont *WXM_bfont14() {
+    return [UIFont boldSystemFontOfSize:14];
+}
+static inline UIFont *WXM_bfont12() {
+    return [UIFont boldSystemFontOfSize:12];
+}
+static inline UIFont *WXM_bfont11() {
+    return [UIFont boldSystemFontOfSize:11];
+}
+static inline UIFont *WXM_bfont8() {
+    return [UIFont boldSystemFontOfSize:8];
+}
 #endif /* WXMGlobalStaticFile_h */

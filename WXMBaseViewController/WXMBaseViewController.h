@@ -16,10 +16,10 @@
 <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, WXMTableViewModelProtocol>
 
 @property (nonatomic, assign) BOOL hiddenNavigationLine;
-@property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIScrollView *scrollView;
 
+@property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) WXMBaseNetworkViewModel *networkViewModel;
 @property (nonatomic, strong) WXMBaseTableViewModel *tableViewViewModel;
 
@@ -40,6 +40,12 @@
 
 /** 初始化 */
 - (void)initializeDefaultInterface;
+
+/** viewmodel类 */
+- (Class)tableViewViewModelClass;
+
+/** network类 */
+- (Class)networkViewModelClass;
 
 @end
 
