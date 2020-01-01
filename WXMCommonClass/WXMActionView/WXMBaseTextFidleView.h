@@ -6,18 +6,9 @@
 //  Copyright © 2019年 wxm. All rights reserved.
 //
 
-#define WXMCommonTitleFont 16
-#define WXMCommonDetailFont 14
-#define WXMCommonSubDetailFont 12
-#define WXMCommonLineX 16
-
-#define WXMCommonTitleColor [UIColor blackColor]
-#define WXMCommonDetailColor [UIColor blackColor]
-#define WXMCommonSubDetailColor [UIColor blackColor]
-#define WXMCommonPlaceColor [UIColor lightGrayColor]
-#define WXMCommonLineColor [UIColor grayColor]
-
 #import <UIKit/UIKit.h>
+#import "WXMActionCconfiguration.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol WXMCommonTextFieldDelegate <NSObject>
@@ -26,14 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)wt_textFieldShouldReturn:(UITextField *)textField;
 - (void)wt_textFieldValueChanged:(UITextField *)textField;
 @end
-
-/** 线条类型 */
-typedef NS_ENUM(NSUInteger, WXMCommonTextFieldLineType) {
-    WXMCommonTextFieldLineTypeNone = 0,
-    WXMCommonTextFieldLineTypeTop,
-    WXMCommonTextFieldLineTypeBottom,
-    WXMCommonTextFieldLineTypeBoth,
-};
 
 @interface WXMBaseTextFidleView : UIView <UITextFieldDelegate>
 

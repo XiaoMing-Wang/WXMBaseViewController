@@ -5,7 +5,7 @@
 //  Created by wq on 2019/6/16.
 //  Copyright © 2019年 wxm. All rights reserved.
 //
-#define WXMCommonWidth [UIScreen mainScreen].bounds.size.width
+
 #import "WXMBaseThemeButton.h"
 
 @interface WXMBaseThemeButton ()
@@ -19,7 +19,7 @@
 + (WXMBaseThemeButton *)themeButtonWithTitle:(NSString *)title {
     WXMBaseThemeButton *themeButton = [WXMBaseThemeButton new];
     [themeButton setTitle:title forState:UIControlStateNormal];
-    [themeButton wxm_setDefaultThemeInterface];
+    [themeButton setDefaultThemeInterface];
     return themeButton;
 }
 
@@ -29,7 +29,7 @@
     return themeButton;
 }
 
-- (void)wxm_setDefaultThemeInterface {
+- (void)setDefaultThemeInterface {
     CGRect frame = (CGRect){WXMThemeMargin,0,WXMCommonWidth-2*WXMThemeMargin,WXMThemeHeight};
     UIImage *backgroundImage = [self imageFromColor:WXMThemeBackgroundColor];
     [self setBackgroundImage:backgroundImage forState:UIControlStateNormal];

@@ -14,15 +14,8 @@
 
 @implementation WXMBaseTextFidleView
 
-#pragma mark _________________________________ 自定义类型UI设置
-
 - (void)customDifferentInterface {
-    
-    
 }
-
-
-#pragma mark _________________________________ SET
 
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
@@ -41,42 +34,41 @@
 
 - (void)setPlaceholderColor:(UIColor *)placeholderColor {
     _placeholderColor = placeholderColor;
-    //[self.textField setValue:placeholderColor forKeyPath:@"_placeholderLabel.textColor"];
 }
 
 /** 设置线条类型 */
 - (void)setLineType:(WXMCommonTextFieldLineType)lineType {
     _lineType = lineType;
-    CGFloat top = self.frame.size.height - 0.5;
+    CGFloat h = 0.75;
+    CGFloat top = self.frame.size.height - h;
     
     switch (lineType) {
         case WXMCommonTextFieldLineTypeNone:
-            if (_line)[_line removeFromSuperlayer];
-            if (_underLine)[_underLine removeFromSuperlayer];
+            if (_line) [_line removeFromSuperlayer];
+            if (_underLine) [_underLine removeFromSuperlayer];
             break;
             
         case WXMCommonTextFieldLineTypeTop:
-            self.line.frame = CGRectMake(WXMCommonLineX, 0, WXMCommonW - WXMCommonLineX , 0.5);
+            self.line.frame = CGRectMake(WXMCommonLineX, 0, WXMCommonW - WXMCommonLineX , h);
             [self.layer addSublayer:self.line];
             if (_underLine)[_underLine removeFromSuperlayer];
             break;
             
         case WXMCommonTextFieldLineTypeBottom:
-            if (_line)[_line removeFromSuperlayer];
-            self.underLine.frame = CGRectMake(WXMCommonLineX, top, WXMCommonW-WXMCommonLineX,0.5);
+            if (_line) [_line removeFromSuperlayer];
+            self.underLine.frame = CGRectMake(WXMCommonLineX, top, WXMCommonW-WXMCommonLineX,h);
             [self.layer addSublayer:self.underLine];
             break;
             
         case WXMCommonTextFieldLineTypeBoth:
-            self.line.frame = CGRectMake(WXMCommonLineX, 0, WXMCommonW - WXMCommonLineX , 0.5);
-            self.underLine.frame = CGRectMake(WXMCommonLineX, top, WXMCommonW-WXMCommonLineX,0.5);
+            self.line.frame = CGRectMake(WXMCommonLineX, 0, WXMCommonW - WXMCommonLineX , h);
+            self.underLine.frame = CGRectMake(WXMCommonLineX, top, WXMCommonW-WXMCommonLineX,h);
             [self.layer addSublayer:self.line];
             [self.layer addSublayer:self.underLine];
             break;
             
         default: break;
     }
-    
 }
 
 #pragma mark _________________________________ GET
@@ -121,7 +113,6 @@
         _textField.delegate = self;
         _textField.textColor = WXMCommonTitleColor;
         _textField.font = [UIFont systemFontOfSize:WXMCommonTitleFont];
-        //[_textField setValue:WXMCommonPlaceColor forKeyPath:@"_placeholderLabel.textColor"];
         _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         [_textField addTarget:self action:@selector(textFieldValueChanged:) forControlEvents:UIControlEventEditingChanged];
     }
@@ -131,7 +122,7 @@
 - (CALayer *)line {
     if (!_line) {
         _line = [[CALayer alloc] init];
-        _line.frame = CGRectMake(WXMCommonLineX, 0, WXMCommonW - WXMCommonLineX , 0.5);
+        _line.frame = CGRectMake(WXMCommonLineX, 0, WXMCommonW - WXMCommonLineX , 0.75);
         _line.backgroundColor = WXMCommonLineColor.CGColor;
     }
     return _line;
@@ -140,7 +131,7 @@
 - (CALayer *)underLine {
     if (!_underLine) {
         _underLine = [[CALayer alloc] init];
-        _underLine.frame = CGRectMake(WXMCommonLineX, 0, WXMCommonW - WXMCommonLineX , 0.5);
+        _underLine.frame = CGRectMake(WXMCommonLineX, 0, WXMCommonW - WXMCommonLineX , 0.75);
         _underLine.backgroundColor = WXMCommonLineColor.CGColor;
     }
     return _underLine;
@@ -163,32 +154,33 @@
 #pragma mark _________________________________textField delegate
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
-    if (_delegate && [_delegate respondsToSelector:@selector(wt_textFieldShouldClear:)]) {
+    if ([self.delegate respondsToSelector:@selector(wt_textFieldShouldClear:)]) {
         return [self.delegate wt_textFieldShouldClear:textField];
     }
     
-    if (_delegate && [_delegate respondsToSelector:@selector(wt_textFieldValueChanged:)]) {
-        [_delegate wt_textFieldValueChanged:textField];
+    if ([self.delegate respondsToSelector:@selector(wt_textFieldValueChanged:)]) {
+        [self.delegate wt_textFieldValueChanged:textField];
     }
     return YES;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if (_delegate && [_delegate respondsToSelector:@selector(wt_textFieldShouldReturn:)]) {
-        return [_delegate wt_textFieldShouldReturn:textField];
+    if ([self.delegate respondsToSelector:@selector(wt_textFieldShouldReturn:)]) {
+        return [self.delegate wt_textFieldShouldReturn:textField];
     }
     return YES;
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if ([string isEqualToString:@""]) return YES;
     if (self.maxCharacter == 0) return YES;
     if (textField.text.length >= self.maxCharacter) return NO;
     return YES;
 }
 
 - (void)textFieldValueChanged:(UITextField *)textField {
-    if (_delegate && [_delegate respondsToSelector:@selector(wt_textFieldValueChanged:)]) {
-        [_delegate wt_textFieldValueChanged:textField];
+    if ([self.delegate respondsToSelector:@selector(wt_textFieldValueChanged:)]) {
+        [self.delegate wt_textFieldValueChanged:textField];
     }
 }
 @end

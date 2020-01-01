@@ -8,13 +8,13 @@
 
 #import "WXMMultiButtonView.h"
 @interface WXMMultiButtonView ()
-
 @end
 
 @implementation WXMMultiButtonView
 
 + (WXMMultiButtonView *)multiButtonViewWithType:(WXMMultiButtonType)multiButtonType {
     WXMMultiButtonView *multiButtonView = [[WXMMultiButtonView alloc] initWithFrame:CGRectZero];
+    multiButtonView.multiButtonType = multiButtonType;
     return multiButtonView;
 }
 
@@ -28,7 +28,7 @@
 
 /** 初始化界面 */
 - (void)setupDefaultInterface {
-    if (_multiButtonType == WXMMultiButtonTypeImageMassage) {
+    if (self.multiButtonType == WXMMultiButtonTypeImageMassage) {
         [self addSubview:self.lordimageView];
         [self addSubview:self.titlesLabel];
     }
@@ -52,7 +52,7 @@
 
 - (void)setLordiImageSize:(CGSize)lordiImageSize {
     _lordiImageSize = lordiImageSize;
-    _lordimageView.frame = (CGRect){_lordimageView.frame.origin,lordiImageSize};
+    _lordimageView.frame = (CGRect){_lordimageView.frame.origin, lordiImageSize};
     [self setupAutomaticLayout];
 }
 
@@ -100,7 +100,7 @@
 - (UILabel *)titlesLabel {
     if (!_titlesLabel) {
         _titlesLabel = [[UILabel alloc] init];
-        _titlesLabel.textAlignment = NSTextAlignmentCenter;
+        _titlesLabel.textAlignment = NSTextAlignmentLeft;
         _titlesLabel.font = [UIFont systemFontOfSize:16];
         _titlesLabel.textColor = [UIColor blackColor];
         _titlesLabel.numberOfLines = 1;
@@ -109,7 +109,13 @@
 }
 
 - (UILabel *)detailLabel {
-    if (!_detailLabel) _detailLabel = [[UILabel alloc] init];
+    if (!_detailLabel) {
+        _detailLabel = [[UILabel alloc] init];
+        _detailLabel.textAlignment = NSTextAlignmentCenter;
+        _detailLabel.font = [UIFont systemFontOfSize:14];
+        _detailLabel.textColor = [UIColor blackColor];
+        _detailLabel.numberOfLines = 1;
+    }
     return _detailLabel;
 }
 

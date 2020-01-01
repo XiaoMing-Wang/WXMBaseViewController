@@ -5,19 +5,16 @@
 //  Created by edz on 2019/6/17.
 //  Copyright © 2019 wq. All rights reserved.
 //
-
+/** 带按钮 */
 #import <UIKit/UIKit.h>
 #import "WXMBaseTextFidleView.h"
+#import "WXMActionCconfiguration.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol WXMCustomViewDelegate <NSObject>
-
-/** Switch状态改变 */
-- (void)wt_commonCellSwitchState:(BOOL)isOpen;
-
 @optional
-
+- (void)wt_commonCellSwitchState:(BOOL)isOpen;
 @end
 
 @interface WXMBaseCustomView : UIView
@@ -27,7 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *detailLabel;
 @property (nonatomic, strong) UILabel *subDetailLabel;
-@property (nonatomic, strong) UIImageView *arrowImage;
+
+@property (nonatomic, strong) UIImageView *mainImageView;
+@property (nonatomic, strong) UIImageView *arrowImageView;
 @property (nonatomic, strong) UIControl *control;
 @property (nonatomic, strong) UISwitch *switchControl;
 @property (nonatomic, weak) id<WXMCustomViewDelegate> delegate;

@@ -14,14 +14,10 @@
 
 @implementation WXMBaseCustomView
 
-#pragma mark _________________________________ 自定义类型UI设置
-
 - (void)customDifferentInterface {
     
     
 }
-
-#pragma mark _________________________________ SET
 
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
@@ -128,11 +124,18 @@
     return _underLine;
 }
 
-- (UIImageView *)arrowImage {
-    if (!_arrowImage) {
-        _arrowImage = [[UIImageView alloc] init];
+- (UIImageView *)mainImageView {
+    if (!_mainImageView) {
+        _mainImageView = [[UIImageView alloc] init];
     }
-    return _arrowImage;
+    return _mainImageView;
+}
+
+- (UIImageView *)arrowImageView {
+    if (!_arrowImageView) {
+        _arrowImageView = [[UIImageView alloc] init];
+    }
+    return _arrowImageView;
 }
 
 - (UIControl *)control {

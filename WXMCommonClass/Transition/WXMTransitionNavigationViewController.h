@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 <UIViewControllerTransitioningDelegate, UINavigationControllerDelegate>
 
 /** 是否开启自定义转场 */
-@property (nonatomic, assign) BOOL wxm_useCustomTransition;
+@property (nonatomic, assign) BOOL useCustomTransition;
 
 /** presen */
 - (id<UITranProtocol>)animationControllerForPresentedController:(UIViewController *)presented

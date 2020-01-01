@@ -6,15 +6,9 @@
 //  Copyright © 2019年 wxm. All rights reserved.
 //
 
-#define WXMThemeMargin 20
-#define WXMThemeHeight 49
-#define WXMThemeFontSize 16
-#define WXMThemeCornerRadius 8
-#define WXMThemeBackgroundColor WXM_buttonDefaultColor()
-#define WXMThemetTitleColor [UIColor whiteColor]
-
 #import <UIKit/UIKit.h>
 #import "WXMGlobalStaticFile.h"
+#import "WXMActionCconfiguration.h"
 
 @interface WXMBaseThemeButton : UIButton
 
