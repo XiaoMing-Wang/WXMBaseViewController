@@ -7,7 +7,6 @@
 //
 /** 带按钮 */
 #import <UIKit/UIKit.h>
-#import "WXMBaseTextFidleView.h"
 #import "WXMActionCconfiguration.h"
 
 NS_ASSUME_NONNULL_BEGIN

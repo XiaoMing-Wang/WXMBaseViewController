@@ -39,7 +39,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** textView自适应高度 */
 @property (nonatomic, assign) BOOL adaptiveHeight;
-
 @property (nonatomic, strong) NSString *placeholder;
 @property (nonatomic, strong) UIColor *placeholderColor;
 @property (nonatomic, assign) NSInteger maxCharacter;
