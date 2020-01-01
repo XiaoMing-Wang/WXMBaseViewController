@@ -225,11 +225,17 @@
     
     /** 自适应高度 */
     if (self.adaptiveHeight) {
-        CGFloat tfWidth = textView.frame.size.width;
-        float textViewHeight = [textView sizeThatFits:CGSizeMake(tfWidth, MAXFLOAT)].height;
-        CGRect frame = textView.frame;
-        frame.size.height = textViewHeight;
-        textView.frame = frame;
+        CGRect selfFrame = self.frame;
+        CGRect textViewFrame = textView.frame;
+        CGFloat difference = selfFrame.size.height - textViewFrame.size.height;
+                
+        CGFloat textViewWidth = textView.frame.size.width;
+        float textViewHeight = [textView sizeThatFits:CGSizeMake(textViewWidth, MAXFLOAT)].height;
+        
+        textViewFrame.size.height = textViewHeight;
+        selfFrame.size.height = textViewHeight + difference;
+        textView.frame = textViewFrame;
+        self.frame = selfFrame;
     }
 }
 @end
