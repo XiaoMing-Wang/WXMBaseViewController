@@ -31,6 +31,11 @@ CGRectMake(0, WXMBase_BarHeight, WXMBase_Width, WXMBase_Height - WXMBase_BarHeig
 #define WXMGlobalStaticFile_h
 #import <UIKit/UIKit.h>
 
+
+#pragma mark  文字
+#pragma mark  文字
+#pragma mark  文字
+
 /** 文字(主色) */
 static inline UIColor *WXM_textDefaultColor() {
     return WXMCOLOR_WITH_HEX(002632);
@@ -41,10 +46,6 @@ static inline UIColor *WXM_buttonDefaultColor() {
     return WXMCOLOR_WITH_HEX(002632);
 }
 
-/** view(主色) */
-static inline UIColor *WXM_viewBackgroundColor() {
-    return WXMCOLOR_WITH_HEX(002632);
-}
 
 /** 文字描述 */
 static inline UIColor *WXM_textDescribeColor() {
@@ -55,6 +56,30 @@ static inline UIColor *WXM_textDescribeColor() {
 static inline UIColor *WXM_textFieldColor() {
     return WXMCOLOR_WITH_HEX(002632);
 }
+
+#pragma mark  导航栏
+#pragma mark  导航栏
+#pragma mark  导航栏
+
+/** 导航栏颜色 */
+static inline UIColor *WXM_navigationColor() {
+    return WXMCOLOR_WITH_HEX(FFFFFF);
+}
+
+/** 导航栏标题颜色 */
+static inline UIColor *WXM_navigationTitleColor() {
+    return WXMCOLOR_WITH_HEX(002632);
+}
+
+#pragma mark  view
+#pragma mark  view
+#pragma mark  view
+
+/** view(主色) */
+static inline UIColor *WXM_viewBackgroundColor() {
+    return WXMCOLOR_WITH_HEX(002632);
+}
+
 
 #pragma mark ____________________________________ 字体
 

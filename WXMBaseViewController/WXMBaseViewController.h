@@ -12,8 +12,7 @@
 #import "WXMBaseTableViewModel.h"
 #import "WXMBaseNetworkViewModel.h"
 
-@interface WXMBaseViewController : UIViewController
-<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, WXMTableViewModelProtocol>
+@interface WXMBaseViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, WXMTableViewModelProtocol>
 
 @property (nonatomic, assign) BOOL hiddenNavigationLine;
 @property (nonatomic, strong) UITableView *tableView;
@@ -46,6 +45,12 @@
 
 /** network类 */
 - (Class)networkViewModelClass;
+
+//- (__kindof WXMBaseNetworkViewModel *)currentNetwork {
+//    return (WXMBaseNetworkViewModel *)self.networkViewModel;
+//}
+/** 子类覆盖该方法强制转换 */
+- (__kindof WXMBaseNetworkViewModel *)currentNetwork;
 
 @end
 

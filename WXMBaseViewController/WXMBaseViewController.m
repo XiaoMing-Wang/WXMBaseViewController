@@ -8,10 +8,21 @@
 #import <objc/runtime.h>
 #import "WXMBaseViewController.h"
 
-static char wxmLine;
 @interface WXMBaseViewController ()
-@property(readwrite, nonatomic) UIStatusBarStyle lastStatusBarStyle;
+@property (readwrite, nonatomic) UIStatusBarStyle lastStatusBarStyle;
 @end
+
+/** 颜色画图 */
+static inline UIImage *WXM_baseColorConversionImage(UIColor *color) {
+    CGRect rect = CGRectMake(0, 0, 1, 1);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
 
 @implementation WXMBaseViewController
 
@@ -29,14 +40,15 @@ static char wxmLine;
 }
 
 /**子类重写 */
-- (void)initializeDefaultInterface {}
+- (void)initializeDefaultInterface { }
+
 - (void)initializeSameInterface {
     self.view.backgroundColor = [UIColor whiteColor];
     if (self.navigationController.viewControllers.firstObject &&
         [self.navigationController.viewControllers.firstObject isKindOfClass:self.class] &&
         self.navigationController.viewControllers.count == 1) {
-        NSDictionary *attributes = @{ NSFontAttributeName : [UIFont systemFontOfSize:16.5],
-                                      NSForegroundColorAttributeName : [UIColor whiteColor] };
+        NSDictionary *attributes = @{ NSFontAttributeName : [UIFont systemFontOfSize:17],
+                                      NSForegroundColorAttributeName : WXM_navigationTitleColor() };
         self.navigationItem.leftBarButtonItem = nil;
         self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
         [self.navigationController.navigationBar setTitleTextAttributes:attributes];
@@ -46,15 +58,26 @@ static char wxmLine;
         line.backgroundColor = [UIColor blackColor].CGColor;
         line.frame = CGRectMake(0, 44, WXMBase_Width, 0.5);
         [self.navigationController.navigationBar.layer addSublayer:line];
-        objc_setAssociatedObject(self.navigationController, &wxmLine, line, 1);
-        /** [self.navigationController yd_setNavigationBarColor:YDO_navigationBarColor() alpha:1]; */
+        objc_setAssociatedObject(self.navigationController, @"navigation_line", line, 1);
+        
+        [self setHiddenNavigationLine:YES];
+        [self setNavigationBarColor:WXM_navigationColor() alpha:1];
     }
+}
+
+/** 设置导航栏透明 */
+- (void)setNavigationBarColor:(UIColor *)color alpha:(CGFloat)alpha {
+    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+    self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
+    color = [color colorWithAlphaComponent:alpha];
+    UIImage *image = WXM_baseColorConversionImage(color);
+    [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
 }
 
 /** 导航栏线条 */
 - (void)setHiddenNavigationLine:(BOOL)hiddenNavigationLine {
     _hiddenNavigationLine = hiddenNavigationLine;
-    CALayer *line = objc_getAssociatedObject(self.navigationController, &wxmLine);
+    CALayer *line = objc_getAssociatedObject(self.navigationController, @"navigation_line");
     if (line) line.hidden = hiddenNavigationLine;
 }
 
@@ -138,7 +161,7 @@ static char wxmLine;
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    if (self.scrollView) [self.scrollView endEditing:YES];
+    [scrollView endEditing:YES];
 }
 
 #pragma clang diagnostic push
@@ -170,6 +193,11 @@ static char wxmLine;
     return WXMBaseNetworkViewModel.class;
 }
 
+/** 子类覆盖该方法强制转换 */
+- (__kindof WXMBaseNetworkViewModel *)currentNetwork {
+    return (WXMBaseNetworkViewModel *) self.networkViewModel;
+}
+
 #pragma clang diagnostic pop
 
 /** dataSource */
@@ -183,3 +211,5 @@ static char wxmLine;
 }
 
 @end
+
+
