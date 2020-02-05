@@ -46,6 +46,10 @@ static inline UIColor *WXM_buttonDefaultColor() {
     return WXMCOLOR_WITH_HEX(002632);
 }
 
+/** 按钮不可用 */
+static inline UIColor *WXM_buttonUnusableColor() {
+    return WXMCOLOR_WITH_HEX(002632);
+}
 
 /** 文字描述 */
 static inline UIColor *WXM_textDescribeColor() {
@@ -80,7 +84,6 @@ static inline UIColor *WXM_viewBackgroundColor() {
     return WXMCOLOR_WITH_HEX(002632);
 }
 
-
 #pragma mark ____________________________________ 字体
 
 static inline UIFont *WXM_font24() {
@@ -108,6 +111,7 @@ static inline UIFont *WXM_font8() {
     return [UIFont systemFontOfSize:8];
 }
 
+/** 粗体 */
 static inline UIFont *WXM_bfont24() {
     return [UIFont boldSystemFontOfSize:24];
 }

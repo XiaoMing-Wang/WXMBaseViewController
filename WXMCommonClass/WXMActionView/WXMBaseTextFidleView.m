@@ -15,6 +15,7 @@
 @implementation WXMBaseTextFidleView
 
 - (void)customDifferentInterface {
+    
 }
 
 - (void)setFrame:(CGRect)frame {
@@ -39,23 +40,23 @@
 /** 设置线条类型 */
 - (void)setLineType:(WXMCommonTextFieldLineType)lineType {
     _lineType = lineType;
-    CGFloat h = 0.75;
+    CGFloat h = WXMCommonLineH;
     CGFloat top = self.frame.size.height - h;
     
     switch (lineType) {
         case WXMCommonTextFieldLineTypeNone:
-            if (_line) [_line removeFromSuperlayer];
-            if (_underLine) [_underLine removeFromSuperlayer];
+            if (_line) [self.line removeFromSuperlayer];
+            if (_underLine) [self.underLine removeFromSuperlayer];
             break;
             
         case WXMCommonTextFieldLineTypeTop:
             self.line.frame = CGRectMake(WXMCommonLineX, 0, WXMCommonW - WXMCommonLineX , h);
             [self.layer addSublayer:self.line];
-            if (_underLine)[_underLine removeFromSuperlayer];
+            if (_underLine) [self.underLine removeFromSuperlayer];
             break;
             
         case WXMCommonTextFieldLineTypeBottom:
-            if (_line) [_line removeFromSuperlayer];
+            if (_line) [self.line removeFromSuperlayer];
             self.underLine.frame = CGRectMake(WXMCommonLineX, top, WXMCommonW-WXMCommonLineX,h);
             [self.layer addSublayer:self.underLine];
             break;

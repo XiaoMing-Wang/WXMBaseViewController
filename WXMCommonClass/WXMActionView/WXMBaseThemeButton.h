@@ -19,9 +19,6 @@ typedef NS_ENUM(NSInteger, WXMStateButtonState) {
 
     /** 不可用 */
     WXMStateButtonStateDisabled,
-
-    /** 加载中 */
-    WXMStateButtonStateLoading,
 };
 
 @property (nonatomic, assign) WXMStateButtonState buttonState;

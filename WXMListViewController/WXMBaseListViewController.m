@@ -116,11 +116,9 @@
     return self.currentDataSoure.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString * iden = NSStringFromClass(self.class);
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = nil;
-    cell = [tableView dequeueReusableCellWithIdentifier:iden forIndexPath:indexPath];
+    cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     return cell;
 }
 
@@ -149,7 +147,6 @@
 
 - (UITableView *)tableViewGrouped {
     if (!_tableView) {
-        NSString * iden = NSStringFromClass(self.class);
         CGRect rect = {0, WXMBase_BarHeight, WXMBase_Width, WXMBase_Height - WXMBase_BarHeight};
         _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStyleGrouped];
         _tableView.rowHeight = 49;
@@ -159,7 +156,7 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
-        [_tableView registerClass:UITableViewCell.class forCellReuseIdentifier:iden];
+        [_tableView registerClass:UITableViewCell.class forCellReuseIdentifier:@"cell"];
     }
     return _tableView;
 }

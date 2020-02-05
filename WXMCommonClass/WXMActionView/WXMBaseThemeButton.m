@@ -8,11 +8,6 @@
 
 #import "WXMBaseThemeButton.h"
 
-@interface WXMBaseThemeButton ()
-@property (nonatomic, strong) UIActivityIndicatorView *indicator;
-@property (nonatomic, copy) NSString *signTitle;
-@end
-
 @implementation WXMBaseThemeButton
 
 /** 主题 */
@@ -30,7 +25,7 @@
 }
 
 - (void)setDefaultThemeInterface {
-    CGRect frame = (CGRect){WXMThemeMargin,0,WXMCommonWidth-2*WXMThemeMargin,WXMThemeHeight};
+    CGRect frame = (CGRect){WXMThemeMargin, 0, WXMCommonWidth - 2 *WXMThemeMargin, WXMThemeHeight};
     UIImage *backgroundImage = [self imageFromColor:WXMThemeBackgroundColor];
     [self setBackgroundImage:backgroundImage forState:UIControlStateNormal];
     [self setTitleColor:WXMThemetTitleColor forState:UIControlStateNormal];
@@ -47,9 +42,7 @@
 
 /** 自定义配置 */
 - (void)customDifferentInterface {
-    CGFloat width = self.frame.size.width;
-    CGFloat height = self.frame.size.height;
-    self.indicator.center = CGPointMake(width / 2, height / 2);
+    
 }
 
 - (void)setBackgroundColor:(UIColor *)color forState:(UIControlState)state {
@@ -64,30 +57,11 @@
     _buttonState = buttonState;
     self.enabled = YES;
     self.userInteractionEnabled = YES;
-    
-    if (_buttonState == WXMStateButtonStateNormal) {
-        [self.indicator stopAnimating];
-        if (self.signTitle.length > 0) {
-            [self setTitle:self.signTitle forState:UIControlStateNormal];
-        }
-    } else if (_buttonState == WXMStateButtonStateDisabled) {
+    if (_buttonState == WXMStateButtonStateDisabled) {
         self.enabled = NO;
-    } else if (_buttonState == WXMStateButtonStateLoading)  {
-        self.userInteractionEnabled = NO;
-        self.signTitle = self.titleLabel.text;
-        [self.indicator startAnimating];
-        [self addSubview:self.indicator];
     }
+    
     [self customDifferentInterface];
-}
-
-- (UIActivityIndicatorView *)indicator {
-    if (!_indicator) {
-        _indicator = [[UIActivityIndicatorView alloc] init];
-        _indicator.hidesWhenStopped = YES;
-        [_indicator startAnimating];
-    }
-    return _indicator;
 }
 
 /** 根据颜色绘制图片 */
@@ -101,4 +75,5 @@
     UIGraphicsEndImageContext();
     return image;
 }
+
 @end

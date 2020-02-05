@@ -54,6 +54,7 @@ typedef NS_ENUM(NSUInteger, WXMRefreshType) {
 
 - (WXMExistCacheType)subclassCacheType;
 + (instancetype)networkWithController:(UIViewController *)controller;
+
 @end
 NS_ASSUME_NONNULL_END
 

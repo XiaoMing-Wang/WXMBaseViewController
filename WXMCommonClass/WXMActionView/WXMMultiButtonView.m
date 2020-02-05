@@ -7,8 +7,6 @@
 //
 
 #import "WXMMultiButtonView.h"
-@interface WXMMultiButtonView ()
-@end
 
 @implementation WXMMultiButtonView
 

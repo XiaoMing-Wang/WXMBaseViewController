@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UIImageView *mainImageView;
 @property (nonatomic, strong) UIImageView *arrowImageView;
+
 @property (nonatomic, strong) UIControl *control;
 @property (nonatomic, strong) UISwitch *switchControl;
 @property (nonatomic, weak) id<WXMCustomViewDelegate> delegate;

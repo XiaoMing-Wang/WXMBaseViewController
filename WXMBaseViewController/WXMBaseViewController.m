@@ -32,6 +32,7 @@ static inline UIImage *WXM_baseColorConversionImage(UIColor *color) {
     [self initializeSameInterface];
     [self initializeDefaultInterface];
     self.navigationController.navigationBar.translucent = YES;
+    
     if (@available(iOS 11.0, *)) {
         self.automaticallyAdjustsScrollViewInsets = NO;
         self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -40,7 +41,9 @@ static inline UIImage *WXM_baseColorConversionImage(UIColor *color) {
 }
 
 /**子类重写 */
-- (void)initializeDefaultInterface { }
+- (void)initializeDefaultInterface {
+    
+}
 
 - (void)initializeSameInterface {
     self.view.backgroundColor = [UIColor whiteColor];
@@ -71,7 +74,7 @@ static inline UIImage *WXM_baseColorConversionImage(UIColor *color) {
     self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
     color = [color colorWithAlphaComponent:alpha];
     UIImage *image = WXM_baseColorConversionImage(color);
-    [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:0];
 }
 
 /** 导航栏线条 */
@@ -119,7 +122,6 @@ static inline UIImage *WXM_baseColorConversionImage(UIColor *color) {
     });
 }
 
-/** TableView */
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:WXMBase_Rect];
@@ -133,7 +135,6 @@ static inline UIImage *WXM_baseColorConversionImage(UIColor *color) {
     return _tableView;
 }
 
-/** 分组模式 */
 - (UITableView *)tableViewGrouped {
     _tableView = nil;
     _tableView = [[UITableView alloc] initWithFrame:WXMBase_Rect style:UITableViewStyleGrouped];
@@ -147,7 +148,6 @@ static inline UIImage *WXM_baseColorConversionImage(UIColor *color) {
     return _tableView;
 }
 
-/** ScrollView */
 - (UIScrollView *)scrollView {
     if (!_scrollView) {
         _scrollView = [[UIScrollView alloc] initWithFrame:WXMBase_Rect];
