@@ -52,6 +52,7 @@ typedef NS_ENUM(NSUInteger, WXMRefreshType) {
 - (void)pullRefreshHeaderControl;
 - (void)pullRefreshFootControl;
 
+/** 缓存状态 */
 - (WXMExistCacheType)subclassCacheType;
 + (instancetype)networkWithController:(UIViewController *)controller;
 

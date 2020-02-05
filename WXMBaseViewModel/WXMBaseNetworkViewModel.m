@@ -81,6 +81,11 @@
     }
 }
 
+- (void)setDataSource:(NSMutableArray *)dataSource {
+    _dataSource = dataSource;
+    [self resetdataSourceObserver];
+}
+
 - (void)dealloc {
     NSLog(@"%@ 释放 ",NSStringFromClass(self.class));
 }
