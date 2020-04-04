@@ -63,6 +63,7 @@
     /** footView */
     BOOL impleShow = [self respondsToSelector:@selector(showErrorView:protocolType:)];
     BOOL impRemove = [self respondsToSelector:@selector(removeErrorView)];
+    
     if (self.networkViewModel.refreshType == WXMRefreshFootControl) {
         self.tableView.mj_footer.hidden = NO;
         if (impRemove) [self removeErrorView];
@@ -83,6 +84,7 @@
         self.tableView.tableFooterView = self.footControl;
         supView = self.footControl;
     }
+    
     if (impleShow) [self showErrorView:supView protocolType:errTy];
 }
 
