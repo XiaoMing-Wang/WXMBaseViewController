@@ -28,8 +28,5 @@
     
 }
 
-- (void)didMoveToSuperview {
-    if (self.superview) [self setupAutomaticLayout];
-}
 
 @end

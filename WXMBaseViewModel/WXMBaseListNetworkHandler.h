@@ -6,8 +6,8 @@
 //  Copyright © 2019年 wxm. All rights reserved.
 //
 #import <UIKit/UIKit.h>
+#import "WXMBaseNetworkHandler.h"
 #import <Foundation/Foundation.h>
-#import <ReactiveObjC.h>
 #import "NSMutableArray+WXMKVOKit.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -30,7 +30,7 @@ typedef NS_ENUM(NSUInteger, WXMRefreshType) {
     WXMRefreshFootControl,   /** 尾部 */
 };
 
-@interface WXMBaseNetworkViewModel : NSObject
+@interface WXMBaseListNetworkHandler : WXMBaseNetworkHandler
 
 @property (nonatomic, assign) NSInteger lastPage;
 @property (nonatomic, assign) NSInteger currentPage;
@@ -52,7 +52,6 @@ typedef NS_ENUM(NSUInteger, WXMRefreshType) {
 - (void)pullRefreshHeaderControl;
 - (void)pullRefreshFootControl;
 
-/** 缓存状态 */
 - (WXMExistCacheType)subclassCacheType;
 + (instancetype)networkWithController:(UIViewController *)controller;
 

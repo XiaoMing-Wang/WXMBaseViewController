@@ -32,10 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *detailLabel;
 @property (nonatomic, strong) UILabel *subDetailLabel;
-
 @property (nonatomic, strong) UITextField *textField;
 @property (nonatomic, strong) UITextView *textView;
-
+@property (nonatomic, strong) UIImageView *iconImage;
 @property (nonatomic, strong) UIImageView *arrowImage;
 @property (nonatomic, strong) UIControl *control;
 

@@ -52,7 +52,7 @@
 #define WXMThemeCornerRadius 8
 
 /** 按钮主题颜色 */
-#define WXMThemeBackgroundColor WXM_buttonDefaultColor()
+#define WXMThemeBackgroundColor kButtonDefaultColor()
 
 /** 按钮标题颜色 */
 #define WXMThemetTitleColor [UIColor whiteColor]

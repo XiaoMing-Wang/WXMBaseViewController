@@ -180,9 +180,9 @@
     return _listFootControl;
 }
 
-- (__kindof WXMBaseNetworkViewModel *)networkViewModel {
+- (__kindof WXMBaseListNetworkHandler *)networkViewModel {
     if (!_networkViewModel) {
-        _networkViewModel = [WXMBaseNetworkViewModel networkWithController:self];
+        _networkViewModel = [WXMBaseListNetworkHandler networkWithController:self];
     }
     return _networkViewModel;
 }

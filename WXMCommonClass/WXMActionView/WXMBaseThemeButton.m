@@ -25,7 +25,7 @@
 }
 
 - (void)setDefaultThemeInterface {
-    CGRect frame = (CGRect){WXMThemeMargin, 0, WXMCommonWidth - 2 *WXMThemeMargin, WXMThemeHeight};
+    CGRect frame = (CGRect){WXMThemeMargin, 0, WXMCommonWidth - 2 * WXMThemeMargin, WXMThemeHeight};
     UIImage *backgroundImage = [self imageFromColor:WXMThemeBackgroundColor];
     [self setBackgroundImage:backgroundImage forState:UIControlStateNormal];
     [self setTitleColor:WXMThemetTitleColor forState:UIControlStateNormal];

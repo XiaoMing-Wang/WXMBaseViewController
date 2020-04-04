@@ -6,14 +6,14 @@
 //  Copyright © 2019年 wxm. All rights reserved.
 //
 #define WXM_CacheSignal @"WXM_CacheSignal"
-#import "WXMBaseNetworkViewModel.h"
-@interface WXMBaseNetworkViewModel ()
+#import "WXMBaseListNetworkHandler.h"
+@interface WXMBaseListNetworkHandler ()
 @property(nonatomic, weak, readwrite) UIViewController *controller;
 @end
-@implementation WXMBaseNetworkViewModel
+@implementation WXMBaseListNetworkHandler
 
 + (instancetype)networkWithController:(UIViewController *)controller {
-    WXMBaseNetworkViewModel *networkViewModel = [[self alloc] initWithController:controller];
+    WXMBaseListNetworkHandler *networkViewModel = [[self alloc] initWithController:controller];
     return networkViewModel;
 }
 
@@ -79,11 +79,6 @@
     if ([self.dataSource respondsToSelector:@selector(wxm_setObserver:selector:)]) {
         [self.dataSource wxm_setObserver:self selector:@selector(dataSource)];
     }
-}
-
-- (void)setDataSource:(NSMutableArray *)dataSource {
-    _dataSource = dataSource;
-    [self resetdataSourceObserver];
 }
 
 - (void)dealloc {

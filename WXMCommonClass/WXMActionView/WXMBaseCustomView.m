@@ -15,7 +15,6 @@
 @implementation WXMBaseCustomView
 
 - (void)customDifferentInterface {
-    
 }
 
 - (void)setFrame:(CGRect)frame {
@@ -26,8 +25,7 @@
 /** 设置线条类型 */
 - (void)setLineType:(WXMCommonTextFieldLineType)lineType {
     _lineType = lineType;
-    CGFloat h = WXMCommonLineH;
-    CGFloat top = self.frame.size.height - h;
+    CGFloat top = self.frame.size.height - 0.5;
     
     switch (lineType) {
         case WXMCommonTextFieldLineTypeNone:
@@ -36,20 +34,20 @@
             break;
             
         case WXMCommonTextFieldLineTypeTop:
-            self.line.frame = CGRectMake(WXMCommonLineX, 0, WXMCommonW - WXMCommonLineX , h);
+            self.line.frame = CGRectMake(WXMCommonLineX, 0, WXMCommonW - WXMCommonLineX , 0.5);
             [self.layer addSublayer:self.line];
             if (_underLine)[_underLine removeFromSuperlayer];
             break;
             
         case WXMCommonTextFieldLineTypeBottom:
             if (_line)[_line removeFromSuperlayer];
-            self.underLine.frame = CGRectMake(WXMCommonLineX, top, WXMCommonW-WXMCommonLineX,h);
+            self.underLine.frame = CGRectMake(WXMCommonLineX, top, WXMCommonW-WXMCommonLineX,0.5);
             [self.layer addSublayer:self.underLine];
             break;
             
         case WXMCommonTextFieldLineTypeBoth:
-            self.line.frame = CGRectMake(WXMCommonLineX, 0, WXMCommonW - WXMCommonLineX , h);
-            self.underLine.frame = CGRectMake(WXMCommonLineX, top, WXMCommonW-WXMCommonLineX,h);
+            self.line.frame = CGRectMake(WXMCommonLineX, 0, WXMCommonW - WXMCommonLineX , 0.5);
+            self.underLine.frame = CGRectMake(WXMCommonLineX, top, WXMCommonW-WXMCommonLineX,0.5);
             [self.layer addSublayer:self.line];
             [self.layer addSublayer:self.underLine];
             break;
@@ -61,7 +59,7 @@
 
 /** Switch回调避免过快点击 */
 - (void)change:(UISwitch *)switchControl {
-    if ([_delegate respondsToSelector:@selector(wt_commonCellSwitchState:)]) {
+    if (_delegate && [_delegate respondsToSelector:@selector(wt_commonCellSwitchState:)]) {
         [_delegate wt_commonCellSwitchState:switchControl.on];
     }
     

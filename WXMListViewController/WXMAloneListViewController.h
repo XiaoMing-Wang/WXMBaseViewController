@@ -7,7 +7,7 @@
 //
 #import "WXMMJDIYHeader.h"
 #import "WXMBaseViewController.h"
-#import "WXMBaseNetworkViewModel.h"
+#import "WXMBaseListNetworkHandler.h"
 #import "WXMBaseViewController.h"
 #import "WXMBaseListViewController.h"
 
