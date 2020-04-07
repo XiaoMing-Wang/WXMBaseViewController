@@ -25,7 +25,7 @@
 /** 设置线条类型 */
 - (void)setLineType:(WXMCommonTextFieldLineType)lineType {
     _lineType = lineType;
-    CGFloat top = self.frame.size.height - 0.75;
+    CGFloat top = self.frame.size.height - 0.5;
     
     switch (lineType) {
         case WXMCommonTextFieldLineTypeNone:
@@ -34,20 +34,20 @@
             break;
             
         case WXMCommonTextFieldLineTypeTop:
-            self.line.frame = CGRectMake(WXMCommonLineX, 0, WXMCommonW - WXMCommonLineX , 0.75);
+            self.line.frame = CGRectMake(WXMCommonLineX, 0, WXMCommonW - WXMCommonLineX , 0.5);
             [self.layer addSublayer:self.line];
             if (_underLine)[_underLine removeFromSuperlayer];
             break;
             
         case WXMCommonTextFieldLineTypeBottom:
             if (_line)[_line removeFromSuperlayer];
-            self.underLine.frame = CGRectMake(WXMCommonLineX, top, WXMCommonW-WXMCommonLineX,0.75);
+            self.underLine.frame = CGRectMake(WXMCommonLineX, top, WXMCommonW-WXMCommonLineX,0.5);
             [self.layer addSublayer:self.underLine];
             break;
             
         case WXMCommonTextFieldLineTypeBoth:
-            self.line.frame = CGRectMake(WXMCommonLineX, 0, WXMCommonW - WXMCommonLineX , 0.75);
-            self.underLine.frame = CGRectMake(WXMCommonLineX, top, WXMCommonW-WXMCommonLineX,0.75);
+            self.line.frame = CGRectMake(WXMCommonLineX, 0, WXMCommonW - WXMCommonLineX , 0.5);
+            self.underLine.frame = CGRectMake(WXMCommonLineX, top, WXMCommonW-WXMCommonLineX,0.5);
             [self.layer addSublayer:self.line];
             [self.layer addSublayer:self.underLine];
             break;

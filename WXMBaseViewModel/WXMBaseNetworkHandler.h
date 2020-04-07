@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class WXMBaseHttpsResp;
 typedef void (^NetworkHandlerCallBack)(WXMBaseHttpsResp *resp);
 @interface WXMBaseHttpsResp : NSObject
+@property (nonatomic, assign) BOOL success;
 @property (nonatomic, assign) NSInteger errorCode;
 @property (nonatomic, assign) NSInteger errormMessage;
 @property (nonatomic, assign) id errorObject;
@@ -20,10 +21,12 @@ typedef void (^NetworkHandlerCallBack)(WXMBaseHttpsResp *resp);
 @end
 
 @interface WXMBaseHttpsReq : NSObject
+
+
 @end
 
 @interface WXMBaseNetworkHandler : NSObject
-@property (nonatomic, strong) WXMBaseHttpsReq *bodyReq;
+@property (nonatomic, strong) WXMBaseHttpsReq *httpReq;
 @end
 
 NS_ASSUME_NONNULL_END

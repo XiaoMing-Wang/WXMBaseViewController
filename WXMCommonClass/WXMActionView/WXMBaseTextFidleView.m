@@ -39,7 +39,7 @@
 /** 设置线条类型 */
 - (void)setLineType:(WXMCommonTextFieldLineType)lineType {
     _lineType = lineType;
-    CGFloat h = 0.75;
+    CGFloat h = 0.5;
     CGFloat top = self.frame.size.height - h;
     
     switch (lineType) {
@@ -49,20 +49,20 @@
             break;
             
         case WXMCommonTextFieldLineTypeTop:
-            self.line.frame = CGRectMake(WXMCommonLineX, 0, WXMCommonW - WXMCommonLineX , h);
+            self.line.frame = CGRectMake(WXMCommonLineX, 0, WXMCommonW - WXMCommonLineX, h);
             [self.layer addSublayer:self.line];
             if (_underLine)[_underLine removeFromSuperlayer];
             break;
             
         case WXMCommonTextFieldLineTypeBottom:
             if (_line) [_line removeFromSuperlayer];
-            self.underLine.frame = CGRectMake(WXMCommonLineX, top, WXMCommonW-WXMCommonLineX,h);
+            self.underLine.frame = CGRectMake(WXMCommonLineX, top, WXMCommonW - WXMCommonLineX,h);
             [self.layer addSublayer:self.underLine];
             break;
             
         case WXMCommonTextFieldLineTypeBoth:
-            self.line.frame = CGRectMake(WXMCommonLineX, 0, WXMCommonW - WXMCommonLineX , h);
-            self.underLine.frame = CGRectMake(WXMCommonLineX, top, WXMCommonW-WXMCommonLineX,h);
+            self.line.frame = CGRectMake(WXMCommonLineX, 0, WXMCommonW - WXMCommonLineX, h);
+            self.underLine.frame = CGRectMake(WXMCommonLineX, top, WXMCommonW-WXMCommonLineX, h);
             [self.layer addSublayer:self.line];
             [self.layer addSublayer:self.underLine];
             break;
@@ -112,6 +112,7 @@
         _textField = [[UITextField alloc] init];
         _textField.delegate = self;
         _textField.textColor = WXMCommonTitleColor;
+        _textField.inputAccessoryView = [UIView new];
         _textField.font = [UIFont systemFontOfSize:WXMCommonTitleFont];
         _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         [_textField addTarget:self action:@selector(textFieldValueChanged:) forControlEvents:UIControlEventEditingChanged];
@@ -139,10 +140,17 @@
 - (CALayer *)underLine {
     if (!_underLine) {
         _underLine = [[CALayer alloc] init];
-        _underLine.frame = CGRectMake(WXMCommonLineX, 0, WXMCommonW - WXMCommonLineX , 0.75);
+        _underLine.frame = CGRectMake(WXMCommonLineX, 0, WXMCommonW - WXMCommonLineX * 2, 0.5);
         _underLine.backgroundColor = WXMCommonLineColor.CGColor;
     }
     return _underLine;
+}
+
+- (UIImageView *)iconImage {
+    if (!_iconImage) {
+        _iconImage = [[UIImageView alloc] init];
+    }
+    return _iconImage;
 }
 
 - (UIImageView *)arrowImage {

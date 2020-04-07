@@ -31,43 +31,47 @@ CGRectMake(0, WXMBase_BarHeight, WXMBase_Width, WXMBase_Height - WXMBase_BarHeig
 #define WXMGlobalStaticFile_h
 #import <UIKit/UIKit.h>
 
-
 #pragma mark  文字
 #pragma mark  文字
 #pragma mark  文字
 
 /** 文字(主色) */
-static inline UIColor *WXM_textDefaultColor() {
+static inline UIColor *kTextDefaultColor() {
     return WXMCOLOR_WITH_HEX(002632);
 }
-
-/** 按钮(主色) */
-static inline UIColor *WXM_buttonDefaultColor() {
-    return WXMCOLOR_WITH_HEX(002632);
-}
-
 
 /** 文字描述 */
-static inline UIColor *WXM_textDescribeColor() {
+static inline UIColor *kTextDescribeColor() {
     return WXMCOLOR_WITH_HEX(002632);
 }
 
 /** textField */
-static inline UIColor *WXM_textFieldColor() {
+static inline UIColor *kTextFieldColor() {
     return WXMCOLOR_WITH_HEX(002632);
 }
+
+/** 按钮(主色) */
+static inline UIColor *kButtonDefaultColor() {
+    return WXMCOLOR_WITH_HEX(002632);
+}
+
+/** 按钮不可用 */
+static inline UIColor *kButtonUnusableColor() {
+    return WXMCOLOR_WITH_HEX(002632);
+}
+
 
 #pragma mark  导航栏
 #pragma mark  导航栏
 #pragma mark  导航栏
 
 /** 导航栏颜色 */
-static inline UIColor *WXM_navigationColor() {
+static inline UIColor *kNavigationColor() {
     return WXMCOLOR_WITH_HEX(FFFFFF);
 }
 
 /** 导航栏标题颜色 */
-static inline UIColor *WXM_navigationTitleColor() {
+static inline UIColor *kNavigationTitleColor() {
     return WXMCOLOR_WITH_HEX(002632);
 }
 
@@ -76,60 +80,60 @@ static inline UIColor *WXM_navigationTitleColor() {
 #pragma mark  view
 
 /** view(主色) */
-static inline UIColor *WXM_viewBackgroundColor() {
+static inline UIColor *kViewBackgroundColor() {
     return WXMCOLOR_WITH_HEX(002632);
 }
 
-
 #pragma mark ____________________________________ 字体
 
-static inline UIFont *WXM_font24() {
+static inline UIFont *kFont24() {
     return [UIFont systemFontOfSize:24];
 }
-static inline UIFont *WXM_font20() {
+static inline UIFont *kFont20() {
     return [UIFont systemFontOfSize:20];
 }
-static inline UIFont *WXM_font18() {
+static inline UIFont *kFont18() {
     return [UIFont systemFontOfSize:18];
 }
-static inline UIFont *WXM_font16() {
+static inline UIFont *kFont16() {
     return [UIFont systemFontOfSize:16];
 }
-static inline UIFont *WXM_font14() {
+static inline UIFont *kFont14() {
     return [UIFont systemFontOfSize:14];
 }
-static inline UIFont *WXM_font12() {
+static inline UIFont *kFont12() {
     return [UIFont systemFontOfSize:12];
 }
-static inline UIFont *WXM_font11() {
+static inline UIFont *kFont11() {
     return [UIFont systemFontOfSize:11];
 }
-static inline UIFont *WXM_font8() {
+static inline UIFont *kFont8() {
     return [UIFont systemFontOfSize:8];
 }
 
-static inline UIFont *WXM_bfont24() {
+/** 粗体 */
+static inline UIFont *kBfont24() {
     return [UIFont boldSystemFontOfSize:24];
 }
-static inline UIFont *WXM_bfont20() {
+static inline UIFont *kBfont20() {
     return [UIFont boldSystemFontOfSize:20];
 }
-static inline UIFont *WXM_bfont18() {
+static inline UIFont *kBfont18() {
     return [UIFont boldSystemFontOfSize:18];
 }
-static inline UIFont *WXM_bfont16() {
+static inline UIFont *kBfont16() {
     return [UIFont boldSystemFontOfSize:16];
 }
-static inline UIFont *WXM_bfont14() {
+static inline UIFont *kBfont14() {
     return [UIFont boldSystemFontOfSize:14];
 }
-static inline UIFont *WXM_bfont12() {
+static inline UIFont *kBfont12() {
     return [UIFont boldSystemFontOfSize:12];
 }
-static inline UIFont *WXM_bfont11() {
+static inline UIFont *kBfont11() {
     return [UIFont boldSystemFontOfSize:11];
 }
-static inline UIFont *WXM_bfont8() {
+static inline UIFont *kBfont8() {
     return [UIFont boldSystemFontOfSize:8];
 }
 #endif /* WXMGlobalStaticFile_h */

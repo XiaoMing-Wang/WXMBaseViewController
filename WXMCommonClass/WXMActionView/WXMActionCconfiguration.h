@@ -15,11 +15,14 @@
 /** 描述字体 */
 #define WXMCommonDetailFont 14
 
-/** 描述字体 */
+/** 描述小字体 */
 #define WXMCommonSubDetailFont 12
 
 /** 线条左边边距 */
 #define WXMCommonLineX 16
+
+/** 线条高度 */
+#define WXMCommonLineH 0.75
 
 /** 标题颜色 */
 #define WXMCommonTitleColor [UIColor blackColor]
@@ -49,7 +52,7 @@
 #define WXMThemeCornerRadius 8
 
 /** 按钮主题颜色 */
-#define WXMThemeBackgroundColor WXM_buttonDefaultColor()
+#define WXMThemeBackgroundColor kButtonDefaultColor()
 
 /** 按钮标题颜色 */
 #define WXMThemetTitleColor [UIColor whiteColor]

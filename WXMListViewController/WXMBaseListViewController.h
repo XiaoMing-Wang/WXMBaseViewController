@@ -7,7 +7,7 @@
 //
 #import "WXMMJDIYHeader.h"
 #import "WXMBaseViewController.h"
-#import "WXMBaseNetworkAssist.h"
+#import "WXMBaseListNetworkHandler.h"
 
 /** 错误界面大小类型 */
 typedef NS_ENUM(NSUInteger, WXMErrorType) {
@@ -29,7 +29,7 @@ typedef NS_ENUM(NSUInteger, WXMErrorType) {
 @property (nonatomic, strong, readwrite) UIView *footControl;
 
 /** viewmodel */
-@property (nonatomic, strong) WXMBaseNetworkAssist *networkViewModel;
+@property (nonatomic, strong) WXMBaseListNetworkHandler *networkViewModel;
 
 /** 刷新控件 */
 @property (nonatomic, strong) WXMMJDIYHeader *listHeaderControl;

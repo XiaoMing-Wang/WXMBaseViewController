@@ -8,11 +8,15 @@
 
 #import "WXMBaseNetworkHandler.h"
 
-@implementation WXMBaseHttpsReq
+@implementation WXMBaseHttpsResp
+
+- (BOOL)success {
+    return (self.errorCode == 0 && self);
+}
 
 @end
 
-@implementation WXMBaseHttpsResp
+@implementation WXMBaseHttpsReq
 
 @end
 
