@@ -11,7 +11,7 @@
 - (networkClass *)networkHandle {  return (networkClass *) [self valueForKey:@"networkObject"]; }
 
 #define kFTableHandle(tableClass) class NSObject; \
-- (Class)tableViewViewModelClass { return tableClass.class; } \
+- (Class)tableViewModelClass { return tableClass.class; } \
 - (tableClass *)tableHandle {  return (tableClass *) [self valueForKey:@"tableViewObject"]; }
 
 #import <UIKit/UIKit.h>
@@ -19,7 +19,7 @@
 #import "WXMGlobalStaticFile.h"
 #import "WXMBaseTableHandler.h"
 #import "WXMBaseListNetworkHandler.h"
-#import "TMDBaseTableViewModel.h"
+#import "WXMBaseTableHandler.h"
 
 @interface WXMBaseViewController : UIViewController
 <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, WXMTableViewModelProtocol>
@@ -48,7 +48,7 @@
 /** 初始化 */
 - (void)initializeDefaultInterface;
 
-- (Class)tableViewViewModelClass;
+- (Class)tableViewModelClass;
 - (Class)networkViewModelClass;
 - (__kindof WXMBaseTableHandler *)tableHandle;
 - (__kindof WXMBaseListNetworkHandler *)networkHandle;

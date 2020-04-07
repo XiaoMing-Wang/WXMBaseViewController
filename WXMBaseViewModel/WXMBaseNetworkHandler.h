@@ -7,22 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WXMBaseHttpsResponse.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class WXMBaseHttpsResp;
-typedef void (^NetworkHandlerCallBack)(WXMBaseHttpsResp *resp);
-@interface WXMBaseHttpsResp : NSObject
-@property (nonatomic, assign) BOOL success;
-@property (nonatomic, assign) NSInteger errorCode;
-@property (nonatomic, assign) NSInteger errormMessage;
-@property (nonatomic, assign) id errorObject;
-@property (nonatomic, assign) NSDictionary *errorResults;
-@end
-
 @interface WXMBaseHttpsReq : NSObject
-
-
 @end
 
 @interface WXMBaseNetworkHandler : NSObject

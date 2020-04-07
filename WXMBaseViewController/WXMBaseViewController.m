@@ -7,7 +7,6 @@
 //
 #import <objc/runtime.h>
 #import "WXMBaseViewController.h"
-#import "TMDBaseTableViewModel.h"
 
 @interface WXMBaseViewController ()
 @property (readwrite, nonatomic) UIStatusBarStyle lastStatusBarStyle;
@@ -35,7 +34,7 @@ static inline UIImage *kBaseColorConversionImage(UIColor *color) {
     [self initializeSameInterface];
     [self initializeDefaultInterface];
     self.navigationController.navigationBar.translucent = YES;
-    if (@available(iOS 11.0, *))  self.automaticallyAdjustsScrollViewInsets = NO;
+    if (@available(iOS 11.0, *)) self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 /**子类重写 */
@@ -175,7 +174,7 @@ static inline UIImage *kBaseColorConversionImage(UIColor *color) {
 #pragma clang diagnostic ignored "-Wundeclared-selector"
 - (__kindof WXMBaseTableHandler *)tableViewObject {
     if (!_tableViewObject) {
-        _tableViewObject = [[self tableViewViewModelClass] tableVieWithController:self];
+        _tableViewObject = [[self tableViewModelClass] tableVieWithController:self];
     }
     return _tableViewObject;
 }
@@ -188,7 +187,7 @@ static inline UIImage *kBaseColorConversionImage(UIColor *color) {
 }
 
 /** viewmodel类 */
-- (Class)tableViewViewModelClass {
+- (Class)tableViewModelClass {
     return WXMBaseTableHandler.class;
 }
 
