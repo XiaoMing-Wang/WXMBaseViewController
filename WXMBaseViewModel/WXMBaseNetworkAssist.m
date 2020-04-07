@@ -6,14 +6,14 @@
 //  Copyright © 2019年 wxm. All rights reserved.
 //
 #define WXM_CacheSignal @"WXM_CacheSignal"
-#import "WXMBaseNetworkViewModel.h"
-@interface WXMBaseNetworkViewModel ()
+#import "WXMBaseNetworkAssist.h"
+@interface WXMBaseNetworkAssist ()
 @property(nonatomic, weak, readwrite) UIViewController *controller;
 @end
-@implementation WXMBaseNetworkViewModel
+@implementation WXMBaseNetworkAssist
 
 + (instancetype)networkWithController:(UIViewController *)controller {
-    WXMBaseNetworkViewModel *networkViewModel = [[self alloc] initWithController:controller];
+    WXMBaseNetworkAssist *networkViewModel = [[self alloc] initWithController:controller];
     return networkViewModel;
 }
 

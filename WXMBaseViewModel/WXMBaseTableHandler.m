@@ -6,18 +6,18 @@
 //  Copyright © 2019年 wxm. All rights reserved.
 //
 
-#import "WXMBaseTableViewModel.h"
-@interface WXMBaseTableViewModel ()
+#import "WXMBaseTableHandler.h"
+@interface WXMBaseTableHandler ()
 @property (nonatomic, copy) NSString *ident;
 @property (nonatomic, weak, readwrite) UITableView *tableView;
 @property (nonatomic, weak, readwrite) UIViewController<WXMTableViewModelProtocol> *viewController;
 @end
-@implementation WXMBaseTableViewModel
+@implementation WXMBaseTableHandler
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
 + (instancetype)tableVieWithController:(UIViewController<WXMTableViewModelProtocol>*)controller {
-    WXMBaseTableViewModel *tableViewModel = [self new];
+    WXMBaseTableHandler *tableViewModel = [self new];
     tableViewModel.viewController = controller;
     return tableViewModel;
 }
@@ -26,10 +26,7 @@
     [self setTableView:tableView dataSource:@[].mutableCopy cellClass:cellClass];
 }
 
-- (void)setTableView:(UITableView *)tableView
-          dataSource:(__kindof NSArray * )dataSource
-           cellClass:(__nullable Class)cellClass {
-    
+- (void)setTableView:(UITableView *)tableView dataSource:(__kindof NSArray * )dataSource cellClass:(__nullable Class)cellClass {
     self.ident = @"cell";
     self.dataSource = dataSource;
     self.tableView = tableView;
@@ -37,7 +34,6 @@
     self.tableView.dataSource = self;
     [self.tableView registerClass:cellClass forCellReuseIdentifier:self.ident];
 }
-
 
 #pragma mark -------------------------------- tableView delegate
 

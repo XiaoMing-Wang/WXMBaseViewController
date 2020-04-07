@@ -30,7 +30,7 @@ typedef NS_ENUM(NSUInteger, WXMRefreshType) {
     WXMRefreshFootControl,   /** 尾部 */
 };
 
-@interface WXMBaseNetworkViewModel : NSObject
+@interface WXMBaseNetworkAssist : NSObject
 
 @property (nonatomic, assign) NSInteger lastPage;
 @property (nonatomic, assign) NSInteger currentPage;

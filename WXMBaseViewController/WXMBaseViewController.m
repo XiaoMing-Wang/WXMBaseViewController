@@ -10,6 +10,8 @@
 
 @interface WXMBaseViewController ()
 @property (readwrite, nonatomic) UIStatusBarStyle lastStatusBarStyle;
+@property (nonatomic, strong, readwrite) WXMBaseNetworkAssist *networkAssistObject;
+@property (nonatomic, strong, readwrite) WXMBaseTableHandler *tableViewAssistObject;
 @end
 
 /** 颜色画图 */
@@ -167,35 +169,40 @@ static inline UIImage *WXM_baseColorConversionImage(UIColor *color) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 #pragma clang diagnostic ignored "-Wundeclared-selector"
-- (__kindof WXMBaseTableViewModel *)tableViewViewModel {
-    if (!_tableViewViewModel) {
+- (__kindof WXMBaseTableHandler *)tableViewAssistObject {
+    if (!_tableViewAssistObject) {
         SEL sel = @selector(tableVieWithController:);
-        _tableViewViewModel = [self.tableViewViewModelClass performSelector:sel withObject:self];
+        _tableViewAssistObject = [self.tableViewViewModelClass performSelector:sel withObject:self];
     }
-    return _tableViewViewModel;
+    return _tableViewAssistObject;
 }
 
-- (__kindof WXMBaseNetworkViewModel *)networkViewModel {
-    if (!_networkViewModel) {
+- (__kindof WXMBaseNetworkAssist *)networkAssistObject {
+    if (!_networkAssistObject) {
         SEL sel = @selector(networkWithController:);
-        _networkViewModel = [self.tableViewViewModelClass performSelector:sel withObject:self];
+        _networkAssistObject = [self.networkViewModelClass performSelector:sel withObject:self];
     }
-    return _networkViewModel;
+    return _networkAssistObject;
 }
 
 /** viewmodel类 */
 - (Class)tableViewViewModelClass {
-    return WXMBaseTableViewModel.class;
+    return WXMBaseTableHandler.class;
 }
 
 /** network类 */
 - (Class)networkViewModelClass {
-    return WXMBaseNetworkViewModel.class;
+    return WXMBaseNetworkAssist.class;
 }
 
 /** 子类覆盖该方法强制转换 */
-- (__kindof WXMBaseNetworkViewModel *)currentNetwork {
-    return (WXMBaseNetworkViewModel *) self.networkViewModel;
+- (__kindof WXMBaseNetworkAssist *)networkAssist {
+    return (WXMBaseNetworkAssist *) self.networkAssistObject;
+}
+
+/** 子类覆盖该方法强制转换 */
+- (__kindof WXMBaseTableHandler *)tableAssist {
+    return (WXMBaseTableHandler *) self.tableViewAssistObject;
 }
 
 #pragma clang diagnostic pop

@@ -5,22 +5,30 @@
 //  Created by edz on 2019/5/6.
 //  Copyright © 2019年 wq. All rights reserved.
 //
+#define kFTableAssist(TablesClass) class NSString; \
+- (TablesClass *)tableAssist { return (TablesClass *) self.tableViewAssistObject; } \
+- (Class)tableViewViewModelClass { return [TablesClass class]; }
+
+#define kFNetworkAssist(NetworkClass) class NSString; \
+- (Class)networkViewModelClass { return [NetworkClass class]; } \
+- (NetworkClass *)networkAssist { return (NetworkClass *)self.networkAssistObject; } \
+
 
 #import <UIKit/UIKit.h>
 #import "WXMBaseErrorViewProtocol.h"
 #import "WXMGlobalStaticFile.h"
-#import "WXMBaseTableViewModel.h"
-#import "WXMBaseNetworkViewModel.h"
+#import "WXMBaseTableHandler.h"
+#import "WXMBaseNetworkAssist.h"
 
-@interface WXMBaseViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, WXMTableViewModelProtocol>
+@interface WXMBaseViewController : UIViewController
+<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, WXMTableViewModelProtocol>
 
 @property (nonatomic, assign) BOOL hiddenNavigationLine;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIScrollView *scrollView;
-
 @property (nonatomic, strong) NSMutableArray *dataSource;
-@property (nonatomic, strong) WXMBaseNetworkViewModel *networkViewModel;
-@property (nonatomic, strong) WXMBaseTableViewModel *tableViewViewModel;
+@property (nonatomic, strong, readonly) WXMBaseNetworkAssist *networkAssistObject;
+@property (nonatomic, strong, readonly) WXMBaseTableHandler *tableViewAssistObject;
 
 /** 转场动画中 */
 @property (nonatomic, assign) BOOL transitions;
@@ -46,11 +54,9 @@
 /** network类 */
 - (Class)networkViewModelClass;
 
-//- (__kindof WXMBaseNetworkViewModel *)currentNetwork {
-//    return (WXMBaseNetworkViewModel *)self.networkViewModel;
-//}
 /** 子类覆盖该方法强制转换 */
-- (__kindof WXMBaseNetworkViewModel *)currentNetwork;
+- (__kindof WXMBaseNetworkAssist *)networkAssist;
+- (__kindof WXMBaseTableHandler *)tableAssist;
 
 @end
 
