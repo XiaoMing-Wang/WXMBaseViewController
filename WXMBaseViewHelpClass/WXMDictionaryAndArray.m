@@ -19,7 +19,6 @@
 @property (nonatomic, strong) NSMutableDictionary *signDictionary;
 @end
 
-
 @implementation WXMDictionaryAndArray
 
 /** Dictionary */
