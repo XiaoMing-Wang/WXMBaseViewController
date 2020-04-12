@@ -18,11 +18,12 @@ static char networkhandler;
 
 @implementation WXMBaseNetworkHandler
 
-/** 这个方法是占位做提示用的 会被宏替换掉 */
+/** 这个方法是占位做提示用的 会被宏替换成singletonhandler */
 + (instancetype)handler {
     return nil;
 }
 
+/** 把handler绑定在控制器上 生命周期由控制器管理 */
 + (instancetype (^)(id<WXMBaseNetworkHandlerProtocol> delegate))singletonhandler {
     return ^(id<WXMBaseNetworkHandlerProtocol> delegate) {
         WXMBaseNetworkHandler *handlers = objc_getAssociatedObject(delegate, &networkhandler);
