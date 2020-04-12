@@ -51,6 +51,7 @@ typedef NS_ENUM(NSUInteger, WXMRefreshType) {
 /** 初始化 */
 + (instancetype)handler;
 + (instancetype (^)(id<WXMBaseNetworkHandlerProtocol> delegate))singletonhandler;
+- (instancetype)initWithDelegate:(id<WXMBaseNetworkHandlerProtocol>)delegate;
 
 /** 内部调用 处理一致的回调 不一致用block */
 - (void)callSuccessWithArray:(nullable NSArray *)arrays;

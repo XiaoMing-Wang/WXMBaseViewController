@@ -12,14 +12,4 @@
 /** 初始化的宏 */
 #define handler singletonhandler(self)
 
-/** iphoneX */
-//#define handler new[self]
-//({ handler[@"aaa"] = self; \
-//if (@available(iOS 11.0, *)) {\
-//isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bottom > 0.0;\
-//}\
-//(isPhoneX);\
-//})
-
-
 #endif /* WXMBaseReplaceMacro_h */

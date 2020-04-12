@@ -35,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 /** 初始化 */
 + (instancetype)handler;
 + (instancetype (^)(id<WXMTableViewHandleProtocol> delegate)) singletonhandler;
+- (instancetype)initWithDelegate:(id<WXMTableViewHandleProtocol>)delegate;
+
 - (void)setTableView:(UITableView *)tableView cellClass:(__nullable Class)cellClass;
 - (void)setTableView:(UITableView *)tableView
           dataSource:(__kindof NSArray *)dataSource
