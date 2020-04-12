@@ -9,16 +9,6 @@
 #define SINGLETON_HANDLE_CLASS(CLASS) \
 + (CLASS *(^)(id<WXMBaseNetworkHandlerProtocol> delegate))singletonhandler;
 
-/** 声明httpReq对象和实现 强制申明是为了保证httpReq参数名共用 */
-#define SINGLETON_HANDLE_REQ_DEFINE(CLASS) @property (nonatomic, strong) CLASS *httpReq;
-#define SINGLETON_HANDLE_REQ_IMPEMENT(CLASS) \
-@synthesize httpReq = _httpReq; \
-- (CLASS *)httpReq { \
-    if (_httpReq == nil) _httpReq = [[CLASS alloc] init]; \
-    return _httpReq;\
-}
-
-
 #define NO_CALLBACK_NIL if (!callBack) return;
 #define NO_PARAMETER_NIL(parameter) if (!parameter) return;
 
@@ -42,9 +32,6 @@ typedef NS_ENUM(NSUInteger, WXMRefreshType) {
 
 @class BaseModel;
 @interface WXMBaseNetworkHandler : NSObject
-
-/** 请求参数 */
-@property (nonatomic, strong) NSObject *httpReq;
 
 /** 回调代理 */
 @property (nonatomic, weak, readonly) id <WXMBaseNetworkHandlerProtocol>delegate;
