@@ -10,8 +10,8 @@
 
 NSString *const WXMTabBarDoubleClick = @"WXMTabBarDoubleClick";
 @interface WXMBaseTabBarViewController () <UITabBarControllerDelegate>
-@property(nonatomic, strong) NSDate *lastDate;
-@property(nonatomic, assign) NSInteger currentIndex;
+@property (nonatomic, strong) NSDate *lastDate;
+@property (nonatomic, assign) NSInteger currentIndex;
 @end
 
 @implementation WXMBaseTabBarViewController
@@ -68,7 +68,8 @@ NSString *const WXMTabBarDoubleClick = @"WXMTabBarDoubleClick";
              ];
 }
 
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
+- (void)tabBarController:(UITabBarController *)tabBarController
+ didSelectViewController:(UIViewController *)viewController {
     
     NSDate *date = [[NSDate alloc] init];
     if (tabBarController.selectedIndex == _currentIndex &&

@@ -7,7 +7,7 @@
 //
 #import "WXMMJDIYHeader.h"
 #import "WXMBaseViewController.h"
-#import "WXMBaseListNetworkHandler.h"
+#import "WXMBaseNetworkhandler.h"
 
 /** 错误界面大小类型 */
 typedef NS_ENUM(NSUInteger, WXMErrorType) {
@@ -28,8 +28,8 @@ typedef NS_ENUM(NSUInteger, WXMErrorType) {
 @property (nonatomic, strong, readwrite) UITableView *tableView;
 @property (nonatomic, strong, readwrite) UIView *footControl;
 
-/** viewmodel */
-@property (nonatomic, strong) WXMBaseListNetworkHandler *networkViewModel;
+///** viewmodel */
+//@property (nonatomic, strong) WXMBaseListNetworkhandler *networkViewModel;
 
 /** 刷新控件 */
 @property (nonatomic, strong) WXMMJDIYHeader *listHeaderControl;
@@ -42,5 +42,5 @@ typedef NS_ENUM(NSUInteger, WXMErrorType) {
 - (void)pullRefreshHeaderControl;
 - (void)pullRefreshFootControl;
 - (void)endRefreshControl;
-- (void)setDefaultInterface:(WXMRequestType)type;
+
 @end

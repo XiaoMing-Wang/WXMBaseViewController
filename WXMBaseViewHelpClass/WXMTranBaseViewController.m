@@ -6,13 +6,13 @@
 //  Copyright © 2019 wq. All rights reserved.
 //
 
-#import "WXMTransitionNavigationViewController.h"
+#import "WXMTranBaseViewController.h"
 
-@interface WXMTransitionNavigationViewController ()
+@interface WXMTranBaseViewController ()
 
 @end
 
-@implementation WXMTransitionNavigationViewController
+@implementation WXMTranBaseViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -70,7 +70,6 @@
 }
 
 /** Array */
-
 - (NSUInteger)count {
     return self.contentArray.count;
 }

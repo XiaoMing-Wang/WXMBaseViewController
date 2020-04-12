@@ -7,7 +7,7 @@
 //
 #import "WXMMJDIYHeader.h"
 #import "WXMBaseViewController.h"
-#import "WXMBaseListNetworkHandler.h"
+#import "WXMBaseNetworkhandler.h"
 #import "WXMBaseViewController.h"
 #import "WXMBaseListViewController.h"
 
@@ -20,9 +20,6 @@
 /** tableView */
 @property (nonatomic, strong, readwrite) UITableView *tableView;
 @property (nonatomic, strong, readwrite) NSMutableArray *dataSource;
-
-/** 缓存 */
-@property (nonatomic, assign) WXMExistCacheType existCache;
 
 /** 刷新状态 */
 @property (nonatomic, assign) WXMRefreshType refreshType;

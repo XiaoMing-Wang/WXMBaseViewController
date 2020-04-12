@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 /** 替换 */
 - (void)wxm_setArray:(NSArray *)otherArray;
 - (void)wxm_replaceArray:(NSArray *)otherArray;
+
 @end
 
 NS_ASSUME_NONNULL_END

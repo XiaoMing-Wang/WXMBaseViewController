@@ -5,29 +5,18 @@
 //  Created by edz on 2019/5/6.
 //  Copyright © 2019年 wq. All rights reserved.
 //
-
-#define kFNetworkHandle(networkClass) class NSObject; \
-- (Class)networkViewModelClass { return networkClass.class; } \
-- (networkClass *)networkHandle {  return (networkClass *) [self valueForKey:@"networkObject"]; }
-
-#define kFTableHandle(tableClass) class NSObject; \
-- (Class)tableViewViewModelClass { return tableClass.class; } \
-- (tableClass *)tableHandle {  return (tableClass *) [self valueForKey:@"tableViewObject"]; }
-
 #import <UIKit/UIKit.h>
 #import "WXMBaseErrorViewProtocol.h"
 #import "WXMGlobalStaticFile.h"
-#import "WXMBaseTableHandler.h"
-#import "WXMBaseListNetworkHandler.h"
-#import "TMDBaseTableViewModel.h"
+#import "WXMBaseTableViewhandler.h"
+#import "WXMBaseNetworkhandler.h"
+#import "WXMBaseReplaceMacro.h"
 
-@interface WXMBaseViewController : UIViewController
-<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, WXMTableViewModelProtocol>
+@interface WXMBaseViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, WXMTableViewHandleProtocol, WXMBaseNetworkHandlerProtocol>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIScrollView *scrollView;
 
-@property (nonatomic, assign) BOOL hiddenNavigationLine;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 
 /** 转场动画中 */
@@ -47,11 +36,6 @@
 
 /** 初始化 */
 - (void)initializeDefaultInterface;
-
-- (Class)tableViewViewModelClass;
-- (Class)networkViewModelClass;
-- (__kindof WXMBaseTableHandler *)tableHandle;
-- (__kindof WXMBaseListNetworkHandler *)networkHandle;
 
 @end
 

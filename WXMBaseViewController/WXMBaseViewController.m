@@ -7,12 +7,10 @@
 //
 #import <objc/runtime.h>
 #import "WXMBaseViewController.h"
-#import "TMDBaseTableViewModel.h"
+#import "TMDLoginhandler.h"
 
 @interface WXMBaseViewController ()
 @property (readwrite, nonatomic) UIStatusBarStyle lastStatusBarStyle;
-@property (nonatomic, strong, readwrite) WXMBaseListNetworkHandler *networkObject;
-@property (nonatomic, strong, readwrite) WXMBaseTableHandler *tableViewObject;
 @end
 
 /** 颜色画图 */
@@ -38,7 +36,7 @@ static inline UIImage *kBaseColorConversionImage(UIColor *color) {
     if (@available(iOS 11.0, *))  self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
-/**子类重写 */
+/** 界面初始化 */
 - (void)initializeDefaultInterface {
     
 }
@@ -53,15 +51,7 @@ static inline UIImage *kBaseColorConversionImage(UIColor *color) {
         self.navigationItem.leftBarButtonItem = nil;
         self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
         [self.navigationController.navigationBar setTitleTextAttributes:attributes];
-        
-        /** 线条  */
-        CALayer *line = [CALayer layer];
-        line.backgroundColor = [UIColor blackColor].CGColor;
-        line.frame = CGRectMake(0, 44, WXMBase_Width, 0.5);
-        [self.navigationController.navigationBar.layer addSublayer:line];
-        objc_setAssociatedObject(self.navigationController, @"navigation_line", line, 1);
-        
-        [self setHiddenNavigationLine:YES];
+                
         [self setNavigationBarColor:kNavigationColor() alpha:1];
     }
 }
@@ -73,13 +63,6 @@ static inline UIImage *kBaseColorConversionImage(UIColor *color) {
     color = [color colorWithAlphaComponent:alpha];
     UIImage *image = kBaseColorConversionImage(color);
     [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:0];
-}
-
-/** 导航栏线条 */
-- (void)setHiddenNavigationLine:(BOOL)hiddenNavigationLine {
-    _hiddenNavigationLine = hiddenNavigationLine;
-    CALayer *line = objc_getAssociatedObject(self.navigationController, @"navigation_line");
-    if (line) line.hidden = hiddenNavigationLine;
 }
 
 - (UIStatusBarStyle)statusBarStyle {
@@ -129,6 +112,7 @@ static inline UIImage *kBaseColorConversionImage(UIColor *color) {
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.separatorColor = [UIColor redColor];
         _tableView.backgroundColor = [UIColor whiteColor];
+        _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         if (@available(iOS 11.0, *)) {
             _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
@@ -146,6 +130,7 @@ static inline UIImage *kBaseColorConversionImage(UIColor *color) {
     _tableView.backgroundColor = [UIColor whiteColor];
     _tableView.separatorColor = [UIColor redColor];
     _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0,0,0,CGFLOAT_MIN)];
+    _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     if (@available(iOS 11.0, *)) {
         _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
@@ -159,6 +144,7 @@ static inline UIImage *kBaseColorConversionImage(UIColor *color) {
         _scrollView.alwaysBounceHorizontal = NO;
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.showsHorizontalScrollIndicator = NO;
+        _scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         if (@available(iOS 11.0, *)) {
             _scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
@@ -169,48 +155,6 @@ static inline UIImage *kBaseColorConversionImage(UIColor *color) {
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [scrollView endEditing:YES];
 }
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-#pragma clang diagnostic ignored "-Wundeclared-selector"
-- (__kindof WXMBaseTableHandler *)tableViewObject {
-    if (!_tableViewObject) {
-        _tableViewObject = [[self tableViewViewModelClass] tableVieWithController:self];
-    }
-    return _tableViewObject;
-}
-
-- (__kindof WXMBaseListNetworkHandler *)networkObject {
-    if (!_networkObject) {
-        _networkObject = [[self networkViewModelClass] networkWithController:self];
-    }
-    return _networkObject;
-}
-
-/** viewmodel类 */
-- (Class)tableViewViewModelClass {
-    return WXMBaseTableHandler.class;
-}
-
-/** network类 */
-- (Class)networkViewModelClass {
-    return WXMBaseListNetworkHandler.class;
-}
-
-- (__kindof WXMBaseTableHandler *)tableHandle {
-    return self.tableViewObject;
-}
-
-- (__kindof WXMBaseListNetworkHandler *)networkHandle {
-    return self.networkObject;
-}
-
-- (id)valueForKey:(NSString *)key {
-    if (!key) return nil;
-    return [super valueForKey:key];
-}
-
-#pragma clang diagnostic pop
 
 /** dataSource */
 - (NSMutableArray *)dataSource {
