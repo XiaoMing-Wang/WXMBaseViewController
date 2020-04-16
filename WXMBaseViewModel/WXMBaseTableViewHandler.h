@@ -23,8 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)wt_scrollViewDidEndDraggingWithDecelerate:(BOOL)decelerate;
 - (void)wt_scrollViewWillBeginDecelerating;
 - (void)wt_scrollViewDidEndDecelerating;
-
 - (void)wt_tableCustomEvent:(NSString *)event object:(id)object;
+
 @end
 
 @interface WXMBaseTableViewHandler : NSObject <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** 初始化 */
 + (instancetype)handler;
-+ (instancetype (^)(id<WXMTableViewHandleProtocol> delegate)) singletonhandler;
++ (instancetype (^)(id<WXMTableViewHandleProtocol>delegate))singletonhandler;
 - (instancetype)initWithDelegate:(id<WXMTableViewHandleProtocol>)delegate;
 
 - (void)setTableView:(UITableView *)tableView cellClass:(__nullable Class)cellClass;

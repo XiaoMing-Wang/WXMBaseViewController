@@ -25,7 +25,9 @@ static char tablehandler;
 }
 
 /** 把handler绑定在控制器上 生命周期由控制器管理 */
-+ (instancetype (^)(id<WXMTableViewHandleProtocol> delegate))singletonhandler {
+/** 把handler绑定在控制器上 生命周期由控制器管理 */
+/** 把handler绑定在控制器上 生命周期由控制器管理 */
++ (instancetype (^)(id<WXMTableViewHandleProtocol>delegate))singletonhandler {
     return ^(id<WXMTableViewHandleProtocol> delegate) {
         WXMBaseTableViewHandler *handlers = objc_getAssociatedObject(delegate, &tablehandler);
         if (handlers == nil) {
@@ -47,7 +49,9 @@ static char tablehandler;
     return self;
 }
 
-- (void)initializationVariable {}
+- (void)initializationVariable {
+    
+}
 
 - (void)setTableView:(UITableView *)tableView cellClass:(__nullable Class)cellClass {
     [self setTableView:tableView dataSource:@[].mutableCopy cellClass:cellClass];

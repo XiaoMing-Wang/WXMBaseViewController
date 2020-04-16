@@ -23,6 +23,8 @@ typedef NS_ENUM(NSUInteger, WXMRefreshType) {
     WXMRefreshFootControl,   /** 尾部 */
 };
 
+typedef void (^NetworkHandlerVoid) (void);
+typedef void (^NetworkHandlerID) (id response);
 @protocol WXMBaseNetworkHandlerProtocol <NSObject>
 @optional
 - (void)wt_requestSuccessWithArray:(NSArray *)arrays;
@@ -58,6 +60,7 @@ typedef NS_ENUM(NSUInteger, WXMRefreshType) {
 - (void)callSuccessWithArray:(nullable NSArray *)arrays;
 - (void)callSuccessWithEvent:(nullable NSString *)event object:(nullable id)object;
 - (void)callFailWithEvent:(nullable NSString *)event object:(nullable id)object;
+
 @end
 
 
