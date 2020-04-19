@@ -12,17 +12,6 @@
 
 @interface WXMBaseThemeButton : UIButton
 
-typedef NS_ENUM(NSInteger, WXMStateButtonState) {
-
-    /** 默认 */
-    WXMStateButtonStateNormal = 0,
-
-    /** 不可用 */
-    WXMStateButtonStateDisabled,
-};
-
-@property (nonatomic, assign) WXMStateButtonState buttonState;
-
 /** 主题 */
 + (WXMBaseThemeButton *)themeButtonWithTitle:(NSString *)title;
 + (WXMBaseThemeButton *)themeButtonDisabledWithTitle:(NSString *)title;

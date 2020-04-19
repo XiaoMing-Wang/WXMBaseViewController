@@ -19,7 +19,9 @@
 }
 
 + (WXMBaseThemeButton *)themeButtonDisabledWithTitle:(NSString *)title {
-    WXMBaseThemeButton *themeButton = [self themeButtonWithTitle:title];
+    WXMBaseThemeButton *themeButton = [WXMBaseThemeButton new];
+    [themeButton setTitle:title forState:UIControlStateNormal];
+    [themeButton setDefaultThemeInterface];
     themeButton.enabled = NO;
     return themeButton;
 }
@@ -29,6 +31,7 @@
     UIImage *backgroundImage = [self imageFromColor:WXMThemeBackgroundColor];
     [self setBackgroundImage:backgroundImage forState:UIControlStateNormal];
     [self setTitleColor:WXMThemetTitleColor forState:UIControlStateNormal];
+    
     self.titleLabel.font = [UIFont systemFontOfSize:WXMThemeFontSize];
     self.layer.cornerRadius = WXMThemeCornerRadius;
     self.layer.masksToBounds = YES;
@@ -45,23 +48,14 @@
     
 }
 
+/** 设置背景色 */
 - (void)setBackgroundColor:(UIColor *)color forState:(UIControlState)state {
     [self setBackgroundImage:[self imageFromColor:color] forState:state];
 }
 
+/** 设置字体色 */
 - (void)setTitleColor:(UIColor *)color forState:(UIControlState)state {
-    [self setTitleColor:color forState:state];
-}
-
-- (void)setButtonState:(WXMStateButtonState)buttonState {
-    _buttonState = buttonState;
-    self.enabled = YES;
-    self.userInteractionEnabled = YES;
-    if (_buttonState == WXMStateButtonStateDisabled) {
-        self.enabled = NO;
-    }
-    
-    [self customDifferentInterface];
+    [super setTitleColor:color forState:state];
 }
 
 /** 根据颜色绘制图片 */
