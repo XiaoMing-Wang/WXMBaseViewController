@@ -33,35 +33,35 @@ static inline UIImage *kBaseColorConversionImage(UIColor *color) {
     [self initializeSameInterface];
     [self initializeDefaultInterface];
     self.navigationController.navigationBar.translucent = YES;
-    if (@available(iOS 11.0, *))  self.automaticallyAdjustsScrollViewInsets = NO;
+    if (@available(iOS 11.0, *)) self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
-/** 界面初始化 */
-- (void)initializeDefaultInterface {
-    
-}
-
+/** 公共设置 */
 - (void)initializeSameInterface {
     self.view.backgroundColor = [UIColor whiteColor];
     if (self.navigationController.viewControllers.firstObject &&
-        [self.navigationController.viewControllers.firstObject isKindOfClass:self.class] &&
+        self.navigationController.viewControllers.firstObject == self &&
         self.navigationController.viewControllers.count == 1) {
-        NSDictionary *attributes = @{ NSFontAttributeName : [UIFont systemFontOfSize:17],
-                                      NSForegroundColorAttributeName : kNavigationTitleColor() };
+        UIFont *font = [UIFont systemFontOfSize:17];
+        UIColor *color = kNavigationTitleColor();
+        NSDictionary *attributes = @{ NSFontAttributeName : font, NSForegroundColorAttributeName : color };
         self.navigationItem.leftBarButtonItem = nil;
-        self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
+        self.navigationController.interactivePopGestureRecognizer.delegate = (id) self;
         [self.navigationController.navigationBar setTitleTextAttributes:attributes];
-                
         [self setNavigationBarColor:kNavigationColor() alpha:1];
     }
+}
+
+/** 子类自定义 */
+- (void)initializeDefaultInterface {
+    
 }
 
 /** 设置导航栏透明 */
 - (void)setNavigationBarColor:(UIColor *)color alpha:(CGFloat)alpha {
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
-    color = [color colorWithAlphaComponent:alpha];
-    UIImage *image = kBaseColorConversionImage(color);
+    UIImage *image = kBaseColorConversionImage([color colorWithAlphaComponent:alpha]);
     [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:0];
 }
 
@@ -97,7 +97,7 @@ static inline UIImage *kBaseColorConversionImage(UIColor *color) {
         self.navigationController.interactivePopGestureRecognizer.enabled = self.interactivePop;
     }
     
-    dispatch_time_t when = dispatch_time(DISPATCH_TIME_NOW,(1.0 * NSEC_PER_SEC));
+    dispatch_time_t when = dispatch_time(DISPATCH_TIME_NOW,(0.75 * NSEC_PER_SEC));
     dispatch_after(when, dispatch_get_main_queue(), ^{
         self.loaded = YES;
     });
@@ -110,7 +110,7 @@ static inline UIImage *kBaseColorConversionImage(UIColor *color) {
         _tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
         _tableView.tableFooterView = [UIView new];
         _tableView.showsVerticalScrollIndicator = NO;
-        _tableView.separatorColor = [UIColor redColor];
+        _tableView.separatorColor = [UIColor lightGrayColor];
         _tableView.backgroundColor = [UIColor whiteColor];
         _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         if (@available(iOS 11.0, *)) {
@@ -128,7 +128,7 @@ static inline UIImage *kBaseColorConversionImage(UIColor *color) {
     _tableView.tableFooterView = [UIView new];
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.backgroundColor = [UIColor whiteColor];
-    _tableView.separatorColor = [UIColor redColor];
+    _tableView.separatorColor = [UIColor lightGrayColor];
     _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0,0,0,CGFLOAT_MIN)];
     _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     if (@available(iOS 11.0, *)) {
@@ -152,11 +152,6 @@ static inline UIImage *kBaseColorConversionImage(UIColor *color) {
     return _scrollView;
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    [scrollView endEditing:YES];
-}
-
-/** dataSource */
 - (NSMutableArray *)dataSource {
     if (!_dataSource) _dataSource = @[].mutableCopy;
     return _dataSource;

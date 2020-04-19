@@ -13,6 +13,7 @@
 #define NO_PARAMETER_NIL(parameter) if (!parameter) return;
 
 #import <UIKit/UIKit.h>
+#import "WXMBaseReplaceMacro.h"
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -33,7 +34,7 @@ typedef void (^NetworkHandlerID) (id response);
 @end
 
 @class BaseModel;
-@interface WXMBaseNetworkHandler : NSObject
+@interface WXMBaseNetworkHandler : NSObject <WXMHandlerProtocol>
 
 /** 回调代理 */
 @property (nonatomic, weak, readonly) id <WXMBaseNetworkHandlerProtocol>delegate;
@@ -52,9 +53,10 @@ typedef void (^NetworkHandlerID) (id response);
 @property (nonatomic, strong, readwrite) NSMutableArray *dataSource;
 
 /** 初始化 */
-+ (instancetype)handler;
-+ (instancetype (^)(id<WXMBaseNetworkHandlerProtocol> delegate))singletonhandler;
 - (instancetype)initWithDelegate:(id<WXMBaseNetworkHandlerProtocol>)delegate;
+
+/** 设置默认数据 */
+- (void)initializationVariable;
 
 /** 内部调用 处理一致的回调 不一致用block */
 - (void)callSuccessWithArray:(nullable NSArray *)arrays;
@@ -63,5 +65,6 @@ typedef void (^NetworkHandlerID) (id response);
 
 @end
 
+//#define wb_handler singletonhandler(self)
 
 NS_ASSUME_NONNULL_END

@@ -9,7 +9,11 @@
 #ifndef WXMBaseReplaceMacro_h
 #define WXMBaseReplaceMacro_h
 
-/** 初始化的宏 */
-#define handler singletonhandler(self)
+@protocol WXMHandlerProtocol <NSObject>
+@optional;
++ (instancetype)handlerImp;
++ (instancetype (^)(id delegate))singletonhandler;
+@end
 
 #endif /* WXMBaseReplaceMacro_h */
+#define handlerImp singletonhandler(self)

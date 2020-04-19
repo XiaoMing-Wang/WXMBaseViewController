@@ -18,18 +18,23 @@ static char networkhandler;
 
 @implementation WXMBaseNetworkHandler
 
-/** 这个方法是占位做提示用的 会被宏替换成singletonhandler */
-+ (instancetype)handler {
-    return nil;
+/** 防止宏崩溃 */
++ (void)load {
+    Class class = object_getClass(self);
+    SEL handleSEL = NSSelectorFromString(@"handlerImp");
+    id handleIMP = ^(id dependInstance) { };
+    class_addMethod(class, handleSEL, imp_implementationWithBlock(handleIMP), "v@:@");
 }
 
 /** 把handler绑定在控制器上 生命周期由控制器管理 */
-+ (instancetype (^)(id<WXMBaseNetworkHandlerProtocol> delegate))singletonhandler {
+/** 把handler绑定在控制器上 生命周期由控制器管理 */
+/** 把handler绑定在控制器上 生命周期由控制器管理 */
++ (instancetype (^)(id delegate))singletonhandler {
     return ^(id<WXMBaseNetworkHandlerProtocol> delegate) {
         WXMBaseNetworkHandler *handlers = objc_getAssociatedObject(delegate, &networkhandler);
         if (handlers == nil) {
             handlers = [[self alloc] initWithDelegate:delegate];
-            objc_setAssociatedObject(delegate, &networkhandler, handlers, 1);
+            objc_setAssociatedObject(delegate, &networkhandler, handlers, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
         return handlers;
     };
@@ -127,7 +132,7 @@ static char networkhandler;
 }
 
 - (void)dealloc {
-//    NSLog(@"%@ 释放 ",NSStringFromClass(self.class));
+    /** NSLog(@"%@ 释放 ",NSStringFromClass(self.class)); */
 }
 
 @end

@@ -6,6 +6,7 @@
 //  Copyright © 2019年 wxm. All rights reserved.
 //
 #import <UIKit/UIKit.h>
+#import "WXMBaseReplaceMacro.h"
 #import <Foundation/Foundation.h>
 NS_ASSUME_NONNULL_BEGIN
 
@@ -27,20 +28,24 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface WXMBaseTableViewHandler : NSObject <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
+@interface WXMBaseTableViewHandler : NSObject
+<UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, WXMHandlerProtocol>
+
 @property(nonatomic, strong) NSMutableArray *dataSource;
 @property(nonatomic, weak, readonly) UITableView *tableView;
 @property (nonatomic, weak, readonly) id <WXMTableViewHandleProtocol>delegate;
 
 /** 初始化 */
-+ (instancetype)handler;
-+ (instancetype (^)(id<WXMTableViewHandleProtocol>delegate))singletonhandler;
 - (instancetype)initWithDelegate:(id<WXMTableViewHandleProtocol>)delegate;
 
+/** 设置默认数据 */
+- (void)initializationVariable;
 - (void)setTableView:(UITableView *)tableView cellClass:(__nullable Class)cellClass;
 - (void)setTableView:(UITableView *)tableView
           dataSource:(__kindof NSArray *)dataSource
            cellClass:(__nullable Class)cellClass;
 
 @end
+
+//#define wb_handler singletonhandler(self)
 NS_ASSUME_NONNULL_END
