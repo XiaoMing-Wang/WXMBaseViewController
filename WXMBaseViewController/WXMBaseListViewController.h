@@ -30,10 +30,10 @@
 
 - (void)pullRefreshHeaderControl;
 - (void)pullRefreshFootControl;
-- (void)endRefreshControl;
-- (void)endRefreshControlNoMoreData;
-
 - (void)pullRefreshSuccess;
 - (void)pullRefreshFail;
+
+- (void)endRefreshControl;
+- (void)endRefreshControlNoMoreData;
 
 @end
