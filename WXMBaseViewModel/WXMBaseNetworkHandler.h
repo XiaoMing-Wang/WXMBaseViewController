@@ -5,13 +5,6 @@
 //  Created by sdjim on 2020/4/2.
 //  Copyright © 2020 sdjim. All rights reserved.
 //
-/** 属性点语法加上这行 */
-#define SINGLETON_HANDLE_CLASS(CLASS) \
-+ (CLASS *(^)(id<WXMBaseNetworkHandlerProtocol> delegate))singletonhandler;
-
-#define NO_CALLBACK_NIL if (!callBack) return;
-#define NO_PARAMETER_NIL(parameter) if (!parameter) return;
-
 #import <UIKit/UIKit.h>
 #import "WXMBaseReplaceMacro.h"
 #import <Foundation/Foundation.h>
@@ -33,7 +26,7 @@ typedef void (^NetworkHandlerID) (id response);
 - (void)wt_requestFailWithEvent:(NSString *)event object:(id)object;
 @end
 
-@class BaseModel;
+@interface WXMBaseAutomaticImpModel : NSObject @end
 @interface WXMBaseNetworkHandler : NSObject <WXMHandlerProtocol>
 
 /** 回调代理 */
@@ -64,7 +57,5 @@ typedef void (^NetworkHandlerID) (id response);
 - (void)callFailWithEvent:(nullable NSString *)event object:(nullable id)object;
 
 @end
-
-//#define wb_handler singletonhandler(self)
 
 NS_ASSUME_NONNULL_END

@@ -29,7 +29,6 @@
 
 #import "WXMBaseErrorViewProtocol.h"
 #import "WXMBaseListViewController.h"
-#import "WXMAloneListViewController.h"
 
 #import "WXMCommonBaseTextFidleView.h"
 #import "WXMCommonBaseThemeButton.h"

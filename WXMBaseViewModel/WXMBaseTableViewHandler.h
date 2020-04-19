@@ -25,7 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)wt_scrollViewWillBeginDecelerating;
 - (void)wt_scrollViewDidEndDecelerating;
 - (void)wt_tableCustomEvent:(NSString *)event object:(id)object;
-
 @end
 
 @interface WXMBaseTableViewHandler : NSObject
@@ -40,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** 设置默认数据 */
 - (void)initializationVariable;
+- (void)setDataSourceAndReloadTableView:(NSMutableArray *)dataSource;
 - (void)setTableView:(UITableView *)tableView cellClass:(__nullable Class)cellClass;
 - (void)setTableView:(UITableView *)tableView
           dataSource:(__kindof NSArray *)dataSource
@@ -47,5 +47,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-//#define wb_handler singletonhandler(self)
 NS_ASSUME_NONNULL_END

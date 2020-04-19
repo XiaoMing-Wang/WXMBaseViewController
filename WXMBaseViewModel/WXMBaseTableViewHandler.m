@@ -72,6 +72,11 @@ static char tablehandler;
     [self.tableView registerClass:cellClass forCellReuseIdentifier:self.ident];
 }
 
+- (void)setDataSourceAndReloadTableView:(NSMutableArray *)dataSource {
+    _dataSource = dataSource;
+    [_tableView reloadData];
+}
+
 #pragma mark -------------------------------- tableView delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
