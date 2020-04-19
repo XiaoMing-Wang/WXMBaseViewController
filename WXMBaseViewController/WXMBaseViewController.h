@@ -10,7 +10,6 @@
 #import "WXMBaseReplaceMacro.h"
 #import "WXMBaseNetworkhandler.h"
 #import "WXMBaseTableViewhandler.h"
-#import "WXMBaseErrorViewProtocol.h"
 
 @interface WXMBaseViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, WXMTableViewHandleProtocol, WXMBaseNetworkHandlerProtocol>
 
