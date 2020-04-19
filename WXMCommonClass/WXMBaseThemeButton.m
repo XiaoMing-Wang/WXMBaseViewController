@@ -48,12 +48,25 @@
     
 }
 
+/** 设置title */
+- (void)setTitle:(NSString *)title {
+    [self setTitle:title forState:UIControlStateNormal];
+}
+
 /** 设置背景色 */
+- (void)setBackgroundColor:(UIColor *)color {
+    [self setBackgroundColor:color forState:UIControlStateNormal];
+}
+
 - (void)setBackgroundColor:(UIColor *)color forState:(UIControlState)state {
     [self setBackgroundImage:[self imageFromColor:color] forState:state];
 }
 
 /** 设置字体色 */
+- (void)setTitleColor:(UIColor *)color {
+    [self setTitleColor:color forState:UIControlStateNormal];
+}
+
 - (void)setTitleColor:(UIColor *)color forState:(UIControlState)state {
     [super setTitleColor:color forState:state];
 }

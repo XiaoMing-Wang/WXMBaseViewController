@@ -16,10 +16,15 @@
 + (WXMBaseThemeButton *)themeButtonWithTitle:(NSString *)title;
 + (WXMBaseThemeButton *)themeButtonDisabledWithTitle:(NSString *)title;
 
+/** 设置title */
+- (void)setTitle:(NSString *)title;
+
 /** 设置背景色 */
+- (void)setBackgroundColor:(UIColor *)color;
 - (void)setBackgroundColor:(UIColor *)color forState:(UIControlState)state;
 
 /** 设置字体色 */
+- (void)setTitleColor:(UIColor *)color;
 - (void)setTitleColor:(UIColor *)color forState:(UIControlState)state;
 
 @end
