@@ -20,7 +20,5 @@
 
 #define SINGLETON_HANDLE_CLASS(CLASS) + (CLASS * (^)(id delegate))singletonhandler;
 #define IMPLEMENTATION_CLASS(CLASS)  @implementation CLASS @end
-
-#define NO_CALLBACK_NIL if (!callBack) return;
 #define NO_PARAMETER_NIL(parameter) if (!parameter) return;
 

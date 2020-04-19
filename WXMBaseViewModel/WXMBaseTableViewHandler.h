@@ -39,7 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** 设置默认数据 */
 - (void)initializationVariable;
-- (void)setDataSourceAndReloadTableView:(NSMutableArray *)dataSource;
+- (void)setDataSourceAndReload:(NSMutableArray *)dataSource;
+- (void)addDataSourceAndReload:(NSMutableArray *)dataSource;
 - (void)setTableView:(UITableView *)tableView cellClass:(__nullable Class)cellClass;
 - (void)setTableView:(UITableView *)tableView
           dataSource:(__kindof NSArray *)dataSource
