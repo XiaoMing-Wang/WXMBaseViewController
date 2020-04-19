@@ -152,6 +152,13 @@ static inline UIImage *kBaseColorConversionImage(UIColor *color) {
     return _scrollView;
 }
 
+- (WXMBaseThemeButton *)nextButton {
+    if (!_nextButton) {
+        _nextButton = [WXMBaseThemeButton themeButtonWithTitle:@"确定"];
+    }
+    return _nextButton;
+}
+
 - (NSMutableArray *)dataSource {
     if (!_dataSource) _dataSource = @[].mutableCopy;
     return _dataSource;
