@@ -41,9 +41,9 @@ IMPLEMENTATION_CLASS(WXMBaseAutomaticImpModel);
     };
 }
 
-/** 继承WXMBaseAutomaticImpModel的属性自动初始化 model类每次都出初始化太麻烦 */
-/** 继承WXMBaseAutomaticImpModel的属性自动初始化 model类每次都出初始化太麻烦 */
-/** 继承WXMBaseAutomaticImpModel的属性自动初始化 model类每次都出初始化太麻烦 */
+/** 继承WXMBaseAutomaticImpModel的属性自动初始化 model类每次初始化麻烦 */
+/** 继承WXMBaseAutomaticImpModel的属性自动初始化 model类每次初始化麻烦 */
+/** 继承WXMBaseAutomaticImpModel的属性自动初始化 model类每次初始化麻烦 */
 - (void)automaticInitialization {
     unsigned int methodCount = 0;
     Ivar * ivars = class_copyIvarList([self class], &methodCount);

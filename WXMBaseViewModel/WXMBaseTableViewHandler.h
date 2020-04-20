@@ -30,9 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WXMBaseTableViewHandler : NSObject
 <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, WXMHandlerProtocol>
 
-@property(nonatomic, strong) NSMutableArray *dataSource;
-@property(nonatomic, weak, readonly) UITableView *tableView;
-@property (nonatomic, weak, readonly) id <WXMTableViewHandleProtocol>delegate;
+@property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, weak, readonly) UITableView *tableView;
+@property (nonatomic, weak, readonly) id<WXMTableViewHandleProtocol> delegate;
 
 /** 初始化 */
 - (instancetype)initWithDelegate:(id<WXMTableViewHandleProtocol>)delegate;
@@ -41,6 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)initializationVariable;
 - (void)setDataSourceAndReload:(NSMutableArray *)dataSource;
 - (void)addDataSourceAndReload:(NSMutableArray *)dataSource;
+
 - (void)setTableView:(UITableView *)tableView cellClass:(__nullable Class)cellClass;
 - (void)setTableView:(UITableView *)tableView
           dataSource:(__kindof NSArray *)dataSource
