@@ -10,12 +10,14 @@
 
 static char tablehandler;
 @interface WXMBaseTableViewHandler ()
-@property (nonatomic, copy) NSString *ident;
+@property (nonatomic, strong) NSString *ident;
+@property (nonatomic, strong, readwrite) NSMutableArray *dataSource;
 @property (nonatomic, weak, readwrite) UITableView *tableView;
 @property (nonatomic, weak, readwrite) id <WXMTableViewHandleProtocol>delegate;
 @property (nonatomic, weak, readwrite) UIViewController <WXMTableViewHandleProtocol> *controller;
 @end
 @implementation WXMBaseTableViewHandler
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
@@ -83,6 +85,8 @@ static char tablehandler;
 }
 
 #pragma mark -------------------------------- tableView delegate
+#pragma mark -------------------------------- tableView delegate
+#pragma mark -------------------------------- tableView delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -146,6 +150,8 @@ static char tablehandler;
 }
 
 #pragma mark -------------------------------- scrollView delegate
+#pragma mark -------------------------------- scrollView delegate
+#pragma mark -------------------------------- scrollView delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     SEL sel = @selector(wt_scrollViewDidScroll);
@@ -181,6 +187,7 @@ static char tablehandler;
         [self.delegate wt_scrollViewDidEndDecelerating];
     }
 }
+
 #pragma clang diagnostic pop
 
 @end
