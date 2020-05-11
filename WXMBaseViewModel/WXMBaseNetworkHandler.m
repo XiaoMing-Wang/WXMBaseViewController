@@ -16,7 +16,6 @@ static char networkhandler;
 @property (nonatomic, weak, readwrite) UIViewController <WXMBaseNetworkHandlerProtocol> *controller;
 @end
 
-IMPLEMENTATION_CLASS(WXMBaseAutomaticImpModel);
 @implementation WXMBaseNetworkHandler
 
 /** 防止宏崩溃 */
@@ -41,29 +40,6 @@ IMPLEMENTATION_CLASS(WXMBaseAutomaticImpModel);
     };
 }
 
-/** 继承WXMBaseAutomaticImpModel的属性自动初始化 model类每次初始化麻烦 */
-/** 继承WXMBaseAutomaticImpModel的属性自动初始化 model类每次初始化麻烦 */
-/** 继承WXMBaseAutomaticImpModel的属性自动初始化 model类每次初始化麻烦 */
-- (void)automaticInitialization {
-    unsigned int methodCount = 0;
-    Ivar * ivars = class_copyIvarList([self class], &methodCount);
-    for (unsigned int i = 0; i < methodCount; i++) {
-        Ivar ivar = ivars[i];
-        NSString *typeString = [NSString stringWithFormat:@"%s",ivar_getTypeEncoding(ivar)];
-        if (typeString.length > 3) {
-            typeString = [typeString substringToIndex:typeString.length - 1];
-            typeString = [typeString substringFromIndex:2];
-        }
-        
-        Class aClass = NSClassFromString(typeString);
-        NSString *supClass = NSStringFromClass([aClass superclass]);
-        if ([supClass isEqualToString:@"WXMBaseAutomaticImpModel"]) {
-            object_setIvar(self, ivar, [aClass new]);
-        }
-    }
-    free(ivars);
-}
-
 - (instancetype)initWithDelegate:(id<WXMBaseNetworkHandlerProtocol>)delegate {
     if (self = [super init]) {
         self.delegate = delegate;
@@ -77,7 +53,6 @@ IMPLEMENTATION_CLASS(WXMBaseAutomaticImpModel);
             self.controller = (UIViewController <WXMBaseNetworkHandlerProtocol> *)delegate;
         }
         
-        [self automaticInitialization];
         [self initializationVariable];
     }
     return self;

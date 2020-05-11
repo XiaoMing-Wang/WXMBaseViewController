@@ -17,8 +17,9 @@ typedef NS_ENUM(NSUInteger, WXMRefreshType) {
     WXMRefreshFootControl,   /** 尾部 */
 };
 
-typedef void (^NetworkHandlerVoid) (void);
-typedef void (^NetworkHandlerID) (id response);
+typedef void (^NetworkHandlerVoid)(void);
+typedef void (^NetworkHandlerID)(id response);
+typedef void (^NetworkHandlerBoolID)(BOOL success, id response);
 @protocol WXMBaseNetworkHandlerProtocol <NSObject>
 @optional
 - (void)wt_requestSuccessWithArray:(NSArray *)arrays;
@@ -26,7 +27,6 @@ typedef void (^NetworkHandlerID) (id response);
 - (void)wt_requestFailWithEvent:(NSString *)event object:(id)object;
 @end
 
-@interface WXMBaseAutomaticImpModel : NSObject @end
 @interface WXMBaseNetworkHandler : NSObject <WXMHandlerProtocol>
 
 /** 回调代理 */
@@ -51,8 +51,6 @@ typedef void (^NetworkHandlerID) (id response);
 /** 设置默认数据 */
 - (void)initializationVariable;
 
-/** 内部调用 处理一致的回调 */
-/** 内部调用 处理一致的回调 */
 /** 内部调用 处理一致的回调 */
 - (void)callSuccessWithArray:(nullable NSArray *)arrays;
 - (void)callSuccessWithEvent:(nullable NSString *)event object:(nullable id)object;

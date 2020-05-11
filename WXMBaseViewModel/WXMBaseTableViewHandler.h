@@ -10,6 +10,7 @@
 #import <Foundation/Foundation.h>
 NS_ASSUME_NONNULL_BEGIN
 
+/** tableView --> WXMBaseTableViewHandler --> Controller */
 @protocol WXMTableViewHandleProtocol<NSObject>
 @optional
 - (UIView *)wt_tableViewForHeaderInSection:(NSInteger)section;
@@ -41,7 +42,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)initializationVariable;
 - (void)setDataSourceAndReload:(NSMutableArray *)dataSource;
 - (void)addDataSourceAndReload:(NSMutableArray *)dataSource;
-
 - (void)setTableView:(UITableView *)tableView cellClass:(__nullable Class)cellClass;
 - (void)setTableView:(UITableView *)tableView
           dataSource:(__kindof NSArray *)dataSource
