@@ -5,7 +5,8 @@
 //  Created by edz on 2019/5/6.
 //  Copyright © 2019年 wq. All rights reserved.
 //
-
+#define VCAT UIViewControllerAnimatedTransitioning
+#import "WXMBaseRootViewController.h"
 #import "WXMBaseNavigationController.h"
 
 @interface WXMBaseNavigationController ()
@@ -26,11 +27,18 @@
     [super pushViewController:viewController animated:animated];
 }
 
-- (nullable id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController :(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
-    return nil;
+- (id<VCAT>)animationControllerForPresentedController :(UIViewController *)presented
+                                  presentingController:(UIViewController *)presenting
+                                      sourceController:(UIViewController *)source {
+    if (!self.presentAnimation) return nil;
+    self.presentAnimation = NO;
+    return [WXMBaseFadeTransition transitionWithTransitionType:WXMConmonBaseTransitionTypePresent];
 }
 
-- (nullable id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController :(UIViewController *)dismissed {
-    return nil;
+- (id<VCAT>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    if (!self.dismissAnimation) return nil;
+    self.dismissAnimation = NO;
+    return [WXMBaseFadeTransition transitionWithTransitionType:WXMConmonBaseTransitionTypeDismiss];
 }
+
 @end

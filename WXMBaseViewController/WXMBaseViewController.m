@@ -6,8 +6,9 @@
 //  Copyright © 2019年 wq. All rights reserved.
 //
 #import <objc/runtime.h>
-#import "WXMBaseViewController.h"
 #import "TMDLoginhandler.h"
+#import "WXMBaseViewController.h"
+#import "WXMNavigationController.h"
 
 @interface WXMBaseViewController ()
 @property (readwrite, nonatomic) UIStatusBarStyle lastStatusBarStyle;
@@ -39,6 +40,8 @@ static inline UIImage *kBaseColorConversionImage(UIColor *color) {
 /** 公共设置 */
 - (void)initializeSameInterface {
     self.view.backgroundColor = [UIColor whiteColor];
+    self.wn_barTintColor = [UIColor whiteColor];
+        
     if (self.navigationController.viewControllers.firstObject &&
         self.navigationController.viewControllers.firstObject == self &&
         self.navigationController.viewControllers.count == 1) {

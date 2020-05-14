@@ -5,8 +5,8 @@
 //  Created by wq on 2019/6/16.
 //  Copyright © 2019年 wxm. All rights reserved.
 //
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 @interface WXMBaseCustomTransition : NSObject<UIViewControllerAnimatedTransitioning>
 
@@ -39,6 +39,11 @@ typedef NS_ENUM(NSUInteger, WXMConmonBaseTransitionType) {
 - (UIView *)fromView:(id<UIViewControllerContextTransitioning>)context;
 - (UIView *)toView:(id<UIViewControllerContextTransitioning>)context;
 - (UIView *)containerView:(id<UIViewControllerContextTransitioning>)context;
-
 - (void)transitionFinish:(id<UIViewControllerContextTransitioning>)context;
 @end
+
+@interface WXMBaseFadeTransition : WXMBaseCustomTransition @end
+
+
+
+

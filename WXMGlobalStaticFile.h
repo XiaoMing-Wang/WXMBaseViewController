@@ -24,7 +24,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 #define WXMBase_Width [UIScreen mainScreen].bounds.size.width
 #define WXMBase_Height [UIScreen mainScreen].bounds.size.height
 #define WXMBase_BarHeight ((WXMIPhoneX) ? 88.0f : 64.0f)
-#define WXMBase_Rect CGRectMake(0, WXMBase_BarHeight, WXMBase_Width, WXMBase_Height - WXMBase_BarHeight)
+#define WXMBase_Rect CGRectMake(0, 0, WXMBase_Width, WXMBase_Height - WXMBase_BarHeight)
 
 #ifndef WXMGlobalStaticFile_h
 #define WXMGlobalStaticFile_h

@@ -7,8 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WXMNavigationController.h"
 
-@interface WXMBaseNavigationController : UINavigationController
-<UINavigationControllerDelegate, UIViewControllerTransitioningDelegate>
+@interface WXMBaseNavigationController  : UINavigationController
+<UINavigationControllerDelegate,  UIViewControllerTransitioningDelegate>
+
+/** 渐现动画动画 */
+@property (nonatomic, assign) BOOL presentAnimation;
+@property (nonatomic, assign) BOOL dismissAnimation;
+
 @end
 

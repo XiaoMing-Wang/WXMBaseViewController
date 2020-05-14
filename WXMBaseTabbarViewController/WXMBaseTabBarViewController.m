@@ -27,45 +27,62 @@ NSString *const WXMTabBarDoubleClick = @"WXMTabBarDoubleClick";
     UITabBarItem *item = [UITabBarItem appearance];
     UIColor *seColor = [UIColor redColor];
     UIColor *deColor = [UIColor blackColor];
-    
-    [item setTitleTextAttributes:@{NSForegroundColorAttributeName:seColor}
-                        forState:UIControlStateSelected];
-    
-    [item setTitleTextAttributes:@{NSForegroundColorAttributeName:deColor}
-                        forState:UIControlStateNormal];
+    [item setTitleTextAttributes:@{NSForegroundColorAttributeName:seColor} forState:UIControlStateSelected];
+    [item setTitleTextAttributes:@{NSForegroundColorAttributeName:deColor} forState:UIControlStateNormal];
     
     self.tabBar.backgroundColor = [UIColor whiteColor];
     [self.tabBar setShadowImage:[UIImage imageNamed:@""]];
     [self.tabBar setBackgroundImage:[UIImage new]];
     [self.array enumerateObjectsUsingBlock:^(NSDictionary *dic, NSUInteger idx, BOOL *stop) {
-//        [self addChildViewController:dic[@"viewController"]
-//                                 nav:dic[@"navigationController"]
-//                               title:dic[@"title"]
-//                               image:dic[@"icon"]
-//                       selectedImage:dic[@"seicon"]
-//                         imageInsets:UIEdgeInsetsMake(0, 0, 0, 0) //(6, 0, -6, 0)图片位置 大小和图片一样
-//                       titlePosition:UIOffsetMake(0, -1.2)];      //字体位置
+        [self addChildViewController:dic[@"viewController"]
+                                 nav:dic[@"navigationController"]
+                               title:dic[@"title"]
+                               image:dic[@"icon"]
+                       selectedImage:dic[@"seicon"]
+                         imageInsets:UIEdgeInsetsMake(0, 0, 0, 0) /** (6, 0, -6, 0)图片位置 大小和图片一样 */
+                       titlePosition:UIOffsetMake(0, -1.2)];      /** 字体位置 */
     }];
 }
+
 - (NSArray *)array {
-    return @[@{@"viewController" : @"WXMBaseViewController",
+    return @[@{@"viewController" : @"HomeViewController",
                @"navigationController" : @"WXMBaseNavigationController",
                @"title" : @"首页",
                @"icon" : @"ic_home",
                @"seicon" : @"ic_home_s"},
              
-             @{@"viewController" : @"WXMBaseViewController",
+             @{@"viewController" : @"TestListViewController",
                @"navigationController" : @"WXMBaseNavigationController",
                @"title" : @"商城",
                @"icon" : @"ic_mall",
                @"seicon" : @"ic_mall_s"},
              
-             @{ @"viewController" : @"WXMBaseViewController",
+             @{ @"viewController" : @"HomeViewController",
                 @"navigationController" : @"WXMBaseNavigationController",
                 @"title" : @"我的",
                 @"icon" : @"ic_my",
                 @"seicon" : @"ic_my_s"}
              ];
+}
+
+- (void)addChildViewController:(NSString *)viewController
+                           nav:(NSString *)nav
+                         title:(NSString *)title
+                         image:(NSString *)image
+                 selectedImage:(NSString *)selecteds
+                   imageInsets:(UIEdgeInsets)imageInsets
+                 titlePosition:(UIOffset)titlePosition  {
+    UIImageRenderingMode model = UIImageRenderingModeAlwaysOriginal;
+    UIViewController *vc = [NSClassFromString(viewController) new];
+    UINavigationController *navigationController = [[NSClassFromString(nav) alloc] initWithRootViewController:vc];
+    
+    navigationController.tabBarItem.image = [[UIImage imageNamed:image] imageWithRenderingMode:model];
+    navigationController.tabBarItem.selectedImage = [[UIImage imageNamed:selecteds] imageWithRenderingMode:model];
+    
+    navigationController.tabBarItem.imageInsets = imageInsets;
+    navigationController.tabBarItem.titlePositionAdjustment = titlePosition;
+    navigationController.title = title;
+    [self addChildViewController:navigationController];
 }
 
 - (void)tabBarController:(UITabBarController *)tabBarController
@@ -82,4 +99,17 @@ NSString *const WXMTabBarDoubleClick = @"WXMTabBarDoubleClick";
     if (tabBarController.selectedIndex == _currentIndex) _lastDate = date;
     _currentIndex = tabBarController.selectedIndex;
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (self.navigationController.navigationBar.hidden == NO) {
+        [self.navigationController setNavigationBarHidden:YES animated:animated];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+}
+
 @end

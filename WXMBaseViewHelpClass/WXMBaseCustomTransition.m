@@ -81,4 +81,39 @@
 - (void)transitionFinish:(id<UIViewControllerContextTransitioning>)context {
     [context completeTransition:![context transitionWasCancelled]];
 }
+
+@end
+
+
+@implementation WXMBaseFadeTransition
+
+/** present */
+- (void)present:(id<UIViewControllerContextTransitioning>)transitionContext {
+    UIViewController *toViewController = [self toViewController:transitionContext];
+    UIView *containerView = [self containerView:transitionContext];
+    
+    toViewController.view.alpha = 0;
+    [containerView addSubview:toViewController.view];
+    [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
+        
+        toViewController.view.alpha = 1;
+        
+    } completion:^(BOOL finished) { finished ? [self transitionFinish:transitionContext] : nil ; }];
+}
+
+/** dismiss */
+- (void)dismiss:(id<UIViewControllerContextTransitioning>)transitionContext {
+    UIViewController *fromViewController = [self fromViewController:transitionContext];
+    UIViewController *toViewController = [self toViewController:transitionContext];
+    
+    UIView *containerView = [self containerView:transitionContext];
+    [containerView insertSubview:toViewController.view atIndex:0];
+    
+    [UIView animateWithDuration:[self transitionDuration:transitionContext] * 1. animations:^{
+        
+        fromViewController.view.alpha = 0;
+        
+    } completion:^(BOOL finished) { finished ? [self transitionFinish:transitionContext] : nil ; }];
+}
+
 @end
