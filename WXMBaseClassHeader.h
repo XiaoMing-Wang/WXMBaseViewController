@@ -21,23 +21,22 @@
 #import "WXMBaseTableViewCell.h"
 #import "WXMBaseCollectionViewCell.h"
 
-#import "WXMBaseNavigationController.h"
-#import "WXMBaseTabBarViewController.h"
 #import "WXMBaseViewController.h"
+#import "WXMBaseTabBarViewController.h"
+#import "WXMBaseNavigationController.h"
 
 #import "WXMMJDIYHeader.h"
-
 #import "WXMBaseErrorViewProtocol.h"
 #import "WXMBaseListViewController.h"
 
-#import "WXMCommonBaseTextFidleView.h"
-#import "WXMCommonBaseThemeButton.h"
-#import "WXMConmonBaseCustomTransition.h"
 #import "WXMConmonBaseManager.h"
-#import "WXMConmonBaseTableViewCell.h"
-#import "WXMCommonBaseTableHeaderView.h"
-#import "WXMCommonBaseTextFidleView.h"
 #import "WXMCommonBaseCustomView.h"
 #import "WXMCommonBaseThemeButton.h"
+#import "WXMCommonBaseThemeButton.h"
+#import "WXMCommonBaseTextFidleView.h"
+#import "WXMCommonBaseTextFidleView.h"
+#import "WXMConmonBaseTableViewCell.h"
+#import "WXMCommonBaseTableHeaderView.h"
+#import "WXMConmonBaseCustomTransition.h"
 
 #endif /* WXMBaseClassHeader_h */
