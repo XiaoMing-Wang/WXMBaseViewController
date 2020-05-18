@@ -115,7 +115,7 @@ static inline UIImage *kBaseColorConversionImage(UIColor *color) {
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.separatorColor = [UIColor lightGrayColor];
         _tableView.backgroundColor = [UIColor whiteColor];
-        _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    /** _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag; */
         if (@available(iOS 11.0, *)) {
             _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }

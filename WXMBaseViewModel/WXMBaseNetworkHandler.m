@@ -21,7 +21,7 @@ static char networkhandler;
 /** 防止宏崩溃 */
 + (void)load {
     Class class = object_getClass(self);
-    SEL handleSEL = NSSelectorFromString(@"handlerImp");
+    SEL handleSEL = NSSelectorFromString(@"handImp");
     id handleIMP = ^(id dependInstance) { };
     class_addMethod(class, handleSEL, imp_implementationWithBlock(handleIMP), "v@:@");
 }

@@ -11,12 +11,12 @@
 
 @protocol WXMHandlerProtocol <NSObject>
 @optional;
-+ (instancetype)handlerImp;
++ (instancetype)handImp;
 + (instancetype (^)(id delegate))singletonhandler;
 @end
 
 #endif /* WXMBaseReplaceMacro_h */
-#define handlerImp singletonhandler(self)
+#define handImp singletonhandler(self)
 #define SINGLETON_HANDLE_CLASS(CLASS) + (CLASS * (^)(id delegate))singletonhandler;
 #define IMPLEMENTATION_CLASS(CLASS)   @implementation CLASS @end
 #define NO_PARAMETER_NIL(parameter)   if (!parameter) return;
